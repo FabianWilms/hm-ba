@@ -14,7 +14,7 @@ Verlag: O'Reilly Media
 
 Schwerpunkt: Kapitel 7 - Testing
 
-## Generierung von MicroServices mit X-Text
+## Verbesserung des Softwareentwicklungsprozesses der Landeshauptstadt München durch modellgetriebene Softwareentwicklung
 
 Autor: Martin Kurz
 Veröffentlicht: 2016
