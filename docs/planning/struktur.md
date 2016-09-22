@@ -1,13 +1,14 @@
-- Einführung / Problemstellung
-- Domain Driven Design in Micro Services
-    + Idee
-    + Umsetzung
-- Testen von Micro Services
+- Einführung / Motivation
+- Testen von Microservices
     + Anforderungen
     + Frameworks
+- Domain Driven Design in Microservices
+    + Idee
+    + Umsetzung
 - Modellierungssprache Barrakuda
     + Idee
     + Einführung
+    + Verbindung zum DDD
     + Beispiele
 - Anforderungen an generierte Tests
     + Identifizieren
