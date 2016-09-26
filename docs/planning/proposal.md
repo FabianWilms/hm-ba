@@ -1,4 +1,4 @@
-# Generierung von Tests für eine Microservice-Architektur anhand eines Barrakuda-Models
+# Generative Testerstellung für Microservice-Architekturen
 
 Viele Softwareprojekte scheitern an fehlerhafter kalkulation. Die Kosten werden meist viel zu gering angesetzt und sorgen für unzufriedene Kunden, geringe Erträge und fehlende Folgeaufträge. Doch warum ist das so?
 
