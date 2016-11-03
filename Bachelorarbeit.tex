@@ -19,6 +19,17 @@
 \usepackage{array}
 \usepackage{titlesec}
 \usepackage{parskip}
+\usepackage{acronym}
+\usepackage{jurabib}
+\jurabibsetup{
+	authorformat=year,
+	commabeforerest,
+	ibidem=strict,
+	citefull=first,
+	see,
+	titleformat=colonsep,
+}
+\usepackage{footmisc}
 \usepackage[right]{eurosym}
 \usepackage[subfigure,titles]{tocloft}
 \usepackage[pdfpagelabels=true]{hyperref}
@@ -145,22 +156,21 @@ Das ganze auf Englisch.
 \addcontentsline{toc}{section}{\texorpdfstring{II \hspace{0.35em}Inhaltsverzeichnis}{Inhaltsverzeichnis}}
 \addtocounter{section}{1}
 \tableofcontents
-\pagebreak
+%\pagebreak
 \rhead{VERZEICHNISSE}
 \listoffigures
-\pagebreak
+%\pagebreak
 \listoftables
 %\pagebreak
 \renewcommand{\lstlistlistingname}{Listing-Verzeichnis}
 {\labelsep2cm\lstlistoflistings}
-\pagebreak
+%\pagebreak
 
 % ----------------------------------------------------------------------------------------------------------
 % Abkürzungen
 % ----------------------------------------------------------------------------------------------------------
 \section{Abkürzungsverzeichnis}
 \begin{acronym}[DDD] % längste Abkürzung steht in eckigen Klammern
-	\setlength{\itemsep}{-\parsep} % geringerer Zeilenabstand
 	\acro{DDD}{Domain-Driven Design}
 	\acro{LHM}{Landeshauptstadt München}
 \end{acronym}
@@ -193,7 +203,13 @@ Das ganze auf Englisch.
 % ----------------------------------------------------------------------------------------------------------
 \section{Einführung und Motivation}
 
-Softwarequalität, Tests, Zeit, kosten etc.
+Softwarequalität, Tests, Zeit, kosten etc. 
+
+\begin{quote}
+	\begin{itshape}
+	If the software coders don't catch their omission until final system testing--or worse, until after the system has been rolled out--the costs incurred to correct the error will likely be many times greater than if they'd caught the mistake while they were still working on the initial [...] process.\footcite{charette}
+	\end{itshape}
+\end{quote}
 
 % ----------------------------------------------------------------------------------------------------------
 % Architektur-Generierung für Software-Projekte
@@ -254,7 +270,7 @@ Softwarequalität, Tests, Zeit, kosten etc.
 % Literatur
 % ----------------------------------------------------------------------------------------------------------
 \renewcommand\refname{Quellenverzeichnis}
-\bibliographystyle{bibstyle}
+\bibliographystyle{jurabib}
 \bibliography{bibfile}
 \pagebreak
 
