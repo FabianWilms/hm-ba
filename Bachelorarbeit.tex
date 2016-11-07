@@ -121,13 +121,13 @@ Der größte Kostenfaktor sind Fehler im laufenden System. Diese Fehler zu besei
 Aus diesem Grund ist eine umfassende Testabdeckung ein sehr wichtiger Bestandteil in der Definition of Done der Landeshauptstadt München. Unit- und Integrations Tests sind fest in viele Entwicklungsprozesse integriert und finden besonders auch in agilen Entwicklerteams großen Zuspruch. Allerdings sind auch Tests finanzielle, wie auch zeitliche Kostenfaktoren.
 Dennoch wird für Tests, trotz des Bewusstseins für die damit entstehenden Probleme, häufig viel zu wenig zeit eingeplant.
 
-Um diesen problemen entgegen zu wirken wurde bei der LHM im vergangenen Jahr das Softwareprojekt Barrakuda entwickelt, welches anhand eines nach Domain Driven Design (DDD) aufgebauten Domänen-Modells Microservice Architekturen generieren kann. Die Idee: Software anhand von simplen Modellen generieren, um möglichst viel Zeit beim Entwickeln von "Boiler Plate"-Code einzsuparen, und die Software-Qualität nicht nur durch ersparte Entwicklungszeit, sondern auch durch homogene Projektstrukturen in allen generierten Systemen, und damit erhöhte Wartbarkeit, zu verbessern.
+Um diesen Problemen entgegen zu wirken wurde bei der LHM im vergangenen Jahr das Softwareprojekt Barrakuda entwickelt, welches anhand eines nach Domain Driven Design (DDD) aufgebauten Domänen-Modells Microservice Architekturen generieren kann. Die Idee: Software anhand von simplen Modellen generieren, um möglichst viel Zeit beim Entwickeln von "Boiler Plate"-Code einzsuparen, und die Software-Qualität nicht nur durch ersparte Entwicklungszeit, sondern auch durch homogene Projektstrukturen in allen generierten Systemen, und damit erhöhte Wartbarkeit, zu verbessern.
 
-Im Rahmen dieser Bachelor-Arbeit soll die These geprüft werden, dass sich aus einem soclhen Modell genügend Informationen zum Testen eines Microservice-Frameworks extrahieren lassen, um eine ausreichende Testabdeckung für die generierten Services zu bieten.
+Im Rahmen dieser Bachelor-Arbeit soll die These geprüft werden, dass sich aus einem solchen Modell genügend Informationen zum Testen eines Microservice-Frameworks extrahieren lassen, um eine ausreichende Testabdeckung für die generierten Services zu bieten.
 
 Hierzu ist ein tieferes Verständnis der zu Generierung eingesetzten Sprache Barrakuda, welche von Martin Kurz in seiner Masterarbeit „Verbesserung des Softwareentwicklungsprozesses der Landeshauptstadt München durch modellgetriebene Softwareentwicklung“ entwickelt wurde, nötig. Diese wird in einem weiteren Abschnitt erklärt und anhand von Beispielen demonstriert. Um die Verbindung von Barrakuda zum DDD hervorzuheben, wird dies im weiteren Vorgehen näher beleuchtet.
 
-Im zweiten Teilabschnitt werden dann die gängigsten Methoden und Praktiken, sowie Frameworks, die beim Testen von Microservice-Architekturen eingesetzt werden, identifiziert und weitere Anforderungsanalysen für diese durchgeführt, um die benötigte Bandbreite der generierten Tests abzugrenzen. Vorstellbare Testarten isnd Integrationstests, Unit-Tests und Smoke Tests.
+Im zweiten Teilabschnitt werden dann die gängigsten Methoden und Praktiken, sowie Frameworks, die beim Testen von Microservice-Architekturen eingesetzt werden, identifiziert und weitere Anforderungsanalysen für diese durchgeführt, um die benötigte Bandbreite der generierten Tests abzugrenzen. Vorstellbare Testarten sind Integrationstests, Unit-Tests und Smoke Tests.
 
 Der letzte Schritt der Vorbereitung soll dann aus den zusammengetragenen Informationen festgestellen, für welches Framework ein generativer Ansatz zum Erstellen von Testfällen am sinnvollsten ist. Außerdem sollen eventuell benötigte Erweiterungen und/oder Änderungen von Barrakuda festgelegt werden, die für den generativen Ansatz von Nöten sind.
 
@@ -225,7 +225,7 @@ Doch wie kommt es dazu, dass in derart vielen Projekten die festgelegten Ziele n
 \begin{itemize}
 	\item Ungenaue, oder zu viele definierte Anforderungen
 	
-	Eine grobe Überschätzung führt in vielen Projekten zum Fall. Es wird ein guter Überblick und viel Erfahrung benötigt, um die mögliche Menge an Anforderungen in einem zeitlichen Rahmen festzulegen. Vertut sich das Projekt-Management hier, ist ein nicht erfüllen der Kundenwünsche bereits unausweichlich.
+	Eine grobe Überschätzung führt in vielen Projekten zum Fall. Es wird ein guter Überblick und viel Erfahrung benötigt, um die mögliche Menge an Anforderungen in einem zeitlichen Rahmen festzulegen. Vertut sich das Projekt-Management hier, ist ein nicht Erfüllen der Kundenwünsche bereits unausweichlich.
 	Ebenso führen schlecht definierte Anforderungen zu Problemen. Hierbei wird im Projektverlauf eine immense Anzahl an Rücksprachen mit dem Kunden nötig sein, ebenso wie viel verschwendete Entwicklungszeit, die durch falsche Informationen nicht die Wünsche des Kunden implementieren konnte.
 	
 	\item Schlechte Einschätzung von Ressourcen (Zeit, wie Geld), oder von Beginn an zu wenig zur Verfügung
@@ -264,7 +264,7 @@ Ein Bericht der Kölner Beratungsfirma SQS zeigt dies anhand von gesammelten Zah
 \end{minipage}
 \footnotetext{\cite{sqsdefect}}
 
-Es ist also eigentlich ganz einfach: Viel Zeit und Geld in gute Softwarequalität investieren und schon sollte das Projekt keine unvorhergesehenen Kosten verursachen. Doch so einfach ist es leider nicht.
+Es scheint also ganz einfach: Viel Zeit und Geld in gute Softwarequalität investieren und schon sollte das Projekt keine unvorhergesehenen Kosten verursachen. Doch so einfach ist es leider nicht.
 Wie bereits am Anfang der Einleitung erwähnt stehen Projektleiter und seine Mitarbeiter unter hohem zeitlichen Druck. Und Tests kosten nun mal Zeit. Es entsteht in dieser Zeit aber kein messbarer Fortschritt am Produkt. Dies ist auch der Grund, weshalb das Testen bei Entwicklern nicht an oberster Stelle an den liebsten Aufgaben steht. Es kostet Zeit ohne erkennbaren Fortschritt zu erreichen.
 
 Es muss also die Zeit, die für das entwickeln von Tests benötigt wird, reduziert werden, sowie mehr Zeit geschaffen werden, um für eine gute Softwarequalität zu sorgen. Diesen Ansatz verfolgt die Eigenentwicklung von it@M Barrakuda und deren Weiterentwicklung im Rahmen dieser Arbeit.
