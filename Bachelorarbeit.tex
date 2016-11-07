@@ -213,11 +213,15 @@ Der Chaos Report von 2014 zeigt erschreckend wie viele IT-Projekte in der Versen
 \begin{minipage}{\linewidth}
 	\centering
 	\includegraphics[width=0.9\linewidth]{images/dg_failed-projects.pdf}
-	\captionof{figure}[Chaos Report 2014 Failure Statistics]{Chaos Report 2014 Failure Statistics \footcite[page-range]{chaosreport}}
+	\captionof{figure}[Chaos Report 2014 Failure Statistics]{Chaos Report 2014 Failure Statistics \footcite[]{chaosreport}}
 	\label{fig:dg_failed-projects}
 \end{minipage}
 
 Die Projekte wurden drei verschiedenen Klassen zugeteilt. RT1 entspricht einem erfolgreich abgeschlossenen Projekt, welches zeitlich und finanziell fertiggestellt wurde, sowie alle Features und Funktionalitäten die gefordert wurden enthält. RT2-Projekte wurden zu spät, zu teuer, und nicht mit allen Features ausgeliefert. RT3 sind abgebrochene Projekte.
+
+Doch wie kommt es dazu, dass in derart vielen Projekten die festgelegten Ziele nicht ganz, oder sogar gar nicht erreicht werden? Es gibt unzählige Faktoren die dazu führen. Doch sind es einige die immer wieder in diesem Zusammenhang genannt werden. //TODO
+
+Für die Größte Kostenexplosion sorgt jedoch das Bug-Fixing in Produktivsystemen. Wurde in den ersten Phasen eines Projekts nicht viel, oder kein Wert auf eine ausreichende Test-Abdeckung gelegt schaffen es viele Fehler in die Produktivsysteme der Hersteller. Doch werden diese Fehler erst im laufenden Betrieb beim Kunden festgestellt, ist es bereits zu spät. Robert N. Charette kritisiert eben dies in seinem Artikel \textit{Why Software Fails}.
 
 \begin{quote}
 	\begin{itshape}
@@ -225,12 +229,30 @@ Die Projekte wurden drei verschiedenen Klassen zugeteilt. RT1 entspricht einem e
 	\end{itshape}
 \end{quote}
 
+Ein Bericht der Kölner Beratungsfirma SQS zeigt dies anhand von gesammelten Zahlen aus Beratungsaufträgen. hier wird besonders deutlich wie viel es für ein Projekt bedeutet, frühzeitige Qualitätssicherung durchzusetzen. Und dazu zählt auch das testen von Software.
+
+\vspace{1em}
+\begin{minipage}{\linewidth}
+	\centering
+	\includegraphics[width=0.9\linewidth]{images/img_sqs-defect-correction.PNG}
+	\captionof{figure}[SQS Report Costs of Defect Correction]{SQS Report Costs of Defect Correction \footnotemark}
+	\label{fig:img_sqs-defect-correction}
+\end{minipage}
+\footnotetext{\cite{sqsdefect}}
+
+Es ist also eigentlich ganz einfach: Viel Zeit und Geld in gute Softwarequalität investieren und schon sollte das Projekt keine unvorhergesehenen Kosten verursachen. Doch so einfach ist es leider nicht.
+Wie bereits am Anfang der Einleitung erwähnt stehen Projektleiter und seine Mitarbeiter unter hohem zeitlichen Druck. Und Tests kosten nun mal Zeit. Es entsteht in dieser Zeit aber kein messbarer Fortschritt am Produkt. Dies ist auch der Grund, weshalb das Testen bei Entwicklern nicht an oberster Stelle an den liebsten Aufgaben steht. Es kostet Zeit ohne erkennbaren Fortschritt zu erreichen.
+
+Es muss also die Zeit, die für das entwickeln von Tests benötigt wird, reduziert werden, sowie mehr Zeit geschaffen werden, um für eine gute Softwarequalität zu sorgen. Diesen Ansatz verfolgt die Eigenentwicklung von it@M Barrakuda und deren Weiterentwicklung im Rahmen dieser Arbeit.
+
 % ----------------------------------------------------------------------------------------------------------
 % Architektur-Generierung für Software-Projekte
 % ----------------------------------------------------------------------------------------------------------
 \section{Architektur-Generierung für Software-Projekte}
 
 \subsection{Barrakuda}
+
+Im Rahmen seiner Master-Arbeit hat der Angestellte des Eigenbetriebs it@M der Landeshauptstadt München mithilfe von X-Text und X-Tend eine Sprache entwickelt, die es erlaubt, anhand eines Domänen-Ähnlichen Modells eine Microservice-Architektur zu generieren.
 
 \subsubsection{Idee}
 
