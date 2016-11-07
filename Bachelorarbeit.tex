@@ -66,7 +66,7 @@
 \rhead{\thesection\space\contentsname}
 \lfoot{Generative Testerstellung für Microservice-Architekturen}
 \cfoot{}
-\rfoot{\ \linebreak Seite \thepage}
+\rfoot{Seite \thepage}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
 
@@ -213,15 +213,39 @@ Der Chaos Report von 2014 zeigt erschreckend wie viele IT-Projekte in der Versen
 \begin{minipage}{\linewidth}
 	\centering
 	\includegraphics[width=0.9\linewidth]{images/dg_failed-projects.pdf}
-	\captionof{figure}[Chaos Report 2014 Failure Statistics]{Chaos Report 2014 Failure Statistics \footcite[]{chaosreport}}
+	\captionof{figure}[Chaos Report 2014 Failure Statistics]{Chaos Report 2014 Failure Statistics \footnotemark}
 	\label{fig:dg_failed-projects}
 \end{minipage}
+\footnotetext{\cite{chaosreport}}
 
 Die Projekte wurden drei verschiedenen Klassen zugeteilt. RT1 entspricht einem erfolgreich abgeschlossenen Projekt, welches zeitlich und finanziell fertiggestellt wurde, sowie alle Features und Funktionalitäten die gefordert wurden enthält. RT2-Projekte wurden zu spät, zu teuer, und nicht mit allen Features ausgeliefert. RT3 sind abgebrochene Projekte.
 
-Doch wie kommt es dazu, dass in derart vielen Projekten die festgelegten Ziele nicht ganz, oder sogar gar nicht erreicht werden? Es gibt unzählige Faktoren die dazu führen. Doch sind es einige die immer wieder in diesem Zusammenhang genannt werden. //TODO
+Doch wie kommt es dazu, dass in derart vielen Projekten die festgelegten Ziele nicht ganz, oder sogar gar nicht erreicht werden? Es gibt unzählige Faktoren die dazu führen. Doch sind es einige die immer wieder in diesem Zusammenhang genannt werden. 
 
-Für die Größte Kostenexplosion sorgt jedoch das Bug-Fixing in Produktivsystemen. Wurde in den ersten Phasen eines Projekts nicht viel, oder kein Wert auf eine ausreichende Test-Abdeckung gelegt schaffen es viele Fehler in die Produktivsysteme der Hersteller. Doch werden diese Fehler erst im laufenden Betrieb beim Kunden festgestellt, ist es bereits zu spät. Robert N. Charette kritisiert eben dies in seinem Artikel \textit{Why Software Fails}.
+\begin{itemize}
+	\item Ungenaue, oder zu viele definierte Anforderungen
+	
+	Eine grobe Überschätzung führt in vielen Projekten zum Fall. Es wird ein guter Überblick und viel Erfahrung benötigt, um die mögliche Menge an Anforderungen in einem zeitlichen Rahmen festzulegen. Vertut sich das Projekt-Management hier, ist ein nicht erfüllen der Kundenwünsche bereits unausweichlich.
+	Ebenso führen schlecht definierte Anforderungen zu Problemen. Hierbei wird im Projektverlauf eine immense Anzahl an Rücksprachen mit dem Kunden nötig sein, ebenso wie viel verschwendete Entwicklungszeit, die durch falsche Informationen nicht die Wünsche des Kunden implementieren konnte.
+	
+	\item Schlechte Einschätzung von Ressourcen (Zeit, wie Geld), oder von Beginn an zu wenig zur Verfügung
+	
+	Hier ist häufig der Fall, dass von vornherein für ein Projekt zu wenig Zeit zur Verfügung gestellt wird. Meist passiert dies in größeren Unternehmen, in denen die Entscheidungsträger weder Fachwissen, noch ein tieferes Grundwissen des Projekts besitzen.
+	
+	\item Schlechte Kommunikation im Projekt und zu den Kunden
+	
+	Fehlinformationen zwischen Kollegen, dem Projekt-Management und auch dem Kunden verzögern Entscheidungsprozesse und führen zu Fehlern in Systemen.
+	
+	\item Keine Nachverfolgung des momentanen Projektstatus
+	\item Keine Quality Assurance
+	
+	Mangelnde Software-Qualität führt zu hohen Mehrkosten in der Wartung und aufgrund von niedriger Testabdeckung häufig zu Fehlern in Produktivsystemen.
+	
+	\item Zu wenig, oder schlechtes Testing
+	\footcite[page-range]{charette}\footcite[page-range]{haughey}
+\end{itemize}
+
+Für die Größte Kostenexplosion sorgt jedoch das Bug-Fixing in Produktivsystemen, also das beheben sogenannter \textit{field defects}. Wurde in den ersten Phasen eines Projekts nicht viel, oder kein Wert auf eine ausreichende Test-Abdeckung gelegt schaffen es viele Fehler in die Produktivsysteme der Hersteller. Doch werden diese Fehler erst im laufenden Betrieb beim Kunden festgestellt, ist es bereits zu spät. Robert N. Charette kritisiert eben dies in seinem Artikel \textit{Why Software Fails}.
 
 \begin{quote}
 	\begin{itshape}
