@@ -29,6 +29,8 @@
 	see,
 	titleformat=colonsep,
 }
+\usepackage[modulo]{lineno}
+\pagewiselinenumbers
 \usepackage{footmisc}
 \usepackage[right]{eurosym}
 \usepackage[subfigure,titles]{tocloft}
@@ -207,45 +209,7 @@ IT nimmt sowohl im privaten als auch geschäftlichen Alltag eine immer größere
 
 Mit steigender Komplexität und höherer Nachfrage am Markt, sowie engen Zeitplänen für Projekte wird leider häufig aus Zeit- und Kostengründen auf Qualität nur geringfügig Rücksicht genommen. Zunächst verursacht eine gute Software-Qualität nämlich nur Mehrkosten. Personelle wie zeitliche. Die langfristige Sinnhaftigkeit bleibt dabei außen vor, aus der Vergangenheit wird nur selten gelernt.
 
-Der Chaos Report von 2014 zeigt erschreckend wie viele IT-Projekte in der Versenkung verschwanden oder aber erst durch enorme Mehrkosten fertiggestellt werden konnten.
-
-\vspace{1em}
-\begin{minipage}{\linewidth}
-	\centering
-	\includegraphics[width=0.9\linewidth]{images/dg_failed-projects.pdf}
-	\captionof{figure}[Chaos Report 2014 Failure Statistics]{Chaos Report 2014 Failure Statistics \footnotemark}
-	\label{fig:dg_failed-projects}
-\end{minipage}
-\footnotetext{\cite{chaosreport}}
-
-Die Projekte wurden drei verschiedenen Klassen zugeteilt. RT1 entspricht einem erfolgreich abgeschlossenen Projekt, welches zeitlich und finanziell fertiggestellt wurde, sowie alle Features und Funktionalitäten die gefordert wurden enthält. RT2-Projekte wurden zu spät, zu teuer, und nicht mit allen Features ausgeliefert. RT3 sind abgebrochene Projekte.
-
-Doch wie kommt es dazu, dass in derart vielen Projekten die festgelegten Ziele nicht ganz, oder sogar gar nicht erreicht werden? Es gibt unzählige Faktoren die dazu führen. Doch sind es einige die immer wieder in diesem Zusammenhang genannt werden. 
-
-\begin{itemize}
-	\item Ungenaue, oder zu viele definierte Anforderungen
-	
-	Eine grobe Überschätzung führt in vielen Projekten zum Fall. Es wird ein guter Überblick und viel Erfahrung benötigt, um die mögliche Menge an Anforderungen in einem zeitlichen Rahmen festzulegen. Vertut sich das Projekt-Management hier, ist ein nicht Erfüllen der Kundenwünsche bereits unausweichlich.
-	Ebenso führen schlecht definierte Anforderungen zu Problemen. Hierbei wird im Projektverlauf eine immense Anzahl an Rücksprachen mit dem Kunden nötig sein, ebenso wie viel verschwendete Entwicklungszeit, die durch falsche Informationen nicht die Wünsche des Kunden implementieren konnte.
-	
-	\item Schlechte Einschätzung von Ressourcen (Zeit, wie Geld), oder von Beginn an zu wenig zur Verfügung
-	
-	Hier ist häufig der Fall, dass von vornherein für ein Projekt zu wenig Zeit zur Verfügung gestellt wird. Meist passiert dies in größeren Unternehmen, in denen die Entscheidungsträger weder Fachwissen, noch ein tieferes Grundwissen des Projekts besitzen.
-	
-	\item Schlechte Kommunikation im Projekt und zu den Kunden
-	
-	Fehlinformationen zwischen Kollegen, dem Projekt-Management und auch dem Kunden verzögern Entscheidungsprozesse und führen zu Fehlern in Systemen.
-	
-	\item Keine Nachverfolgung des momentanen Projektstatus
-	\item Keine Quality Assurance
-	
-	Mangelnde Software-Qualität führt zu hohen Mehrkosten in der Wartung und aufgrund von niedriger Testabdeckung häufig zu Fehlern in Produktivsystemen.
-	
-	\item Zu wenig, oder schlechtes Testing
-	\footcite[page-range]{charette}\footcite[page-range]{haughey}
-\end{itemize}
-
-Für die größte Kostenexplosion sorgt jedoch das Bug-Fixing in Produktivsystemen, also das Beheben sogenannter \textit{field defects}. Wurde in den ersten Phasen eines Projekts nicht viel, oder kein Wert auf eine ausreichende Test-Abdeckung gelegt schaffen es viele Fehler in die Produktivsysteme der Hersteller. Doch werden diese Fehler erst im laufenden Betrieb beim Kunden festgestellt, ist es bereits zu spät. Robert N. Charette kritisiert eben dies in seinem Artikel \textit{Why Software Fails}.
+Für die größte Kostenexplosion sorgt nämlich das Bug-Fixing in Produktivsystemen, also das Beheben sogenannter \textit{field defects}. Wurde in den ersten Phasen eines Projekts nicht viel, oder kein Wert auf eine ausreichende Test-Abdeckung gelegt schaffen es viele Fehler in die Produktivsysteme der Hersteller. Doch werden diese Fehler erst im laufenden Betrieb beim Kunden festgestellt, ist es bereits zu spät. Robert N. Charette kritisiert eben dies in seinem Artikel \textit{Why Software Fails}.
 
 \begin{quote}
 	\begin{itshape}
@@ -264,56 +228,56 @@ Ein Bericht der Kölner Beratungsfirma SQS zeigt dies anhand von gesammelten Zah
 \end{minipage}
 \footnotetext{\cite{sqsdefect}}
 
-Es scheint also ganz einfach: Viel Zeit und Geld in gute Softwarequalität investieren und schon sollte das Projekt keine unvorhergesehenen Kosten verursachen. Doch so einfach ist es leider nicht.
-Wie bereits am Anfang der Einleitung erwähnt stehen Projektleiter und seine Mitarbeiter unter hohem zeitlichen Druck. Und Tests kosten nun mal Zeit. Es entsteht in dieser Zeit aber kein messbarer Fortschritt am Produkt. Dies ist auch der Grund, weshalb das Testen bei Entwicklern nicht an oberster Stelle an den liebsten Aufgaben steht. Es kostet Zeit ohne erkennbaren Fortschritt zu erreichen.
+Diese Zahlen machen es auf einfachem Wege sehr deutlich. Umso früher Fehler entdeckt und bemerkt werden, umso weniger kostet es auch diese zu beheben. Wenn bereits vor dem Start der Implementierungsphase auf eine hohe Testabdeckung, beispielsweise durch den Einsatz von test-driven development, wert gelegt wird, können je auftretenden Fehler um die 7800\euro\ eingespart werden. Mit diesen Zahlen sind die Mehrkosten, die für ein solches vorgehen entstehen um ein vielfaches leichter zu verdauen.
 
-Es muss also die Zeit, die für das Entwickeln von Tests benötigt wird, reduziert werden, sowie mehr Zeit geschaffen werden, um für eine gute Softwarequalität zu sorgen. Diesen Ansatz verfolgt die Eigenentwicklung von it@M Barrakuda und deren Weiterentwicklung im Rahmen dieser Arbeit.
+Es scheint also ganz einfach: Viel Zeit und Geld in gute Softwarequalität investieren und schon sollte das Projekt keine unvorhergesehenen Kosten verursachen. Doch so einfach ist es leider nicht.
+Wie bereits am Anfang der Einleitung erwähnt stehen Projektleiter und ihre Mitarbeiter unter hohem zeitlichen Druck. Und Tests kosten nun mal Zeit. Es entsteht in dieser Zeit aber kein messbarer Fortschritt am Produkt. Dies ist auch der Grund, weshalb das Testen bei Entwicklern nicht an oberster Stelle der liebsten Aufgaben steht. Es kostet Zeit ohne erkennbaren Fortschritt zu erreichen.
+
+Es muss also die Zeit, die für das Entwickeln von Tests benötigt wird, reduziert werden, sowie mehr Zeit geschaffen werden, um für eine gute Softwarequalität zu sorgen. Diesen Ansatz verfolgt die Eigenentwicklung von it@M, Barrakuda, und deren Weiterentwicklung im Rahmen dieser Arbeit.
+
+% ----------------------------------------------------------------------------------------------------------
+% Software Testen
+% ----------------------------------------------------------------------------------------------------------
+
+\section{Software Testen}
+
+\subsection{Bekannte Testmethoden}
+
+\subsection{Testen von Microservices}
+
+\subsubsection{Test-Strategien und deren Nutzen für Barrakuda}
+
+\subsubsection{Frameworks zum Umsetzen von Test-Strategien für Barrakuda}
 
 % ----------------------------------------------------------------------------------------------------------
 % Architektur-Generierung für Software-Projekte
 % ----------------------------------------------------------------------------------------------------------
-\section{Architektur-Generierung für Software-Projekte}
+\section{Architektur}
 
-\subsection{Barrakuda}
+\subsection{Generelle Architektur für Microservices}
 
-Im Rahmen seiner Master-Arbeit hat der Angestellte des Eigenbetriebs it@M der Landeshauptstadt München mithilfe von X-Text und X-Tend eine Sprache entwickelt, die es erlaubt, anhand eines Domänen-Ähnlichen Modells eine Microservice-Architektur zu generieren.
+\subsection{Vorgegebene Architektur der LHM}
 
-\subsubsection{Idee}
+\subsubsection{Authentifizierungsservice}
 
-\subsubsection{Einführung}
+\subsubsection{Discoveryservice}
 
-\subsubsection{Verbindung zum Domain-driven Design}
+\subsubsection{Configurationservice}
 
-\paragraph{Domain-driven Design in Microservices}
+\subsubsection{Service}
 
-\paragraph{Umsetzung}
-
-\subsubsection{Beispiel}
-
-\subsubsection{Verbesserung der Software-Qualität bei der LHM mit Barrakuda}
-
-% ----------------------------------------------------------------------------------------------------------
-% Testen von Microservices
-% ----------------------------------------------------------------------------------------------------------
-
-\section{Testen von Microservices}
+\subsubsection{Webservice}
 
 \subsection{Unterschiede zwischen Microservices und Monolith-Architekturen}
 
-\subsection{Test-Strategien und deren Nutzen für Barrakuda}
-
-\subsubsection{Bekannte Vorgehensweisen}
-
-\subsubsection{Neue Vorgehensweisen}
-
-\subsection{Frameworks zum Umsetzen von Test-Strategien für Barrakuda}
+\subsubsection{Auswirkungen}
 
 % ----------------------------------------------------------------------------------------------------------
 % Anforderungen an generierte Tests
 % ----------------------------------------------------------------------------------------------------------
 \section{Anforderungen an generierte Tests}
 
-\subsection{Anforderungen an generierte Tests}
+\subsection{Benötigte Daten}
 
 \subsection{Notwendige Änderungen/Erweiterungen von Barrakuda}
 
@@ -322,9 +286,15 @@ Im Rahmen seiner Master-Arbeit hat der Angestellte des Eigenbetriebs it@M der La
 % ----------------------------------------------------------------------------------------------------------
 \section{Implementierung in Barrakuda}
 
-\subsection{Implementierung eines Referenz-Systems und dessen Tests}
+\subsection{Referenz-System}
 
-\subsection{Übernahme der Referenz-Implementierung in Barrakuda}
+\subsubsection{Komponenten und Aufbau}
+
+\subsubsection{Implementierung des Systems}
+
+\subsubsection{Implementierung der Tests}
+
+\subsection{Übernahme der Referenz-Implementierung in Barrakuda-Templates}
 
 % ----------------------------------------------------------------------------------------------------------
 % Literatur
