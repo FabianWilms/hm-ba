@@ -20,15 +20,6 @@
 \usepackage{titlesec}
 \usepackage{parskip}
 \usepackage{acronym}
-\usepackage{jurabib}
-\jurabibsetup{
-	authorformat=year,
-	commabeforerest,
-	ibidem=strict,
-	citefull=first,
-	see,
-	titleformat=colonsep,
-}
 \usepackage[modulo]{lineno}
 \pagewiselinenumbers
 \usepackage{footmisc}
@@ -236,11 +227,93 @@ Schließlich sollen Anforderungen, die an die zu generierenden Tests gestellt we
 
 \subsection{Bekannte Testmethoden}
 
+//TODO
+
+unterschied funktional, nichtfunktional...
+
+\vspace{1em}
+\begin{minipage}{\linewidth}
+	\centering
+	\includegraphics[width=0.9\linewidth]{images/img_testmethods.pdf}
+	\captionof{figure}[Testmethoden]{Testmethoden\cite{TODO}}
+	\label{fig:img_testmethods}
+\end{minipage}
+
+detailiert funktionale tests
+
+\vspace{1em}
+\begin{minipage}{\linewidth}
+	\centering
+	\includegraphics[width=0.9\linewidth]{images/img_testmethods_functional.pdf}
+	\captionof{figure}[Funktionale Testmethoden]{Funktionale Testmethoden}
+	\label{fig:img_testmethods_functional}
+\end{minipage}
+
 \subsection{Testen von Microservices}
 
-\subsubsection{Test-Strategien und deren Nutzen für Barrakuda}
+\paragraph{Unit Tests}
 
-\subsubsection{Frameworks zum Umsetzen von Test-Strategien für Barrakuda}
+hier steht text
+
+\vspace{1em}
+\begin{minipage}{\linewidth}
+	\centering
+	\includegraphics[width=0.9\linewidth]{images/img_unit-testing.pdf}
+	\captionof{figure}[Unit Testing Scope]{Unit Testing Scope \cite{clemson}}
+	\label{fig:img_unit-testing}
+\end{minipage}
+
+\paragraph{Integrationstests}
+
+text
+
+\vspace{1em}
+\begin{minipage}{\linewidth}
+	\centering
+	\includegraphics[width=0.9\linewidth]{images/img_integration-testing.pdf}
+	\captionof{figure}[Integration Testing Scope]{Integration Testing Scope \cite{clemson}}
+	\label{fig:img_integration-testing}
+\end{minipage}
+
+\paragraph{Komponententests}
+
+text
+
+\vspace{1em}
+\begin{minipage}{\linewidth}
+	\centering
+	\includegraphics[width=0.9\linewidth]{images/img_component-testing.pdf}
+	\captionof{figure}[Component Testing Scope]{Component Testing Scope \cite{clemson}}
+	\label{fig:img_component-testing}
+\end{minipage}
+
+\paragraph{Contract Testing}
+
+text
+
+\vspace{1em}
+\begin{minipage}{\linewidth}
+	\centering
+	\includegraphics[width=0.9\linewidth]{images/img_contract-testing.pdf}
+	\captionof{figure}[Contract Testing]{Contract Testing \cite{clemson}}
+	\label{fig:img_contract-testing}
+\end{minipage}
+
+\paragraph{End-To-End Testing}
+
+text
+
+\vspace{1em}
+\begin{minipage}{\linewidth}
+	\centering
+	\includegraphics[width=0.9\linewidth]{images/img_end-to-end-testing.pdf}
+	\captionof{figure}[End-To-End Testing Scope]{End-To-End Testing Scope \cite{clemson}}
+	\label{fig:img_end-to-end-testing}
+\end{minipage}
+
+\subsubsection{Sinnvolle Teststrategien für den generativen Ansatz}
+
+\subsubsection{Frameworks zum Umsetzen von Test-Strategien}
 
 % ----------------------------------------------------------------------------------------------------------
 % Architektur-Generierung für Software-Projekte
@@ -293,7 +366,7 @@ Schließlich sollen Anforderungen, die an die zu generierenden Tests gestellt we
 % Literatur
 % ----------------------------------------------------------------------------------------------------------
 \renewcommand\refname{Quellenverzeichnis}
-\bibliographystyle{jurabib}
+\bibliographystyle{bibstyle}
 \bibliography{bibfile}
 \pagebreak
 

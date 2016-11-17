@@ -1,0 +1,228 @@
+<svg width="600px" height="450px" xmlns="http://www.w3.org/2000/svg" style="animation-delay: 0s; animation-direction: normal; animation-duration: 0s; animation-fill-mode: none; animation-iteration-count: 1; animation-name: none; animation-play-state: running; animation-timing-function: ease; background-attachment: scroll; background-blend-mode: normal; background-clip: border-box; background-color: rgba(0, 0, 0, 0); background-image: none; background-origin: padding-box; background-position: 0% 0%; background-repeat: repeat; background-size: auto; border-bottom-color: rgb(0, 0, 0); border-bottom-left-radius: 0px; border-bottom-right-radius: 0px; border-bottom-style: none; border-bottom-width: 0px; border-collapse: separate; border-image-outset: 0px; border-image-repeat: stretch; border-image-slice: 100%; border-image-source: none; border-image-width: 1; border-left-color: rgb(0, 0, 0); border-left-style: none; border-left-width: 0px; border-right-color: rgb(0, 0, 0); border-right-style: none; border-right-width: 0px; border-top-color: rgb(0, 0, 0); border-top-left-radius: 0px; border-top-right-radius: 0px; border-top-style: none; border-top-width: 0px; bottom: auto; box-shadow: none; box-sizing: content-box; break-after: auto; break-before: auto; break-inside: auto; caption-side: top; clear: none; clip: auto; color: rgb(0, 0, 0); content: ; cursor: auto; direction: ltr; display: inline; empty-cells: show; float: none; font-family: &quot;Times New Roman&quot;; font-kerning: auto; font-size: 16px; font-stretch: normal; font-style: normal; font-variant: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-variant-numeric: normal; font-weight: normal; height: 450px; image-rendering: auto; isolation: auto; left: 390px; letter-spacing: normal; line-height: normal; list-style-image: none; list-style-position: outside; list-style-type: disc; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; max-height: none; max-width: none; min-height: 0px; min-width: 0px; mix-blend-mode: normal; motion-offset: 0px; motion-path: none; motion-rotation: auto 0deg; object-fit: fill; object-position: 50% 50%; opacity: 1; orphans: 2; outline-color: rgb(0, 0, 0); outline-offset: 0px; outline-style: none; outline-width: 0px; overflow-wrap: normal; overflow-x: hidden; overflow-y: hidden; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px; pointer-events: auto; position: static; resize: none; right: auto; speak: normal; table-layout: auto; tab-size: 8; text-align: start; text-align-last: auto; text-decoration: none; text-indent: 0px; text-rendering: auto; text-shadow: none; text-size-adjust: auto; text-overflow: clip; text-transform: none; top: 100px; touch-action: auto; transition-delay: 0s; transition-duration: 0s; transition-property: all; transition-timing-function: ease; unicode-bidi: normal; vertical-align: baseline; visibility: visible; white-space: normal; widows: 2; width: 600px; will-change: auto; word-break: normal; word-spacing: 0px; word-wrap: normal; z-index: auto; zoom: 1; -webkit-appearance: none; backface-visibility: visible; -webkit-background-clip: border-box; -webkit-background-origin: padding-box; -webkit-border-horizontal-spacing: 0px; -webkit-border-image: none; -webkit-border-vertical-spacing: 0px; -webkit-box-align: stretch; -webkit-box-decoration-break: slice; -webkit-box-direction: normal; -webkit-box-flex: 0; -webkit-box-flex-group: 1; -webkit-box-lines: single; -webkit-box-ordinal-group: 1; -webkit-box-orient: horizontal; -webkit-box-pack: start; -webkit-box-reflect: none; -webkit-clip-path: none; column-count: auto; column-gap: normal; column-rule-color: rgb(0, 0, 0); column-rule-style: none; column-rule-width: 0px; column-span: none; column-width: auto; align-content: stretch; align-items: stretch; align-self: stretch; flex-basis: auto; flex-grow: 0; flex-shrink: 1; flex-direction: row; flex-wrap: nowrap; justify-content: flex-start; -webkit-font-smoothing: auto; -webkit-highlight: none; -webkit-hyphenate-character: auto; -webkit-line-break: auto; -webkit-line-clamp: none; -webkit-locale: auto; -webkit-margin-before-collapse: collapse; -webkit-margin-after-collapse: collapse; -webkit-mask-box-image: none; -webkit-mask-box-image-outset: 0px; -webkit-mask-box-image-repeat: stretch; -webkit-mask-box-image-slice: 0 fill; -webkit-mask-box-image-source: none; -webkit-mask-box-image-width: auto; -webkit-mask-clip: border-box; -webkit-mask-composite: source-over; -webkit-mask-image: none; -webkit-mask-origin: border-box; -webkit-mask-position: 0% 0%; -webkit-mask-repeat: repeat; -webkit-mask-size: auto; order: 0; perspective: none; perspective-origin: 300px 225px; -webkit-print-color-adjust: economy; -webkit-rtl-ordering: logical; shape-outside: none; shape-image-threshold: 0; shape-margin: 0px; -webkit-tap-highlight-color: rgba(0, 0, 0, 0.180392); -webkit-text-combine: none; -webkit-text-decorations-in-effect: none; -webkit-text-emphasis-color: rgb(0, 0, 0); -webkit-text-emphasis-position: over; -webkit-text-emphasis-style: none; -webkit-text-fill-color: rgb(0, 0, 0); -webkit-text-orientation: vertical-right; -webkit-text-security: none; -webkit-text-stroke-color: rgb(0, 0, 0); -webkit-text-stroke-width: 0px; transform: none; transform-origin: 300px 225px; transform-style: flat; -webkit-user-drag: auto; -webkit-user-modify: read-only; user-select: text; -webkit-writing-mode: horizontal-tb; -webkit-app-region: no-drag; buffered-rendering: auto; clip-path: none; clip-rule: nonzero; mask: none; filter: none; flood-color: rgb(0, 0, 0); flood-opacity: 1; lighting-color: rgb(255, 255, 255); stop-color: rgb(0, 0, 0); stop-opacity: 1; color-interpolation: sRGB; color-interpolation-filters: linearRGB; color-rendering: auto; fill: rgb(0, 0, 0); fill-opacity: 1; fill-rule: nonzero; marker-end: none; marker-mid: none; marker-start: none; mask-type: luminance; shape-rendering: auto; stroke: none; stroke-dasharray: none; stroke-dashoffset: 0px; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 4; stroke-opacity: 1; stroke-width: 1px; alignment-baseline: auto; baseline-shift: 0px; dominant-baseline: auto; text-anchor: start; writing-mode: horizontal-tb; vector-effect: none; paint-order: fill stroke markers; d: none; cx: 0px; cy: 0px; x: 0px; y: 0px; r: 0px; rx: auto; ry: auto;" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"><style type="text/css">.label-large, .label-medium, .label-small { font-family: "Open Sans"; font-weight: 600; }
+.label-large { font-size: 24px; }
+.label-medium { font-size: 20px; }</style><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" viewBox="48 2 737 684" class="diagram" style="left: 390px;top: 100px;">
+  <style type="text/css">
+  /*  */
+  .label-large, .label-medium, .label-small {
+    font-family: Open Sans;
+    font-weight: 600;
+  }
+  .label-large { font-size: 24px; }
+  .label-medium { font-size: 20px; }
+  .label-small { font-size: 16px; }
+  /*  */
+</style>
+  <defs>
+    <filter id="testing-progress-1-dropshadow" filterUnits="userSpaceOnUse">
+      <feGaussianBlur in="SourceAlpha" result="blur" stdDeviation="1.308"/>
+      <feOffset in="blur" result="offset" dx="0" dy="2"/>
+      <feFlood flood-color="black" flood-opacity=".5" result="flood"/>
+      <feComposite in="flood" in2="offset" operator="in"/>
+    </filter>
+    <linearGradient x1="0" x2="1" id="testing-progress-1-base-gradient" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="white"/>
+      <stop offset="1" stop-color="#e5e5e5"/>
+    </linearGradient>
+    <linearGradient id="testing-progress-1-microservice-gradient" xlink:href="#testing-progress-1-base-gradient" gradientTransform="translate(247.60035 53.813265) rotate(90) scale(465.51315)"/>
+    <font-face font-family="Helvetica" font-size="20" units-per-em="1000" underline-position="-75.683594" underline-thickness="49.316406" slope="0" x-height="532.22656" cap-height="719.72656" ascent="770.01953" descent="-229.98047" font-weight="bold">
+      <font-face-src>
+        <font-face-name name="Helvetica-Bold"/>
+      </font-face-src>
+    </font-face>
+    <linearGradient id="testing-progress-1-microservice-legend-gradient" xlink:href="#testing-progress-1-base-gradient" gradientTransform="translate(507.54077 356.43615) rotate(90) scale(28.4597)"/>
+    <font-face font-family="Helvetica" font-size="24" units-per-em="1000" underline-position="-75.683594" underline-thickness="49.316406" slope="0" x-height="532.22656" cap-height="719.72656" ascent="770.01953" descent="-229.98047" font-weight="bold">
+      <font-face-src>
+        <font-face-name name="Helvetica-Bold"/>
+      </font-face-src>
+    </font-face>
+    <pattern id="testing-progress-1-black-diagonal-stripes" xlink:href="#base-pattern">
+      <rect width="4" height="4" fill="#ffffff"/>
+      <path d="M -1, 2 l 6, 0" stroke="#000000" stroke-width="2"/>
+    </pattern>
+    <pattern id="testing-progress-1-blue-diagonal-stripes" xlink:href="#base-pattern">
+      <rect width="4" height="4" fill="#ffffff"/>
+      <path d="M -1, 2 l 6, 0" stroke="#66285c" stroke-width="2"/>
+    </pattern>
+    <pattern id="testing-progress-1-purple-diagonal-stripes" xlink:href="#base-pattern">
+      <rect width="4" height="4" fill="#ffffff"/>
+      <path d="M -1, 2 l 6, 0" stroke="#c72d69" stroke-width="2"/>
+    </pattern>
+    <pattern id="testing-progress-1-red-diagonal-stripes" xlink:href="#base-pattern">
+      <rect width="4" height="4" fill="#ed312f"/>
+      <path d="M 2, -1 l 0, 6" stroke="#ffffff" stroke-width="1"/>
+    </pattern>
+    <pattern id="base-pattern" patternUnits="userSpaceOnUse" width="4" height="4" patternTransform="rotate(135 5 5)">
+</pattern>
+  </defs>
+  <g stroke="url(#testing-progress-1-nil)" stroke-opacity="1" stroke-dasharray="none" fill="url(#testing-progress-1-nil)" fill-opacity="1">
+    <title>Microservice Testing</title>
+    <g>
+      <title>Testing :: Progress 1</title>
+      <g>
+        <use xlink:href="#testing-progress-1-microservice" filter="url(#testing-progress-1-dropshadow)"/>
+        <use xlink:href="#testing-progress-1-resources" filter="url(#testing-progress-1-dropshadow)"/>
+        <use xlink:href="#testing-progress-1-gateways" filter="url(#testing-progress-1-dropshadow)"/>
+        <use xlink:href="#testing-progress-1-http-client" filter="url(#testing-progress-1-dropshadow)"/>
+        <use xlink:href="#testing-progress-1-repositories" filter="url(#testing-progress-1-dropshadow)"/>
+        <use xlink:href="#testing-progress-1-data-mappers" filter="url(#testing-progress-1-dropshadow)"/>
+        <use xlink:href="#testing-progress-1-domain" filter="url(#testing-progress-1-dropshadow)"/>
+        <use xlink:href="#testing-progress-1-services" filter="url(#testing-progress-1-dropshadow)"/>
+        <use xlink:href="#testing-progress-1-microservice-legend" filter="url(#testing-progress-1-dropshadow)"/>
+        <use xlink:href="#testing-progress-1-protocol-legend" filter="url(#testing-progress-1-dropshadow)"/>
+        <use xlink:href="#testing-progress-1-domain-legend" filter="url(#testing-progress-1-dropshadow)"/>
+        <use xlink:href="#testing-progress-1-external-legend" filter="url(#testing-progress-1-dropshadow)"/>
+        <use xlink:href="#testing-progress-1-persistence-legend" filter="url(#testing-progress-1-dropshadow)"/>
+        <use xlink:href="#testing-progress-1-external-service" filter="url(#testing-progress-1-dropshadow)"/>
+        <use xlink:href="#testing-progress-1-external-datastore" filter="url(#testing-progress-1-dropshadow)"/>
+        <use xlink:href="#testing-progress-1-unit-legend" filter="url(#testing-progress-1-dropshadow)"/>
+        <use xlink:href="#testing-progress-1-repositories-unit" filter="url(#testing-progress-1-dropshadow)"/>
+        <use xlink:href="#testing-progress-1-domain-unit" filter="url(#testing-progress-1-dropshadow)"/>
+        <use xlink:href="#testing-progress-1-services-unit" filter="url(#testing-progress-1-dropshadow)"/>
+        <use xlink:href="#testing-progress-1-gateways-unit" filter="url(#testing-progress-1-dropshadow)"/>
+        <use xlink:href="#testing-progress-1-resources-unit" filter="url(#testing-progress-1-dropshadow)"/>
+      </g>
+      <path d="M 53 44.76743 L 442 44.76743 C 443.10457 44.76743 444 45.66286 444 46.76743 L 444 677.76743 C 444 678.872 443.10457 679.76743 442 679.76743 L 53 679.76743 C 51.89543 679.76743 51 678.872 51 677.76743 L 51 46.76743 C 51 45.66286 51.89543 44.76743 53 44.76743 Z" stroke="#7b7b7b" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" stroke-dasharray="16,8,2,8"/>
+      <g id="testing-progress-1-microservice">
+        <path d="M 68.573544 53.813265 L 426.62716 53.813265 C 429.38859 53.813265 431.62716 56.05184 431.62716 58.813265 L 431.62716 514.32642 C 431.62716 517.08784 429.38859 519.32642 426.62716 519.32642 L 68.573544 519.32642 C 65.81212 519.32642 63.573544 517.08784 63.573544 514.32642 L 63.573544 58.813265 C 63.573544 56.05184 65.81212 53.813265 68.573544 53.813265 Z" fill="url(#testing-progress-1-microservice-gradient)" stroke="url(#testing-progress-1-black-diagonal-stripes)" stroke-linecap="round" stroke-linejoin="round" stroke-width="7"/>
+      </g>
+      <g id="testing-progress-1-resources">
+        <path d="M 88.93756 75.12375 L 405.84009 75.12375 C 408.04923 75.12375 409.84009 76.91461 409.84009 79.12375 L 409.84009 123.58197 C 409.84009 125.79111 408.04923 127.58197 405.84009 127.58197 L 88.93756 127.58197 C 86.72842 127.58197 84.93756 125.79111 84.93756 123.58197 L 84.93756 79.12375 C 84.93756 76.91461 86.72842 75.12375 88.93756 75.12375 Z" fill="#8eefc8" stroke="#3fb067" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/>
+        <text transform="translate(101.182686 89.35286)" fill="#128d51" style="font-family:Open Sans;" class="label-medium">
+          <tspan fill="#128d51" x="0" y="19" textLength="102.27539">Resources</tspan>
+        </text>
+      </g>
+      <g id="testing-progress-1-gateways">
+        <path d="M 294.53645 331.72827 L 294.53645 151.63753 C 294.53645 149.42839 296.32731 147.63753 298.53645 147.63753 L 340.47884 147.63753 C 342.68797 147.63753 344.47884 149.42839 344.47884 151.63753 L 344.47884 331.72827 C 344.47884 333.9374 342.68797 335.72827 340.47884 335.72827 C 340.47884 335.72827 340.47884 335.72827 340.47884 335.72827 L 298.53645 335.72827 C 296.32731 335.72827 294.53645 333.9374 294.53645 331.72827 Z" fill="#d282c6" stroke="#87447f" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/>
+        <text transform="translate(307.50764 321.32373) rotate(-90)" fill="#722166" style="font-family:Open Sans;" class="label-medium">
+          <tspan fill="#722166" x="0" y="19" textLength="93.38867">Gateways</tspan>
+        </text>
+      </g>
+      <g id="testing-progress-1-http-client">
+        <path d="M 359.8977 331.72825 L 359.8977 151.637515 C 359.8977 149.42838 361.68856 147.637515 363.8977 147.637515 L 405.84009 147.637515 C 408.04923 147.637515 409.84009 149.42838 409.84009 151.637515 L 409.84009 331.72825 C 409.84009 333.9374 408.04923 335.72825 405.84009 335.72825 L 363.8977 335.72825 C 361.68856 335.72825 359.8977 333.9374 359.8977 331.72825 Z" fill="#d282c6" stroke="#87447f" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/>
+        <text transform="translate(372.8689 321.32372) rotate(-90)" fill="#722166" style="font-family:Open Sans;" class="label-medium">
+          <tspan fill="#722166" x="0" y="19" textLength="113.33008">HTTP Client</tspan>
+        </text>
+      </g>
+      <g id="testing-progress-1-repositories">
+        <path d="M 88.93756 412.7178 L 405.84009 412.7178 C 408.04923 412.7178 409.84009 410.92694 409.84009 408.7178 L 409.84009 364.25958 C 409.84009 362.05044 408.04923 360.25958 405.84009 360.25958 L 88.93756 360.25958 C 86.72842 360.25958 84.93756 362.05044 84.93756 364.25958 L 84.93756 408.7178 C 84.93756 410.92694 86.72842 412.7178 88.93756 412.7178 Z" fill="#81ebf1" stroke="#36a2ac" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/>
+        <text transform="translate(101.182686 374.4887)" fill="#118c96" style="font-family:Open Sans;" class="label-medium">
+          <tspan fill="#118c96" x="0" y="19" textLength="121.14258">Repositories</tspan>
+        </text>
+      </g>
+      <g id="testing-progress-1-data-mappers">
+        <path d="M 88.93756 489.71292 L 405.84009 489.71292 C 408.04923 489.71292 409.84009 487.92206 409.84009 485.71292 L 409.84009 441.2547 C 409.84009 439.04556 408.04923 437.2547 405.84009 437.2547 L 88.93756 437.2547 C 86.72842 437.2547 84.93756 439.04556 84.93756 441.2547 L 84.93756 485.71292 C 84.93756 487.92206 86.72842 489.71292 88.93756 489.71292 Z" fill="#f893c1" stroke="#c23878" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/>
+        <text transform="translate(101.182686 451.4838)" fill="#c2276c" style="font-family:Open Sans;" class="label-medium">
+          <tspan fill="#c2276c" x="0" y="19" textLength="194.48242">Data Mappers / ORM</tspan>
+        </text>
+      </g>
+      <g id="testing-progress-1-domain">
+        <path d="M 123.482925 335.72268 L 240.48293 335.72268 C 242.69206 335.72268 244.48293 333.93182 244.48293 331.72268 L 244.48293 256.45718 C 244.48293 254.24804 242.69206 252.45718 240.48293 252.45718 L 123.482925 252.45718 C 121.27379 252.45718 119.482925 254.24804 119.482925 256.45718 L 119.482925 331.72268 C 119.482925 333.93182 121.27379 335.72268 123.482925 335.72268 Z" fill="#81ebf1" stroke="#36a2ac" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/>
+        <text transform="translate(135.732926 262.45718)" fill="#118c96" style="font-family:Open Sans;" class="label-medium">
+          <tspan fill="#118c96" x="0" y="19" textLength="73.339844">Domain</tspan>
+        </text>
+      </g>
+      <g id="testing-progress-1-services">
+        <path d="M 158.11755 230.99999 L 275.11755 230.99999 C 277.32669 230.99999 279.11755 229.20913 279.11755 226.99999 L 279.11755 151.73448 C 279.11755 149.52534 277.32669 147.73448 275.11755 147.73448 L 158.11755 147.73448 C 155.90841 147.73448 154.11755 149.52534 154.11755 151.73448 L 154.11755 226.99999 C 154.11755 229.20913 155.90841 230.99999 158.11755 230.99999 Z" fill="#81ebf1" stroke="#36a2ac" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/>
+        <text transform="translate(170.36755 157.73448)" fill="#118c96" style="font-family:Open Sans;" class="label-medium">
+          <tspan fill="#118c96" x="0" y="19" textLength="76.728516">Service </tspan>
+          <tspan fill="#118c96" x="0" y="43" textLength="53.36914">Layer</tspan>
+        </text>
+      </g>
+      <g id="testing-progress-1-microservice-legend">
+        <path d="M 482.50002 356.43615 L 532.58152 356.43615 C 535.34294 356.43615 537.58152 358.67473 537.58152 361.43615 L 537.58152 379.89585 C 537.58152 382.65728 535.34294 384.89585 532.58152 384.89585 L 482.50002 384.89585 C 479.7386 384.89585 477.50002 382.65728 477.50002 379.89585 L 477.50002 361.43615 C 477.50002 358.67473 479.7386 356.43615 482.50002 356.43615 Z" fill="url(#testing-progress-1-microservice-legend-gradient)" stroke="url(#testing-progress-1-black-diagonal-stripes)" stroke-linecap="round" stroke-linejoin="round" stroke-width="7"/>
+      </g>
+      <text transform="translate(556.8792 356.166)" fill="#7b7b7b" style="font-family:Open Sans;" class="label-large">
+        <tspan fill="#7b7b7b" x="0" y="23" textLength="213.36328">Network Boundary</tspan>
+      </text>
+      <g id="testing-progress-1-protocol-legend">
+        <path d="M 481.5 442.46334 L 533.58154 442.46334 C 535.79068 442.46334 537.58154 444.2542 537.58154 446.46334 L 537.58154 466.92302 C 537.58154 469.13216 535.79068 470.92302 533.58154 470.92302 L 481.5 470.92302 C 479.29086 470.92302 477.5 469.13216 477.5 466.92302 L 477.5 446.46334 C 477.5 444.2542 479.29086 442.46334 481.5 442.46334 Z" fill="#8eefc8" stroke="#3fb067" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/>
+      </g>
+      <text transform="translate(556.8792 442.19318)" fill="#128d51" style="font-family:Open Sans;" class="label-large">
+        <tspan fill="#128d51" x="0" y="23" textLength="97.33594">Protocol</tspan>
+      </text>
+      <g id="testing-progress-1-domain-legend">
+        <path d="M 481.5 485.4769 L 533.58154 485.4769 C 535.79068 485.4769 537.58154 487.26777 537.58154 489.4769 L 537.58154 509.9366 C 537.58154 512.14573 535.79068 513.9366 533.58154 513.9366 L 481.5 513.9366 C 479.29086 513.9366 477.5 512.14573 477.5 509.9366 L 477.5 489.4769 C 477.5 487.26777 479.29086 485.4769 481.5 485.4769 Z" fill="#81ebf1" stroke="#36a2ac" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/>
+      </g>
+      <text transform="translate(556.8792 485.20675)" fill="#118c96" style="font-family:Open Sans;" class="label-large">
+        <tspan fill="#118c96" x="0" y="23" textLength="88.00781">Domain</tspan>
+      </text>
+      <g id="testing-progress-1-external-legend">
+        <path d="M 481.5 528.4905 L 533.58154 528.4905 C 535.79068 528.4905 537.58154 530.28135 537.58154 532.4905 L 537.58154 552.95016 C 537.58154 555.1593 535.79068 556.95016 533.58154 556.95016 L 481.5 556.95016 C 479.29086 556.95016 477.5 555.1593 477.5 552.95016 L 477.5 532.4905 C 477.5 530.28135 479.29086 528.4905 481.5 528.4905 Z" fill="#d282c6" stroke="#87447f" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/>
+      </g>
+      <text transform="translate(556.8792 528.22032)" fill="#722166" style="font-family:Open Sans;" class="label-large">
+        <tspan fill="#722166" x="0" y="23" textLength="15.0078125">E</tspan>
+        <tspan fill="#722166" x="15.0078125" y="23" textLength="12.347656">x</tspan>
+        <tspan fill="#722166" x="27.355469" y="23" textLength="6.9921875">t</tspan>
+        <tspan fill="#722166" x="34.347656" y="23" textLength="12.347656">e</tspan>
+        <tspan fill="#722166" x="46.695312" y="23" textLength="8.3398438">r</tspan>
+        <tspan fill="#722166" x="55.035156" y="23" textLength="13.660156">n</tspan>
+        <tspan fill="#722166" x="68.695312" y="23" textLength="12.347656">a</tspan>
+        <tspan fill="#722166" x="81.04297" y="23" textLength="13.3359375">l </tspan>
+      </text>
+      <g id="testing-progress-1-persistence-legend">
+        <path d="M 481.50002 571.50406 L 533.58152 571.50406 C 535.79066 571.50406 537.58152 573.29492 537.58152 575.50406 L 537.58152 595.96374 C 537.58152 598.17288 535.79066 599.96374 533.58152 599.96374 L 481.50002 599.96374 C 479.29088 599.96374 477.50002 598.17288 477.50002 595.96374 L 477.50002 575.50406 C 477.50002 573.29492 479.29088 571.50406 481.50002 571.50406 Z" fill="#f893c1" stroke="#c23878" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/>
+      </g>
+      <text transform="translate(258.50763 575.51352)" fill="#c2276c" style="font-family:Open Sans;" class="label-medium">
+        <tspan fill="#c2276c" x="0" y="19" textLength="84.48242">External </tspan>
+        <tspan fill="#c2276c" x="0" y="43" textLength="97.8125">Datastore </tspan>
+      </text>
+      <g id="testing-progress-1-external-service">
+        <path d="M 477.5 331.72827 L 477.5 151.63753 C 477.5 149.42839 479.29086 147.63753 481.5 147.63753 L 610.71713 147.63753 C 612.92627 147.63753 614.71713 149.42839 614.71713 151.63753 C 614.71713 151.63753 614.71713 151.63753 614.71713 151.63753 L 614.71713 331.72827 C 614.71713 333.9374 612.92627 335.72827 610.71713 335.72827 L 481.5 335.72827 C 479.29086 335.72827 477.5 333.9374 477.5 331.72827 C 477.5 331.72827 477.5 331.72827 477.5 331.72827 Z" fill="#d282c6" stroke="url(#testing-progress-1-blue-diagonal-stripes)" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/>
+        <text transform="translate(534.10857 330.72827) rotate(-90)" fill="#722166" style="font-family:Open Sans;" class="label-medium">
+          <tspan fill="#722166" x="11.218221" y="19" textLength="155.6543">External Service</tspan>
+        </text>
+      </g>
+      <g id="testing-progress-1-external-datastore">
+        <path d="M 130.482925 647.31355 L 130.482925 569.71355 C 130.482925 564.35915 152.210925 560.01355 178.98293 560.01355 C 205.75493 560.01355 227.48293 564.35915 227.48293 569.71355 L 227.48293 647.31355 C 227.48293 652.66795 205.75493 657.01355 178.98293 657.01355 C 152.210925 657.01355 130.482925 652.66795 130.482925 647.31355" fill="#f893c1"/>
+        <path d="M 130.482925 647.31355 L 130.482925 569.71355 C 130.482925 564.35915 152.210925 560.01355 178.98293 560.01355 C 205.75493 560.01355 227.48293 564.35915 227.48293 569.71355 L 227.48293 647.31355 C 227.48293 652.66795 205.75493 657.01355 178.98293 657.01355 C 152.210925 657.01355 130.482925 652.66795 130.482925 647.31355 M 130.482925 569.71355 C 130.482925 575.06795 152.210925 579.41355 178.98293 579.41355 C 205.75493 579.41355 227.48293 575.06795 227.48293 569.71355" stroke="url(#testing-progress-1-purple-diagonal-stripes)" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/>
+      </g>
+      <text transform="translate(556.8792 571.2339)" fill="#c2276c" style="font-family:Open Sans;" class="label-large">
+        <tspan fill="#c2276c" x="0" y="23" textLength="134.75391">Persistence</tspan>
+      </text>
+      <text transform="translate(556.8792 610.01763)" fill="#702269" style="font-family:Open Sans;" class="label-large">
+        <tspan fill="#702269" x="0" y="23" textLength="131.98828">Connection</tspan>
+      </text>
+      <g id="testing-progress-1-unit-legend">
+        <path d="M 495.56782 647.82152 L 519.51372 647.82152 C 521.72286 647.82152 523.51372 649.6124 523.51372 651.82152 L 523.51372 675.76743 C 523.51372 677.97657 521.72286 679.76743 519.51372 679.76743 L 495.56782 679.76743 C 493.35868 679.76743 491.56782 677.97657 491.56782 675.76743 L 491.56782 651.82152 C 491.56782 649.6124 493.35868 647.82152 495.56782 647.82152 Z" fill="url(#testing-progress-1-red-diagonal-stripes)"/>
+      </g>
+      <text transform="translate(556.8792 649.29448)" fill="#f12a32" style="font-family:Open Sans;" class="label-large">
+        <tspan fill="#f12a32" x="0" y="23" textLength="46.652344">Unit</tspan>
+        <tspan fill="#f12a32" x="46.652344" y="23" textLength="7.6679688"> </tspan>
+        <tspan fill="#f12a32" x="54.320312" y="23" textLength="14.660156">T</tspan>
+        <tspan fill="#f12a32" x="67.210938" y="23" textLength="62.695312">ested</tspan>
+      </text>
+      <g id="testing-progress-1-repositories-unit">
+        <path d="M 371.89596 370.51574 L 395.84186 370.51574 C 398.051 370.51574 399.84186 372.3066 399.84186 374.51574 L 399.84186 398.46164 C 399.84186 400.67078 398.051 402.46164 395.84186 402.46164 L 371.89596 402.46164 C 369.68682 402.46164 367.89596 400.67078 367.89596 398.46164 L 367.89596 374.51574 C 367.89596 372.3066 369.68682 370.51574 371.89596 370.51574 Z" fill="url(#testing-progress-1-red-diagonal-stripes)"/>
+      </g>
+      <g id="testing-progress-1-domain-unit">
+        <path d="M 206.6446 294 L 230.5905 294 C 232.79964 294 234.5905 295.79086 234.5905 298 L 234.5905 321.9459 C 234.5905 324.15504 232.79964 325.9459 230.5905 325.9459 L 206.6446 325.9459 C 204.43546 325.9459 202.6446 324.15504 202.6446 321.9459 L 202.6446 298 C 202.6446 295.79086 204.43546 294 206.6446 294 Z" fill="url(#testing-progress-1-red-diagonal-stripes)"/>
+      </g>
+      <g id="testing-progress-1-services-unit">
+        <path d="M 241 190 L 264.9459 190 C 267.15504 190 268.9459 191.79086 268.9459 194 L 268.9459 217.9459 C 268.9459 220.15504 267.15504 221.9459 264.9459 221.9459 L 241 221.9459 C 238.79086 221.9459 237 220.15504 237 217.9459 L 237 194 C 237 191.79086 238.79086 190 241 190 Z" fill="url(#testing-progress-1-red-diagonal-stripes)"/>
+      </g>
+      <g id="testing-progress-1-gateways-unit">
+        <path d="M 307.53468 158.99064 L 331.48058 158.99064 C 333.68972 158.99064 335.48058 160.7815 335.48058 162.99064 L 335.48058 186.93655 C 335.48058 189.14569 333.68972 190.93655 331.48058 190.93655 L 307.53468 190.93655 C 305.32554 190.93655 303.53468 189.14569 303.53468 186.93655 L 303.53468 162.99064 C 303.53468 160.7815 305.32554 158.99064 307.53468 158.99064 Z" fill="url(#testing-progress-1-red-diagonal-stripes)"/>
+      </g>
+      <g id="testing-progress-1-resources-unit">
+        <path d="M 371.89594 85.37991 L 395.84185 85.37991 C 398.05099 85.37991 399.84185 87.17077 399.84185 89.37991 L 399.84185 113.325815 C 399.84185 115.534954 398.05099 117.325815 395.84185 117.325815 L 371.89594 117.325815 C 369.6868 117.325815 367.89594 115.534954 367.89594 113.325815 L 367.89594 89.37991 C 367.89594 87.17077 369.6868 85.37991 371.89594 85.37991 Z" fill="url(#testing-progress-1-red-diagonal-stripes)"/>
+      </g>
+      <line x1="97.512756" y1="127.58197" x2="97.50476" y2="360.25958" stroke="#702269" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+      <line x1="136.250466" y1="127.58197" x2="136.255615" y2="252.45718" stroke="#702269" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+      <line x1="181.96127" y1="230.99999" x2="181.98293" y2="252.45718" stroke="#702269" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+      <line x1="260.01477" y1="230.99999" x2="260.00598" y2="360.25958" stroke="#702269" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+      <line x1="279.11755" y1="189.36723" x2="294.53645" y2="189.35345" stroke="#702269" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+      <line x1="319.503" y1="127.58197" x2="319.50764" y2="147.63753" stroke="#702269" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+      <line x1="344.47884" y1="241.6829" x2="359.8977" y2="241.68288" stroke="#702269" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+      <line x1="409.84009" y1="241.68288" x2="477.5" y2="241.6829" stroke="#702269" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+      <line x1="247.38882" y1="412.7178" x2="247.38882" y2="437.2547" stroke="#702269" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+      <line x1="216.62637" y1="127.58197" x2="216.61755" y2="147.73448" stroke="#702269" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+      <line x1="247.38882" y1="6.75" x2="247.38882" y2="75.12375" stroke="#702269" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+      <line x1="178.78658" y1="489.71292" x2="178.98293" y2="560.01355" stroke="#702269" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+      <line x1="537.58152" y1="624.51763" x2="477.50002" y2="624.51763" stroke="#702269" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+      <path d="M 479.50002 399.44975 L 535.58152 399.44975 C 536.6861 399.44975 537.58152 400.34518 537.58152 401.44975 L 537.58152 425.90945 C 537.58152 427.01402 536.6861 427.90945 535.58152 427.90945 L 479.50002 427.90945 C 478.39545 427.90945 477.50002 427.01402 477.50002 425.90945 L 477.50002 401.44975 C 477.50002 400.34518 478.39545 399.44975 479.50002 399.44975 Z" stroke="#7b7b7b" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" stroke-dasharray="16,8,2,8"/>
+      <text transform="translate(556.8792 399.1796)" fill="#7b7b7b" style="font-family:Open Sans;" class="label-large">
+        <tspan fill="#7b7b7b" x="0" y="23" textLength="202.6875">Logical Boundary</tspan>
+      </text>
+    </g>
+  </g>
+</svg></svg>
