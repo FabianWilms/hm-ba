@@ -213,11 +213,42 @@ Eine dieser Lösungen wurde im letzten Jahr von Martin Kurz im Rahmen seiner Mas
 
 Im Rahmen dieser Arbeit soll eine Erweiterung von Barrakuda geplant und entwickelt werden. Diese Weiterentwicklung soll einen Großteil verschiedener Testmethoden für diese Architektur generieren und die benötigte Entwicklungszeit für eine hohe Testabdeckung möglichst stark reduzieren.
 
-Zunächst werden bekannte Methoden zum testen von Software analysiert und in Hinblick der Umsetzungsmöglichkeit im generativen Ansatz geprüft. Anschließend werden alternative Methoden, die besonders im Bereich der Microservices anzutreffen sind, ebenfalls untersucht.
+Zunächst wird die Microservice Architektur im generellen und anschließend im speziellen anhand der von it@M Vorgegebene Architektur genauer erläutert und die zu testenden Komponenten identifiziert.
 
-Im nächsten Schritt wird die von it@M Vorgegebene Architektur genauer erläutert und die zu testenden Komponenten identifiziert.
+Anschließend werden bekannte Methoden zum testen von Software analysiert und in Hinblick der Umsetzungsmöglichkeit im generativen Ansatz geprüft. Zusätzlich werden alternative Methoden, die besonders im Bereich der Microservices anzutreffen sind, ebenfalls untersucht.
 
 Schließlich sollen Anforderungen, die an die zu generierenden Tests gestellt werden festgehalten werden, die im letzten Abschnitt, der Implementierung, Beachtung finden werden.
+
+% ----------------------------------------------------------------------------------------------------------
+% Architektur-Generierung für Software-Projekte
+% ----------------------------------------------------------------------------------------------------------
+\section{Architektur}
+
+\subsection{Microservice Architektur und Unterschiede zur monolithischen Architektur}
+
+\subsection{Vorgegebene Architektur der LHM}
+
+\vspace{1em}
+\begin{minipage}{\linewidth}
+	\centering
+	\includegraphics[width=0.9\linewidth]{images/img_arch-stadt-gesamt.pdf}
+	\captionof{figure}[Architekturvorgabe it@M]{Architekturvorgabe it@M}
+	\label{fig:img_arch-stadt-gesamt}
+\end{minipage}
+
+\subsubsection{Authentifizierungsservice}
+
+\subsubsection{Discoveryservice}
+
+\subsubsection{Configurationservice}
+
+\subsubsection{Service}
+
+\subsubsection{Webservice}
+
+\subsection{Unterschiede zwischen Microservices und Monolith-Architekturen}
+
+\subsubsection{Auswirkungen}
 
 % ----------------------------------------------------------------------------------------------------------
 % Software Testen
@@ -227,25 +258,13 @@ Schließlich sollen Anforderungen, die an die zu generierenden Tests gestellt we
 
 \subsection{Bekannte Testmethoden}
 
-//TODO
-
-unterschied funktional, nichtfunktional...
-
-\vspace{1em}
-\begin{minipage}{\linewidth}
-	\centering
-	\includegraphics[width=0.9\linewidth]{images/img_testmethods.pdf}
-	\captionof{figure}[Testmethoden]{Testmethoden\cite{TODO}}
-	\label{fig:img_testmethods}
-\end{minipage}
-
-detailiert funktionale tests
+performance, security, usability, compatability...
 
 \vspace{1em}
 \begin{minipage}{\linewidth}
 	\centering
 	\includegraphics[width=0.9\linewidth]{images/img_testmethods_functional.pdf}
-	\captionof{figure}[Funktionale Testmethoden]{Funktionale Testmethoden}
+	\captionof{figure}[Bekannte Testmethoden]{Bekannte Testmethoden}
 	\label{fig:img_testmethods_functional}
 \end{minipage}
 
@@ -314,47 +333,6 @@ text
 \subsubsection{Sinnvolle Teststrategien für den generativen Ansatz}
 
 \subsubsection{Frameworks zum Umsetzen von Test-Strategien}
-
-% ----------------------------------------------------------------------------------------------------------
-% Architektur-Generierung für Software-Projekte
-% ----------------------------------------------------------------------------------------------------------
-\section{Architektur}
-
-\subsection{Microservice Architektur und Unterschiede zur monolithischen Architektur}
-
-\vspace{1em}
-\begin{minipage}{\linewidth}
-	\centering
-	\includegraphics[width=0.9\linewidth]{images/img_monolithic-arch.PNG}
-	\captionof{figure}[Monolithische Architektur]{Monolithische Architektur \cite{dinh}}
-	\label{fig:img_monolithic-arch}
-\end{minipage}
-
-\vspace{1em}
-\begin{minipage}{\linewidth}
-	\centering
-	\includegraphics[width=0.9\linewidth]{images/img_microservice-arch.PNG}
-	\captionof{figure}[Microservice Architektur]{Microservice Architektur \cite{dinh}}
-	\label{fig:img_microservice-arch}
-\end{minipage}
-
-\subsection{Vorgegebene Architektur der LHM}
-
-
-
-\subsubsection{Authentifizierungsservice}
-
-\subsubsection{Discoveryservice}
-
-\subsubsection{Configurationservice}
-
-\subsubsection{Service}
-
-\subsubsection{Webservice}
-
-\subsection{Unterschiede zwischen Microservices und Monolith-Architekturen}
-
-\subsubsection{Auswirkungen}
 
 % ----------------------------------------------------------------------------------------------------------
 % Anforderungen an generierte Tests
