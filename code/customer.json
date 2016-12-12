@@ -1,0 +1,8 @@
+{
+	"name": "Hans Meier",
+	"mail": "hansmei@mail.de",
+	"links": [{
+		"rel": "orders",
+		"href": "https://mycompany.com/orders/12341232/"
+	}]
+}
