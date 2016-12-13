@@ -26,6 +26,7 @@
 \usepackage[right]{eurosym}
 \usepackage[subfigure,titles]{tocloft}
 \usepackage[pdfpagelabels=true]{hyperref}
+\usepackage{comment}
 
 \usepackage{listings}
 \lstset{basicstyle=\footnotesize, captionpos=b, breaklines=true, showstringspaces=false, tabsize=2, frame=lines, numbers=left, numberstyle=\tiny, xleftmargin=2em, framexleftmargin=2em}
@@ -288,9 +289,30 @@ Mit der Verwendung von HATEOAS reicht es, wenn alle Clients die Kundendaten und 
 
 \paragraph{JSON oder XML?} 
 
-Wenn die Entscheidung über den Weg der Kommunikation gefallen ist muss die Art der Kommunikation festgelegt werden. JSON und XML sind dabei die größten Namen. In den vergangenen Jahren ist dabei die Verwendung von XML im Gegensatz zu JSON in APIs zurückgegangen\cite{duvander2}
+Wenn die Entscheidung über den Weg der Kommunikation gefallen ist muss die Art der Kommunikation festgelegt werden. JSON und XML sind dabei die größten Namen. In den vergangenen Jahren ist dabei die Verwendung von XML im Gegensatz zu JSON in APIs zurückgegangen\cite{duvander2}. Jedoch bieten beide Vor- wie Nachteile. JSON ist das einfachere Format und auch leichtgewichtiger, während XML einige sinnvolle Features wie z.B. link control (insbesondere für HATEOAS interessant) oder auch das extrahieren von Teilinformationen durch Standards wie in etwa XPATH\cite[S.101]{buildingms}.
+
+\paragraph{Authentifizierung} todo
+
+\paragraph{Continous Delivery} todo
+
+Die Entscheidungen, welche Technologien und Architekturen in der von Barrakuda generierte Architektur verwendet werden sind bereits von it@M getroffen worden. Im folgenden wird die generierte Architektur kurz erläutert.
+
 
 \subsection{Vorgegebene Architektur der LHM}
+
+Die von Barrakuda generierte Microservice-Architektur verwendet das Spring-Framework. Auslöser dafür ist, dass bei it@M größtenteils Java-Entwickler arbeiten und diese bereits mit Java EE viel Erfahrung gesammelt haben. Da das Spring-Framework auf viele Konzepte von Java EE aufbaut, erleichtert dies den Einstieg in die Microservice-Welt für kommende Entwicklungen.
+
+Die generierten Services kommunizieren über eine REST-API, die ihre Daten im JSON-Format überträgt. HATEOAS wird über Spring HATEOAS genutzt.
+
+Als Datenbank in der Entwicklungsumgebung kommt eine In-Memory-Datenbank von H2 zum Einsatz. In der Produktion größtenteils Oracles JDBC-Datenbank in der Version 7, aber auch MySQL wird verwendet.
+
+Zur Authentifizierung wird ein Authentifizierungs-Service generiert, der zusätzlich zur internen Nutzer- und Rechteverwaltung auch eine Anbindung an das Stadtweite LDAP bietet.
+
+Das Problem der Entdeckbarkeit von Service wird mithilfe von Netflixs Eureka-Service gelöst. Dieser bietet innerhalb einer Domäne einen Zentralen Anlaufpunkt für alle Services um sich dort zu vermerken, sowie Informationen über die Adressen von anderen Services einzuholen.
+
+Clients können mit der Domäne über ein API-Gateway kommunizieren (Netflix Zuul). Dieses öffnet nach außen eine einzige Schnittstelle, über die sowohl eine graphische Nutzeroberfläche aufgerufen, als auch die einzelnen Services kontaktiert werden können. Auch ermöglicht das Gateway den Zugriff auf bestimmte Endpunkte zur sperren, was für die Landeshauptstadt insbesondere für Software interessant ist, die sowohl interne, als auch externe Schnittstellen bieten soll.
+
+Auch werden Docker-Konfigurationen mitgeliefert, um die Continous Delivery mithilfe eines Container-Frameworks zu ermöglichen.
 
 \vspace{1em}
 \begin{minipage}{\linewidth}
@@ -299,6 +321,8 @@ Wenn die Entscheidung über den Weg der Kommunikation gefallen ist muss die Art 
 	\captionof{figure}[Architekturvorgabe it@M]{Architekturvorgabe it@M}
 	\label{fig:img_arch-stadt-gesamt}
 \end{minipage}
+
+Intern sehen die generierten komponenten so aus:
 
 \subsubsection{Authentifizierungsservice}
 
@@ -322,6 +346,7 @@ Wenn die Entscheidung über den Weg der Kommunikation gefallen ist muss die Art 
 
 \subsection{Bekannte Testmethoden}
 
+\begin{comment}
 performance, security, usability, compatability...
 
 \vspace{1em}
@@ -331,13 +356,14 @@ performance, security, usability, compatability...
 	\captionof{figure}[Bekannte Testmethoden]{Bekannte Testmethoden}
 	\label{fig:img_testmethods_functional}
 \end{minipage}
+\end{comment}
 
 \subsection{Testen von Microservices}
 
 \paragraph{Unit Tests}
 
-hier steht text
 
+\begin{comment}
 \vspace{1em}
 \begin{minipage}{\linewidth}
 	\centering
@@ -345,11 +371,12 @@ hier steht text
 	\captionof{figure}[Unit Testing Scope]{Unit Testing Scope \cite{clemson}}
 	\label{fig:img_unit-testing}
 \end{minipage}
+\end{comment}
 
 \paragraph{Integrationstests}
 
-text
 
+\begin{comment}
 \vspace{1em}
 \begin{minipage}{\linewidth}
 	\centering
@@ -357,11 +384,11 @@ text
 	\captionof{figure}[Integration Testing Scope]{Integration Testing Scope \cite{clemson}}
 	\label{fig:img_integration-testing}
 \end{minipage}
+\end{comment}
 
 \paragraph{Komponententests}
 
-text
-
+\begin{comment}
 \vspace{1em}
 \begin{minipage}{\linewidth}
 	\centering
@@ -369,11 +396,11 @@ text
 	\captionof{figure}[Component Testing Scope]{Component Testing Scope \cite{clemson}}
 	\label{fig:img_component-testing}
 \end{minipage}
+\end{comment}
 
 \paragraph{Contract Testing}
 
-text
-
+\begin{comment}
 \vspace{1em}
 \begin{minipage}{\linewidth}
 	\centering
@@ -381,11 +408,11 @@ text
 	\captionof{figure}[Contract Testing]{Contract Testing \cite{clemson}}
 	\label{fig:img_contract-testing}
 \end{minipage}
+\end{comment}
 
 \paragraph{End-To-End Testing}
 
-text
-
+\begin{comment}
 \vspace{1em}
 \begin{minipage}{\linewidth}
 	\centering
@@ -393,6 +420,7 @@ text
 	\captionof{figure}[End-To-End Testing Scope]{End-To-End Testing Scope \cite{clemson}}
 	\label{fig:img_end-to-end-testing}
 \end{minipage}
+\end{comment}
 
 \subsubsection{Sinnvolle Teststrategien für den generativen Ansatz}
 
