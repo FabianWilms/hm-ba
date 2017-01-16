@@ -27,6 +27,7 @@
 \usepackage[subfigure,titles]{tocloft}
 \usepackage[pdfpagelabels=true]{hyperref}
 \usepackage{comment}
+\usepackage{csquotes}
 
 \usepackage{listings}
 \lstset{basicstyle=\footnotesize, captionpos=b, breaklines=true, showstringspaces=false, tabsize=2, frame=lines, numbers=left, numberstyle=\tiny, xleftmargin=2em, framexleftmargin=2em}
@@ -46,6 +47,25 @@
 	pdfnewwindow=true,
 	colorlinks=true,linkcolor=black,citecolor=black,filecolor=magenta,urlcolor=black}
 \pdfinfo{/CreationDate (D:20110620133321)}
+
+% ----------------------------------------------------------------------------------------------------------
+% Eigene Befehle
+% ----------------------------------------------------------------------------------------------------------
+
+%Image Command
+% #1 IMAGE File
+% #2 Caption
+\newcommand{\image}[2]{
+	\vspace{1em}
+	\begin{minipage}{\linewidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{#1}
+		\captionof{figure}{#2}
+		\label{fig:#1}
+	\end{minipage}
+}
+%-------------
+
 
 \begin{document}
 
@@ -149,9 +169,13 @@ Das ganze auf Englisch.
 % Abkürzungen
 % ----------------------------------------------------------------------------------------------------------
 \section{Abkürzungsverzeichnis}
-\begin{acronym}[DDD] % längste Abkürzung steht in eckigen Klammern
+\begin{acronym}[HATEOAS] % längste Abkürzung steht in eckigen Klammern
 	\acro{DDD}{Domain-Driven Design}
 	\acro{LHM}{Landeshauptstadt München}
+	\acro{LDAP}{Lightweight Directory Access Protocol}
+	\acro{HATEOAS}{Hypermedia as the engine of application state}
+	\acro{RPC}{Remote Procedure Call}
+	\acro{REST}{Representational State Transfer}
 \end{acronym}
 \newpage
 
@@ -185,19 +209,17 @@ Das ganze auf Englisch.
 
 IT nimmt sowohl im privaten als auch geschäftlichen Alltag eine immer größere Rolle ein. Die Übernahme von Bereichen, die ehemals als nicht durch Computer austauschbar erachtet wurden, schreitet immer weiter fort. Doch dadurch steigen nicht nur bestehende Anforderungen an Software, sondern es entstehen auch neue Kriterien. Ganz abgesehen davon steigt die Komplexität von modernen Software-Systemen immens an.
 
-Mit steigender Komplexität und höherer Nachfrage am Markt, sowie engen Zeitplänen für Projekte wird leider häufig aus Zeit- und Kostengründen auf Qualität nur geringfügig Rücksicht genommen. Zunächst verursacht eine gute Software-Qualität nämlich nur Mehrkosten. Personelle wie zeitliche. Die langfristige Sinnhaftigkeit bleibt dabei außen vor, aus der Vergangenheit wird nur selten gelernt.
+Mit steigender Komplexität und höherer Nachfrage am Markt, sowie engen Zeitplänen für Projekte wird leider häufig aus Zeit- und Kostengründen auf Qualität nur geringfügig Rücksicht genommen. Zunächst verursacht eine gute Software-Qualität nämlich Mehrkosten. Personelle wie zeitliche. Dies zeigt das Magische Dreieck, oder im englischen das Project Management Triangle.
+
+\image{images/img_magisches_dreieck.pdf}{Magisches Dreieck des Projektmanagements\cite{hagen}}
+
+Dieses besagt, dass die Qualität eines Projekts durch die drei Faktoren der Leistung, Kosten und Zeit beeinflusst wird. Ändert sich einer dieser Faktoren, ändern sich jedoch auch alle anderen mit.
 
 Ein Bericht der Kölner Beratungsfirma SQS zeigt anhand von gesammelten Zahlen aus Beratungsaufträgen welche immensen Kosten durch unentdeckte Fehler entstehen. Hier wird besonders deutlich wie viel es für ein Projekt bedeutet, frühzeitige Qualitätssicherung durchzusetzen. Und dazu zählt auch das Testen von Software.
 
-\vspace{1em}
-\begin{minipage}{\linewidth}
-	\centering
-	\includegraphics[width=0.9\linewidth]{images/img_sqs-defect-correction.PNG}
-	\captionof{figure}[SQS Report Costs of Defect Correction]{SQS Report Costs of Defect Correction \cite{sqsdefect}}
-	\label{fig:img_sqs-defect-correction}
-\end{minipage}
+\image{images/img_sqs-defect-correction.PNG}{SQS Report Costs of Defect Correction \cite{sqsdefect}}
 
-Umso früher Fehler entdeckt und bemerkt werden, umso weniger kostet es auch diese zu beheben. Wenn bereits vor dem Start der Implementierungsphase auf eine hohe Testabdeckung, beispielsweise durch den Einsatz von test-driven development, wert gelegt wird, können, je auftretendem Fehler, um die 7800\euro\\cite{sqsdefect} eingespart werden. Mit diesen Zahlen sind die Mehrkosten, die für ein solches vorgehen entstehen um ein vielfaches leichter zu rechtfertigen.
+Umso früher Fehler entdeckt und bemerkt werden, umso weniger kostet es auch diese zu beheben. Wenn bereits vor dem Start der Implementierungsphase auf eine hohe Testabdeckung, beispielsweise durch den Einsatz von test-driven development, wert gelegt wird, können, je auftretendem Fehler, um die 7800\euro\ \cite{sqsdefect} eingespart werden. Mit diesen Zahlen sind die Mehrkosten, die für ein solches vorgehen entstehen um ein vielfaches leichter zu rechtfertigen.
 
 Somit sorgt das Bug-Fixing in Produktivsystemen, also das Beheben sogenannter \textit{field defects}, für einen der größten Kostenfaktoren. Wurde in den ersten Phasen eines Projekts nicht viel, oder kein Wert auf eine ausreichende Test-Abdeckung gelegt schaffen es viele Fehler in die Produktivsysteme der Hersteller. Doch werden diese Fehler erst im laufenden Betrieb beim Kunden festgestellt, ist es bereits zu spät. Robert N. Charette kritisiert eben dies in seinem Artikel \textit{Why Software Fails}\cite{charette}.
 
@@ -207,42 +229,28 @@ Somit sorgt das Bug-Fixing in Produktivsystemen, also das Beheben sogenannter \t
 	\end{itshape}
 \end{quote}
 
-Die Lösung sollte also sein, viel Zeit und Geld in gute Softwarequalität zu investieren. Jedoch stehen, wie bereits am Anfang der Einleitung erwähnt, Projektleiter und ihre Mitarbeiter unter hohem zeitlichen Druck. Und Testen kostet neben Geld auch Zeit. Es entsteht in dieser Zeit aber kein Fortschritt an der Funktionalität der Software. Dies ist auch der Grund, weshalb das Testen bei Entwicklern nicht an oberster Stelle der liebsten Aufgaben steht. Es kostet Zeit ohne erkennbaren Fortschritt zu erreichen.
+Die Lösung sollte also sein, viel Zeit und Geld in gute Softwarequalität zu investieren. Jedoch stehen, wie bereits am Anfang der Einleitung erwähnt, Projektleiter und ihre Mitarbeiter unter hohem zeitlichen Druck vom Kunden oder durch andere beteiligte festgelegte Termine einzuhalten. Und gute Tests kosten neben Geld auch Zeit. Es entsteht in dieser Zeit aber kein Fortschritt an der Funktionalität der Software.
 
 Bei it@M, dem Eigenbetrieb der Landeshauptstadt München, ist eine hohe Testabdeckung daher Teil der Definition of Done [citation needed] von Softwareprojekten. Im Kommunalen Umfeld sind die zeitlichen Restriktionen noch einmal stärker zu gewichten als in der freien Wirtschaft. Viele Projekte werden aufgrund von anstehenden Gesetzesänderungen ins Leben gerufen und müssen mit Inkrafttreten der neuen Regelungen in Produktion gehen. it@M ist somit ständig auf der Suche nach Lösungen, die den Entwicklungs- und Testprozess beschleunigen, um die geringe Zeit möglichst effizient nutzen zu können.
 
-Eine dieser Lösungen wurde im letzten Jahr von Martin Kurz im Rahmen seiner Masterarbeit\cite{mkthesis} geplant und entwickelt. Die Model-driven Software Development Lösung Barrakuda \footnote{Github Repository von Barrakuda (https://github.com/xdoo/mdsd)}. Diese bietet den Entwicklern von it@M die Möglichkeit anhand von einer vorgegebenen Domänen-spezifischen Sprache Microservice-Architekturen zu modellieren und diese zu generieren.
+Eine dieser Lösungen wurde im letzten Jahr von Martin Kurz im Rahmen seiner Masterarbeit \cite{mkthesis} geplant und entwickelt. Die Model-driven Software Development Lösung Barrakuda \footnote{Github Repository von Barrakuda (https://github.com/xdoo/mdsd)}. Diese bietet den Entwicklern von it@M die Möglichkeit anhand von einer vorgegebenen Domänen-spezifischen Sprache Microservice-Architekturen zu modellieren und diese zu generieren.
 
 Im Rahmen dieser Arbeit soll eine Erweiterung von Barrakuda geplant und entwickelt werden. Diese Weiterentwicklung soll einen Großteil verschiedener Testmethoden für diese Architektur generieren und die benötigte Entwicklungszeit für eine hohe Testabdeckung möglichst stark reduzieren.
 
 Zunächst wird die Microservice Architektur im generellen und anschließend im speziellen anhand der von it@M Vorgegebene Architektur genauer erläutert und die zu testenden Komponenten identifiziert.
 
-Anschließend werden bekannte Methoden zum testen von Software analysiert und in Hinblick der Umsetzungsmöglichkeit im generativen Ansatz geprüft. Zusätzlich werden alternative Methoden, die besonders im Bereich der Microservices anzutreffen sind, ebenfalls untersucht.
+Anschließend werden bekannte Methoden zum Testen von Software analysiert und in Hinblick der Umsetzungsmöglichkeit im generativen Ansatz geprüft. Zusätzlich werden alternative Methoden, die besonders im Bereich der Microservices anzutreffen sind, ebenfalls untersucht.
 
 Schließlich sollen Anforderungen, die an die zu generierenden Tests gestellt werden festgehalten werden, die im letzten Abschnitt, der Implementierung, Beachtung finden werden.
 
 % ----------------------------------------------------------------------------------------------------------
 % Architektur-Generierung für Software-Projekte
 % ----------------------------------------------------------------------------------------------------------
-\section{Architektur}
+\section{Architekturvergleich Microservice und Monolith}
 
-Sam Newman stellt in seinem Buch \textit{Building Microservices} einige Vorteile dar, die Microservices gegenüber Monolithischen Architekturen bieten\cite{buildingms}:
+Sam Newman stellt in seinem Buch \textit{Building Microservices} einige Vorteile dar, die Microservices gegenüber Monolithischen Architekturen bieten. Um diese Vorteile besser zu verstehen muss man zunächst die Unterschiede der zwei Arten im Detail betrachten.
 
-Die Heterogenität, welche es erlaubt, für verschiedene Einsatzzwecke verschiedene SPrachen und Technologien zu verwenden, ohne das ganze System damit implementieren zu müssen.
-
-Die erhöhte Widerstandsfähigkeit gegenüber Fehlern im System, da die Grenzen von Microservices eine Kaskadierung von Fehlern verhindern können.
-
-Microservices lassen sich leichter skalieren. Während monolithische Architekturen immer im ganzen Skaliert werden, kann man in einer Microservice-Architektur nach genau die Services skalieren, die in diesem Moment mehr Leistung benötigen.
-
-Ein weiterer Punkt ist ein einfacheres Deployment. Insbesondere kleinen Änderungen führen bei monolithischen Systemen zu einem großen Overhead, während man in einer Microservice Architektur nur den Service neu deployen muss, der auch die implementierte Änderung enthält.
-
-Ebenfalls lässt sich die Team-Organisation vereinfachen. Ein Team arbeitet an einem Service, dessen Funktionalität klar definiert ist, anstatt ein großes Team zu haben, wessen Teilteams an teilen eines Monolithen arbeiten.
-
-Auch optimieren Microservices die Austauschbarkeit. Die kleinen abgegrenzten Systeme lassen sich mit viel weniger aufwand gegen neuere oder bessere Implementierungen austauschen, ohne andere Komponenten zu Gefährden. Während dies bei Monolithischen Anwendungen zu unvorhersehbaren Problemen kommen kann, weshalb in solchen Architekturen auch häufig kaum Änderungen durchgeführt werden.
-
-Dies sind einige der Gründe, warum mit Barrakuda eine Microservice-Architektur für it@M generiert wird. Sie behandelt einen Großteil der Probleme, die bei bestehenden Systemen der Landeshauptstadt aufgetreten sind.
-
-\subsection{Microservice Architektur und Unterschiede zur monolithischen Architektur}
+\subsection{Microservice Architektur}
 
 Um die Vorteile dieser Architektur in einem System effektiv zu nutzen gibt es bereits in der Planung einiges zu beachten.
 
@@ -253,9 +261,11 @@ Ein lose gekoppelter Service weiß von seinem Kommunikationspartner nur so wenig
 
 Starker Zusammenhalt soll dafür sorgen, dass bestimmte Funktionalitäten an einem Ort vorhanden sind, sodass diese leicht geändert werden können und nicht mehrere Komponenten angepasst werden müssen.\cite[S.64]{buildingms}
 
-Zum Planen einer Software mit Mircoservice Architektur ist es sinnvoll, sich zunächst über Kontextgrenzen (\textit{bounded context}) Gedanken zu machen. Kontextgrenzen sind eine Definition aus dem Buch \textit{Domain Driven Design} von Eric Evans \cite{dddesign}, welches auch von Newman herangezogen wird.
+Zum Planen einer Software mit Mircoservice Architektur ist es sinnvoll, sich zunächst über Kontextgrenzen (\textit{bounded context}) Gedanken zu machen. Kontextgrenzen sind eine Definition aus dem Buch \textit{Domain Driven Design} von Eric Evans \cite{dddesign}.
 
-Eine Kontextgrenze soll eine logische Grenze darstellen, welche über eine Schnittstelle verfügt, die festlegt, welche Informationen mit anderen Kontexten geteilt wird.\cite[S.65]{buildingms}. Damit einher geht die Unterscheidung zwischen geteilten und versteckten Modellen. Versteckte Modelle werden innerhalb einer Kontextgrenze benötigt, sind aber für andere Kontexte uninteressant. Geteilte Modelle hingegen werden über die Grenzen hinweg freigegeben. Sind solche Kontextgrenzen für eine Software modelliert, lassen sich aus diesen sehr leicht Microservices ableiten, da bereits einige Grundvoraussetzungen getroffen sind: Lose Kopplung und Starker Zusammenhalt.\cite[S.68]{buildingms}
+Sie lassen sich gut am Beispiel eines Online-Shops zeigen. Wenn ein Online-Shop geplant wird ist einer der zentralen Bestandteile die Lagerverwaltung. Die Daten der Lagerverwaltung werden herangezogen um dem potentiellen Kunden des Shops anzuzeigen welche und wie viele Produkte verfügbar sind. Doch möchte ein Kunde nun ein Produkt bestellen hat dies nichts mehr mit einer Lagerverwaltung, sondern mit einem Bestellsystem zu tun. Man verlässt also den ursprünglichen Kontext der Lagerverwaltung. Somit entsteht in der Planung eine neue Kontextgrenze: Die des Bestellsystems. Es verwaltet Bestellungen von Kunden. Doch woher kommen die Kundendaten? Kundendaten haben zwar einen Verwendungszweck im Bestellsystem, doch die Verwaltung der Daten hat mit der eigentlichen Kompetenz dieses Systems nichts mehr zu tun. Somit wird eine weitere Kontextgrenze erstellt, nämlich die der Kundenverwaltung.
+
+Eine Kontextgrenze soll also eine logische Grenze darstellen, welche eventuell über eine oder mehrere Schnittstellen verfügt, die festlegen, welche Informationen mit anderen Kontexten geteilt werden.\cite[S.65]{buildingms}. Damit einher geht die Unterscheidung zwischen geteilten und versteckten Modellen. Versteckte Modelle werden innerhalb einer Kontextgrenze benötigt, sind aber für andere Kontexte uninteressant. Geteilte Modelle hingegen werden über die Grenzen hinweg freigegeben. Sind solche Kontextgrenzen für eine Software modelliert, lassen sich aus diesen sehr leicht Microservices ableiten, da bereits einige Grundvoraussetzungen getroffen sind: Lose Kopplung und Starker Zusammenhalt.\cite[S.68]{buildingms}
 
 \begin{quote}
 	\begin{itshape}
@@ -269,50 +279,102 @@ Eine Kontextgrenze soll eine logische Grenze darstellen, welche über eine Schni
 
 Als weiterer Schritt muss eine Kommunikationsart zwischen Services und zur Außenwelt definiert werden.
 
-\paragraph{Geteilte Datenbanken} werden dafür gerne verwendet. \cite[S.85]{buildingms}. Dies birgt allerdings viele Probleme. Jede noch so kleine Änderung an der "Logik" dieser Datenbank, oder an der internen Struktur der Daten muss mit viel Bedacht durchgeführt werdenm, da jede abhängige Komponente sonst nicht mehr funktionieren könnte.
+\paragraph{Geteilte Datenbanken} sind eine Möglichkeit zur Servicekommunikation \cite[S.85]{buildingms}. Die Idee hinter dieser Art der Kommunikation ist besonders trivial. Mehrere Services, die miteinander Daten austauschen wollen, nutzen eine gemeinsame Datenbank. Jeder Service hat somit jederzeit Zugriff zu allen Daten der anderen Nutzer dieser geteilten Datenbank und es findet somit keine \textit{echte} Kommunikation statt, sondern nur Zugriffe auf geteilten Speicher.\cite{shareddb}
+Dies birgt natürlich viele Probleme. Jede noch so kleine Änderung an der "Logik" dieser Datenbank, oder an der internen Struktur der Daten muss mit viel Bedacht durchgeführt werden, da jede abhängige Komponente sonst nicht mehr funktionieren könnte.
 
-Des weiteren ist die technologische Einschränkung ein großer Nachteil. Wenn auch es in den ersten Schritten der Planung und Entwicklung Sinnvoll erscheint eine relationale Datenbank zu verwenden, können spätere Geschäftsentscheidungen oder neu auftretende Probleme den Einsatz einer Graphdatenbank sinnvoller machen. Bei einer geteilten Datenbank eine solche Änderung durchzuführen ist sehr schwierig\cite[S.85]{buildingms}.
+Des Weiteren ist die technologische Einschränkung ein großer Nachteil. Wenn es auch in den ersten Schritten der Planung und Entwicklung Sinnvoll erscheint eine relationale Datenbank zu verwenden, können spätere Geschäftsentscheidungen oder neu auftretende Probleme den Einsatz einer Graphdatenbank sinnvoller machen. Bei einer geteilten Datenbank eine solche Änderung durchzuführen ist sehr schwierig\cite[S.85]{buildingms}.
 
-\paragraph{Remote Procedure Calls (RPCs)}\label{rpcpara} sind eine weitere bekannte Kommunikationsmöglichkeit. Ein Vorteil von RPC ist, dass es sehr einfach und schnell möglich ist Methoden der Services für Clients und andere Services Verfügbar zu machen. Über die Kommunikation muss man sich nahezu keine Gedanken machen\cite[S.91]{buildingms}.
+\paragraph{\acf{RPC}s}\label{rpcpara} sind eine weitere bekannte Kommunikationsmöglichkeit. Ein Vorteil von RPC ist, dass es sehr einfach und schnell möglich ist Methoden der Services für Clients und andere Services Verfügbar zu machen. Über die Kommunikation muss man sich nahezu keine Gedanken machen\cite[S.91]{buildingms}.
 
 Doch die Nachteile überwiegen schnell und deutlich. Je nach Implementierung führt die Verwendung von RPC zu einer starken Bindung an eine bestimmte Sprache (bekanntestes Beispiel Java RMI). Auch verstecken RPC-Implementierungen die Komplexität der entfernten Aufrufe. Dies kann zu starken Performance-Problemen führen, wenn Entwickler an Interfaces arbeiten, von denen sie denken es seien lokale Methoden\cite[S.93]{buildingms}.
 
 Die Verwendung von RPC macht die Weiterentwicklung von Systemen nicht einfacher: Ein Beispiel anhand einer Schnittstelle zur Instanziierung eines Kunden. Zusätzlich zur Erstellung eines Kunden mithilfe seines Namen und einer E-Mail Adresse soll es nun eine Möglichkeit geben diesen nur mithilfe seiner Mail-Adresse zu erstellen. Das reine hinzufügen einer neuen Methode in einem Interface löst das Problem in diesem Fall nicht. Im schlimmsten Fall benötigen alle Clients die diesen Service ansprechen die neuen Stubs und müssen allesamt neu Bereitgestellt werden\cite[S.94]{buildingms}. Und das bereits bei einer so kleinen Änderung.
 
-\paragraph{REpresentational State Transfer (REST)} ist eine der meistgenutzten Architekturstilen für APIs \cite{duvander}. REST wird, auch wenn die Spezifikation es nicht vorschreibt, in den häufigsten Fällen über HTTP genutzt \cite[S.97]{buildingms}. Dies rührt daher, dass beispielsweise die bekannten HTTP-Methoden POST, GET, PUT usw. machen es sehr einfach die geforderte homogene Verhaltensweise von Methoden auf allen Ressourcen umzusetzen. Auch wird HTTP gerne genutzt, da es bereits eine breite Masse an bestehenden Tools gibt die zur weiteren Qualitätsverbesserung eines Systems genutzt werden können, wie zum Beispiel Proxies und Load Balancer. Doch dies sind alles zunächst nur Vorteile von HTTP.
+\paragraph{\acf{REST}} ist eine der meistgenutzten Programmierparadigmen für APIs \cite{duvander}. Entworfen wurde \ac{REST} von Roy Fielding, der die Idee und Spezifikationen in seiner Dissertation \enquote{Architectural Styles and the Design of Network-based Software Architectures} veröffentlichte.\cite{fielding}. Insgesamt besteht Fielding auf 6 Eigenschaften, die erfüllt sein müssen um eine REST-Konforme Anwendung zu schreiben.
 
-Die Verwendung von REST bietet viele Möglichkeiten die lose Kopplung zwischen Services zu ermöglichen. Dazu zählt unter anderem Hypermedia As the Engine of Application State (HATEOAS). HATEOAS ist ein Teil der REST-Spezifizierung und beschreibt ein Konzept, nach dem, einfach gesagt, Informationen Links zu anderen Informationen enthalten. Um bei dem Kundenbeispiel aus \ref{rpcpara} zu bleiben: Wird die Information eines Kunden abgerufen, kann das Kundenobjekt zusätzlich zu den Kundendaten ein Feld enthalten welches zur Bestellliste dieses Kund zeigt.
+Die erste dieser Eigenschaften (\enquote{Client-Server}) verlangt schlichtweg, dass eine Client-Server Architektur vorliegt, bei der ein Server Funktionalität bereitstellt, die der Client nutzen kann.
+\enquote{Stateless} ist die zweite Eigenschaft, die von Fielding gefordert wird. Sie besagt, dass alle Informationen, die zum Verständnis einer Nachricht nötig sind auch mitgeliefert werden müssen, da weder der Client, noch der Server, Zustandsinformationen zwischen Anfragen speichern sollen.
+Eigenschaft Nummer 3, \enquote{Caching}, fordert die Verwendung von Caching um Netzwerklast zu minimieren.
+Das \enquote{Uniform Interface} ist eine der größten Unterschiede von REST zu anderen Netzwerkarchitekturstilen. Diese Eigenschaft ist erneut aufgeteilt in vier Unterpunkte:
+
+\begin{description}  
+	\item [Identification of resources] Jede, über eine URI erreichbare Information ist eine Ressource
+	\item [Manipulation of resources through representations] Änderungen an Ressourcen erfolgen nur über Repräsentationen von Ressourcen, also zum Beispiel durch Formate wie XML oder JSON. Genauso gut kann eine Ressource aber auch in unterschiedlichen Darstellungsformen vom Server ausgeliefert werden.
+	\item [Self-descriptive messages] Die für die Anwendung versendeten Nachrichten sollen selbstbeschreibend sein. Zur Erfüllung dieser Eigenschaft ist es unter anderem nötigt, Standardmethoden zur Manipulierung von Ressourcen zu verwenden.
+	\item [\acf{HATEOAS}] ist ein wichtiger Teil der REST-Spezifizierung und beschreibt ein Konzept, nach dem, einfach gesagt, Informationen Links zu anderen Informationen enthalten. 
+\end{description}
+
+Die fünfte Eigenschaft verlangt nach \enquote{Layered Systems}, also mehrschichtigen Systemen. Die Idee dahinter ist, dass die Komponenten nur die Komponenten im System kennen mit denen sie in direkter Interaktion stehen. Alles weitere bleibt verborgen.
+\enquote{Code-On-Demand} ist die letzte und eine optionale Eigenschaft der Spezifikation. Fielding beschreibt hiermit die Erweiterung von Client-Funktionalität durch den Server. Dieser sendet, wie zum Beispiel mit Javascript der Fall, Code für den Client direkt an den Client,.\cite{fielding}
+
+REST wird, auch wenn die Spezifikation es nicht vorschreibt, in den häufigsten Fällen über HTTP genutzt \cite[S.97]{buildingms}. Dies rührt daher, dass beispielsweise die bekannten HTTP-Methoden POST, GET, PUT usw. es sehr einfach machen die geforderte homogene Verhaltensweise von Methoden auf allen Ressourcen umzusetzen. Auch wird HTTP gerne genutzt, da es bereits eine breite Masse an bestehenden Tools gibt die zur weiteren Qualitätsverbesserung eines Systems genutzt werden können, wie zum Beispiel Proxies und Load Balancer. Doch dies sind alles zunächst nur Vorteile von HTTP.
+
+Die Verwendung von REST bietet viele Möglichkeiten die lose Kopplung zwischen Services zu ermöglichen. Dazu zählt unter anderem \ac{HATEOAS}. Um bei dem Kundenbeispiel aus \ref{rpcpara} zu bleiben: Wird die Information eines Kunden abgerufen, kann das Kundenobjekt zusätzlich zu den Kundendaten ein Feld enthalten welches zur Bestellliste dieses Kund zeigt.
 
 \lstinputlisting{code/customer.json}
 
-Mit der Verwendung von HATEOAS reicht es, wenn alle Clients die Kundendaten und deren Bestellungen verarbeiten wissen, dass Kunden einen Link-Feld mit dem Typ "orders" besitzen. Wenn also später Services unter anderen Adressen erreichbar sind, oder sich interne Datenstrukturen ändern müssen diese Clients nicht neu angepasst werden.
+Mit der Verwendung von HATEOAS reicht es, wenn alle Clients die Kundendaten und deren Bestellungen verarbeiten wissen, dass Kunden einen Link-Feld mit dem Typ \textit{orders} besitzen. Wenn also später Services unter anderen Adressen erreichbar sind, oder sich interne Datenstrukturen ändern müssen diese Clients nicht neu angepasst werden.
 
 \paragraph{JSON oder XML?} 
 
-Wenn die Entscheidung über den Weg der Kommunikation gefallen ist muss die Art der Kommunikation festgelegt werden. JSON und XML sind dabei die größten Namen. In den vergangenen Jahren ist dabei die Verwendung von XML im Gegensatz zu JSON in APIs zurückgegangen\cite{duvander2}. Jedoch bieten beide Vor- wie Nachteile. JSON ist das einfachere Format und auch leichtgewichtiger, während XML einige sinnvolle Features wie z.B. link control (insbesondere für HATEOAS interessant) oder auch das extrahieren von Teilinformationen durch Standards wie in etwa XPATH\cite[S.101]{buildingms}.
+Wenn die Entscheidung über den Weg der Kommunikation gefallen ist muss das Datenformat festgelegt werden. JSON und XML sind dabei die bekanntesten Namen. In den vergangenen Jahren ist dabei die Verwendung von XML im Gegensatz zu JSON in APIs zurückgegangen\cite{duvander2}. Jedoch bieten beide Vor- wie Nachteile. JSON ist das einfachere Format und auch leichtgewichtiger, während XML einige sinnvolle Features wie z.B. link control (insbesondere für HATEOAS interessant) oder auch das extrahieren von Teilinformationen durch Standards wie in etwa XPATH\cite[S.101]{buildingms}.
 
 \paragraph{Authentifizierung} todo
 
-\paragraph{Continous Delivery} todo
+\subsection{Monolithische Architektur}
 
-Die Entscheidungen, welche Technologien und Architekturen in der von Barrakuda generierte Architektur verwendet werden sind bereits von it@M getroffen worden. Im folgenden wird die generierte Architektur kurz erläutert.
+Monolithische Software stellt das Gegenteil zu Microservices dar. Eine Monolithische Anwendung vereint die Gesamtlogik in einer einzigen Laufzeitumgebung und ist dadurch meist sehr groß. Die Aufteilung der Logik innerhalb der Anwendung findet nur auf Entwickler-Ebene statt. So zum Beispiel durch Packages in Java, oder Libraries die unabhängig voneinander kompiliert und entwickelt werden können, aber dennoch am Ende eine große Anwendung bilden.
 
+Die Probleme bei monolithischen Systemen treten nicht zu Beginn der Entwicklung eines Produkts auf. Am Anfang stehen sogar einige Vorteile und gute Gründe, warum ein solcher Ansatz sinnvoll sein kann.
+Die Entwicklung ist sehr einfach. Entwicklungstools und IDEs sind erst in der letzten Zeit dazu übergegangen, auch die Entwicklung von Microservices besser zu unterstützen, während der Support für monolithische Architekturen bereits vorhanden ist, da dies auch der bisherige Ansatz zur Entwicklung war.
+Das Deployment ist weitaus einfacher als die Orchestrierung, die für Microservices nötig ist. Beispielsweise reicht es bereits, ein einfaches WAR-File auf einem Application-Server auszuliefern.
+Auch die Skalierung ist möglich, durch die Verwendung eines Load-Balancers und das starten von mehreren Instanzen der Anwendung.\cite{richardson}
 
-\subsection{Vorgegebene Architektur der LHM}
+Doch ab einem gewissen Entwicklungsstand nehmen die Probleme überhand. Viele Leute arbeiten an einer Code-Basis die stetig wächst. Wenn über den Projektzeitraum neue Entwickler am Projekt teilnehmen können diese zunächst leicht überfordert sein, da die anfängliche Modularität dadurch, dass sie nicht hart vorgeschrieben ist, stetig abnimmt. Dies führt auch dazu, dass bei Änderungen an großen Systemen nicht mehr direkt klar ist, welche Auswirkungen es auf andere Teilkomponenten und somit das Gesamtsystem gibt. Die Entwicklungsgeschwindigkeit verringert sich.
 
-Die von Barrakuda generierte Microservice-Architektur verwendet das Spring-Framework. Auslöser dafür ist, dass bei it@M größtenteils Java-Entwickler arbeiten und diese bereits mit Java EE viel Erfahrung gesammelt haben. Da das Spring-Framework auf viele Konzepte von Java EE aufbaut, erleichtert dies den Einstieg in die Microservice-Welt für kommende Entwicklungen.
+Auch die IDE trägt dazu bei. Je größer, das Projekt, umso höher die Belastung für den Entwicklungsrechner. IDEs indizieren Source-Files um die Navigation zu vereinfachen. Je nach Projektgröße kann so der Arbeitsspeicher schnell ausgelastet sein.
 
-Die generierten Services kommunizieren über eine REST-API, die ihre Daten im JSON-Format überträgt. HATEOAS wird über Spring HATEOAS genutzt.
+Eine größer werdende Anwendung leidet auch unter dem zunächst einfachen Deployment-Prozess. Riesige Java-Anwendungen brauchen lange Zeit zum starten, was auch für Integrationstests zu hohen Zeiteinbußen führt.
+
+Kleine Änderungen in Produktion zu geben ist eine große Aufgabe. Immer muss das Gesamtsystem neu gestartet werden, auch wenn nur ein prozentual kleiner Anteil der Anwendung umgeschrieben wird. Release-Zyklen verlangsamen sich auf das nötigste. Fehler bleiben eventuell länger im System.
+
+Auch wenn die Skalierung in der Theorie sehr einfach funktionieren sollte, tut sie das in der Praxis meist nicht. Das Problem: Monolithen lassen sich nur eindimensional Skalieren. Auf eine höhere Anzahl von Anfragen kann also durch das starten einer weiteren Instanz reagiert werden. Doch wenn Teilkomponenten von Überlast betroffen sind wird es ineffizient. Beispielsweise gibt es eine Teilkomponente die sehr CPU-Intensive Berechnungen durchführt. Es müssen weitere Instanzen gestartet und dadurch Ressourcen belastet werden, die von der CPU-Intensiven Komponente besser verwendet werden könnten.
+
+Der letzte große Nachteil tritt häufig erst lange nach Entwicklungsbeginn auf. Die Anwendung ist gewachsen und neue Features werden verlangt, doch die zu Beginn eingesetzte Sprache ist für bestimmte Einsatzzwecke nur schlecht zu gebrauchen. Doch man ist durch den monolithischen Ansatz gebunden. Auch kann es passieren, dass die Aktualisierung auf neuere Sprachversionen nicht mehr, oder nur schwer möglich wird. Alles durch die größe der Applikation. Im schlimmsten Fall wird der Support für die aktuell verwendete Sprache eingestellt.\cite{richardson}
+
+\subsection{Vorteil von Microservices gegenüber Monolithen}
+
+Als Vorteile der Microservice-Architektur lassen sich nun folgende Punkte, die Newman in seinem Buch nahelegt bestätigen\cite{buildingms}:
+
+Die Heterogenität, welche es erlaubt, für verschiedene Einsatzzwecke verschiedene Sprachen und Technologien zu verwenden, ohne das ganze System damit implementieren zu müssen.
+
+Die erhöhte Widerstandsfähigkeit gegenüber Fehlern im System, da die Grenzen von Microservices eine Kaskadierung von Fehlern verhindern können.
+
+Microservices lassen sich leichter skalieren. Während monolithische Architekturen immer im ganzen skaliert werden, kann man in einer Microservice-Architektur nach genau die Services skalieren, die in diesem Moment mehr Leistung benötigen.
+
+Ein weiterer Punkt ist ein einfacheres Deployment. Insbesondere kleinen Änderungen führen bei monolithischen Systemen zu einem großen Overhead, während man in einer Microservice Architektur nur den Service neu deployen muss, der auch die implementierte Änderung enthält.
+
+Ebenfalls lässt sich die Team-Organisation vereinfachen. Ein Team arbeitet an einem Service, dessen Funktionalität klar definiert ist, anstatt ein großes Team zu haben, wessen Teilteams an teilen eines Monolithen arbeiten.
+
+Auch optimieren Microservices die Austauschbarkeit. Die kleinen abgegrenzten Systeme lassen sich mit viel weniger aufwand gegen neuere oder bessere Implementierungen austauschen, ohne andere Komponenten zu Gefährden. Während dies bei Monolithischen Anwendungen zu unvorhersehbaren Problemen kommen kann, weshalb in solchen Architekturen auch häufig kaum Änderungen durchgeführt werden.
+
+Dies sind einige der Gründe, warum it@M nun mehr auf die Microservice Architektur setzen möchte. Sie behandelt einen Großteil der Probleme, die bei bestehenden Systemen der Landeshauptstadt in der Vergangenheit aufgetreten sind.
+
+\subsection{Vorgegebene Architektur der \acf{LHM}}
+
+Die Entscheidungen, welche Technologien und Architekturen verwendet werden sind bereits von it@M getroffen worden. Die vorgegebene Microservice-Architektur verwendet das Spring-Framework. Auslöser dafür ist, dass bei it@M größtenteils Java-Entwickler arbeiten und diese bereits mit Java EE viel Erfahrung gesammelt haben. Da das Spring-Framework auf viele Konzepte von Java EE aufbaut, erleichtert dies den Einstieg in die Microservice-Welt für kommende Entwicklungen.
+
+Die Services kommunizieren über eine REST-API, die ihre Daten im JSON-Format überträgt. HATEOAS wird über Spring HATEOAS \footnote{\url{http://projects.spring.io/spring-hateoas/}} genutzt.
 
 Als Datenbank in der Entwicklungsumgebung kommt eine In-Memory-Datenbank von H2 zum Einsatz. In der Produktion größtenteils Oracles JDBC-Datenbank in der Version 7, aber auch MySQL wird verwendet.
 
-Zur Authentifizierung wird ein Authentifizierungs-Service generiert, der zusätzlich zur internen Nutzer- und Rechteverwaltung auch eine Anbindung an das Stadtweite LDAP bietet.
+Zur Authentifizierung wird ein Authentifizierungs-Service genutzt, der zusätzlich zur internen Nutzer- und Rechteverwaltung auch eine Anbindung an das Stadtweite \ac{LDAP} bietet.
 
-Das Problem der Entdeckbarkeit von Service wird mithilfe von Netflixs Eureka-Service gelöst. Dieser bietet innerhalb einer Domäne einen Zentralen Anlaufpunkt für alle Services um sich dort zu vermerken, sowie Informationen über die Adressen von anderen Services einzuholen.
+Das Problem der Findung von Service wird mithilfe von Netflixs Eureka-Service gelöst. Dieser bietet innerhalb einer Domäne einen Zentralen Anlaufpunkt für alle Services um sich dort zu vermerken, sowie Informationen über die Adressen von anderen Services einzuholen.
 
 Clients können mit der Domäne über ein API-Gateway kommunizieren (Netflix Zuul). Dieses öffnet nach außen eine einzige Schnittstelle, über die sowohl eine graphische Nutzeroberfläche aufgerufen, als auch die einzelnen Services kontaktiert werden können. Auch ermöglicht das Gateway den Zugriff auf bestimmte Endpunkte zur sperren, was für die Landeshauptstadt insbesondere für Software interessant ist, die sowohl interne, als auch externe Schnittstellen bieten soll.
 
-Auch werden Docker-Konfigurationen mitgeliefert, um die Continous Delivery mithilfe eines Container-Frameworks zu ermöglichen.
+Auch werden Docker-Konfigurationen verwendet, um die Continous Delivery mithilfe eines Container-Frameworks zu ermöglichen.
 
 \vspace{1em}
 \begin{minipage}{\linewidth}
@@ -359,6 +421,7 @@ performance, security, usability, compatability...
 \end{comment}
 
 \subsection{Testen von Microservices}
+\label{sec:testingms}
 
 \paragraph{Unit Tests}
 
@@ -442,6 +505,18 @@ performance, security, usability, compatability...
 
 \subsection{Referenz-System}
 
+Als Referenz-System wird ein vereinfachtes Modell eines Online-Shops, beispielhaft \textit{Kongo} genannt, herangezogen. Das Model in der Barrakuda-Sprache sieht folgendermaßen aus:
+
+\lstinputlisting{../ReferenceSystem/.mdsd/referencesystem.barrakuda}
+
+Das Referenz-System besteht aus 3 Services, dem \textit{shoppingcart}-Service, dem \textit{ordering}-Service und dem \textit{warehouse}-Service. Im \textit{warehouse} werden alle verfügbaren Produkte des Online-Shops verwaltet. Wenn ein Kunde nun eines der Produkte bestellen möchte, wird eine Anfrage an den \textins{shoppingcart}-Service gesendet, die die OID des Produktes, sowie die gewünschte Anzahl enthält.
+
+Wenn ein Kunde dann eine Bestellung aufgeben möchte, geht eine Anfrage mit der OID des virtuellen Einkaufswagens an den \textit{ordering}-Service, der zusätzlich Schnittstellen zum erstellen einer Rechnung, sowie zum stornieren einer Bestellung bietet.
+
+Der mit generierte Authentifizierungsservice dient als Kundenverwaltung.
+
+Wichtig ist, dass im Referenz-System keinerlei Logik zu den modellierten Geschäftsanwendungen implementiert wird, sondern lediglich die im Abschnitt~\ref{sec:testingms} angesprochenen Testmethoden.
+
 \subsubsection{Komponenten und Aufbau}
 
 \subsubsection{Implementierung des Systems}
@@ -449,6 +524,11 @@ performance, security, usability, compatability...
 \subsubsection{Implementierung der Tests}
 
 \subsection{Übernahme der Referenz-Implementierung in Barrakuda-Templates}
+
+% ----------------------------------------------------------------------------------------------------------
+% Fazit
+% ----------------------------------------------------------------------------------------------------------
+\section{Fazit}
 
 % ----------------------------------------------------------------------------------------------------------
 % Literatur
