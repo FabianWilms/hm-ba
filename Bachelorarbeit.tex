@@ -52,7 +52,7 @@
 % Eigene Befehle
 % ----------------------------------------------------------------------------------------------------------
 
-%Image Command
+% Image Command
 % #1 IMAGE File
 % #2 Caption
 \newcommand{\image}[2]{
@@ -63,6 +63,16 @@
 		\captionof{figure}{#2}
 		\label{fig:#1}
 	\end{minipage}
+}
+
+% Quote Command
+% #1 Quote Text
+\newcommand{\myquote}[1]{
+	\begin{quote}
+		\begin{itshape}
+			\enquote{#1}
+		\end{itshape}
+	\end{quote}
 }
 %-------------
 
@@ -223,34 +233,32 @@ Umso früher Fehler entdeckt und bemerkt werden, umso weniger kostet es auch die
 
 Somit sorgt das Bug-Fixing in Produktivsystemen, also das Beheben sogenannter \textit{field defects}, für einen der größten Kostenfaktoren. Wurde in den ersten Phasen eines Projekts nicht viel, oder kein Wert auf eine ausreichende Test-Abdeckung gelegt schaffen es viele Fehler in die Produktivsysteme der Hersteller. Doch werden diese Fehler erst im laufenden Betrieb beim Kunden festgestellt, ist es bereits zu spät. Robert N. Charette kritisiert eben dies in seinem Artikel \textit{Why Software Fails}\cite{charette}.
 
-\begin{quote}
-	\begin{itshape}
-		If the software coders don't catch their omission until final system testing--or worse, until after the system has been rolled out--the costs incurred to correct the error will likely be many times greater than if they'd caught the mistake while they were still working on the initial [...] process.
-	\end{itshape}
-\end{quote}
+\myquote{If the software coders don't catch their omission until final system testing--or worse, until after the system has been rolled out--the costs incurred to correct the error will likely be many times greater than if they'd caught the mistake while they were still working on the initial [...] process.}
 
 Die Lösung sollte also sein, viel Zeit und Geld in gute Softwarequalität zu investieren. Jedoch stehen, wie bereits am Anfang der Einleitung erwähnt, Projektleiter und ihre Mitarbeiter unter hohem zeitlichen Druck vom Kunden oder durch andere beteiligte festgelegte Termine einzuhalten. Und gute Tests kosten neben Geld auch Zeit. Es entsteht in dieser Zeit aber kein Fortschritt an der Funktionalität der Software.
 
-Bei it@M, dem Eigenbetrieb der Landeshauptstadt München, ist eine hohe Testabdeckung daher Teil der Definition of Done [citation needed] von Softwareprojekten. Im Kommunalen Umfeld sind die zeitlichen Restriktionen noch einmal stärker zu gewichten als in der freien Wirtschaft. Viele Projekte werden aufgrund von anstehenden Gesetzesänderungen ins Leben gerufen und müssen mit Inkrafttreten der neuen Regelungen in Produktion gehen. it@M ist somit ständig auf der Suche nach Lösungen, die den Entwicklungs- und Testprozess beschleunigen, um die geringe Zeit möglichst effizient nutzen zu können.
+Bei it@M, dem IT-Dienstleister der Landeshauptstadt München, ist eine hohe Testabdeckung daher Teil der Definition of Done [citation needed] von Softwareprojekten. Im Kommunalen Umfeld sind die zeitlichen Restriktionen noch einmal stärker zu gewichten als in der freien Wirtschaft. Viele Projekte werden aufgrund von anstehenden Gesetzesänderungen ins Leben gerufen und müssen mit Inkrafttreten der neuen Regelungen in Produktion gehen. it@M ist somit ständig auf der Suche nach Lösungen, die den Entwicklungs- und Testprozess beschleunigen, um die geringe Zeit möglichst effizient nutzen zu können.
 
 Eine dieser Lösungen wurde im letzten Jahr von Martin Kurz im Rahmen seiner Masterarbeit \cite{mkthesis} geplant und entwickelt. Die Model-driven Software Development Lösung Barrakuda \footnote{Github Repository von Barrakuda (https://github.com/xdoo/mdsd)}. Diese bietet den Entwicklern von it@M die Möglichkeit anhand von einer vorgegebenen Domänen-spezifischen Sprache Microservice-Architekturen zu modellieren und diese zu generieren.
 
 Im Rahmen dieser Arbeit soll eine Erweiterung von Barrakuda geplant und entwickelt werden. Diese Weiterentwicklung soll einen Großteil verschiedener Testmethoden für diese Architektur generieren und die benötigte Entwicklungszeit für eine hohe Testabdeckung möglichst stark reduzieren.
 
-Zunächst wird die Microservice Architektur im generellen und anschließend im speziellen anhand der von it@M Vorgegebene Architektur genauer erläutert und die zu testenden Komponenten identifiziert.
+Zunächst werden die Microservice Architektur (Kapitel~\ref{ch:ms-arch}) und der Monolithischen Architekturstil (Kapitel~\ref{ch:mon-arch}) beschrieben und bezüglich ihrer Vor- (Kapitel~\ref{ch:ms-mon-pro}) und Nachteile (Kapitel~\ref{ch:ms-mon-cons}) verglichen. Anschließend wird ein praktisches Beispiel anhand der von it@M Vorgegebene Microservice-Architektur gezeigt und die zu testenden Komponenten identifiziert.
 
-Anschließend werden bekannte Methoden zum Testen von Software analysiert und in Hinblick der Umsetzungsmöglichkeit im generativen Ansatz geprüft. Zusätzlich werden alternative Methoden, die besonders im Bereich der Microservices anzutreffen sind, ebenfalls untersucht.
+Schließlich werden bekannte Methoden zum Testen von Software analysiert (Kapitel~\ref{ch:soft-test}) und es werden alternative Methoden, die besonders im Bereich der Microservices anzutreffen sind, ebenfalls untersucht (Kapitel~\ref{ch:ms-test}). Diese werden dann in Hinblick der Umsetzungsmöglichkeit im generativen Ansatz geprüft (Kapitel~\ref{ch:ms-gen-test})  und es werden Frameworks die zur Implementierung genutzt werden sollen definiert(Kapitel~\ref{ch:ms-test-frw}) .
 
-Schließlich sollen Anforderungen, die an die zu generierenden Tests gestellt werden festgehalten werden, die im letzten Abschnitt, der Implementierung, Beachtung finden werden.
+Schließlich sollen Anforderungen, die an die zu generierenden Tests gestellt werden (Kapitel~\ref{ch:anforderungen-tests}), festgehalten werden. Diese finden dann im letzten Abschnitt, der Implementierung, Beachtung (Kapitel~\ref{ch:implementierung}).
 
 % ----------------------------------------------------------------------------------------------------------
 % Architektur-Generierung für Software-Projekte
 % ----------------------------------------------------------------------------------------------------------
 \section{Architekturvergleich Microservice und Monolith}
 
-Sam Newman stellt in seinem Buch \textit{Building Microservices} einige Vorteile dar, die Microservices gegenüber Monolithischen Architekturen bieten. Um diese Vorteile besser zu verstehen muss man zunächst die Unterschiede der zwei Arten im Detail betrachten.
+Architekturen gibt es in der Welt der Softwareentwicklung viele. Eine der momentan bekanntesten Neuerungen an den Whiteboards der IT-Architekten ist die "Microservice" Architektur. Viele kleine Services die im Konglomerat für ein gemeinsames Ziel zusammenarbeiten. Vorbei sein soll die Zeit der Monolithischen Softwaresysteme, bei denen die Gesamtlogik in einer einzigen Anwendung gekapselt ist.
 
-\subsection{Microservice Architektur}
+Sam Newman stellt in seinem Buch \textit{Building Microservices} einige Vorteile dar, die Microservices gegenüber Monolithischen Architekturen bieten. Doch um diese Vorteile besser zu verstehen muss man zunächst die Unterschiede der zwei Architekturstile im Detail betrachten.
+
+\subsection{Microservice Architektur}\label{ch:ms-arch}
 
 Um die Vorteile dieser Architektur in einem System effektiv zu nutzen gibt es bereits in der Planung einiges zu beachten.
 
@@ -267,13 +275,9 @@ Sie lassen sich gut am Beispiel eines Online-Shops zeigen. Wenn ein Online-Shop 
 
 Eine Kontextgrenze soll also eine logische Grenze darstellen, welche eventuell über eine oder mehrere Schnittstellen verfügt, die festlegen, welche Informationen mit anderen Kontexten geteilt werden.\cite[S.65]{buildingms}. Damit einher geht die Unterscheidung zwischen geteilten und versteckten Modellen. Versteckte Modelle werden innerhalb einer Kontextgrenze benötigt, sind aber für andere Kontexte uninteressant. Geteilte Modelle hingegen werden über die Grenzen hinweg freigegeben. Sind solche Kontextgrenzen für eine Software modelliert, lassen sich aus diesen sehr leicht Microservices ableiten, da bereits einige Grundvoraussetzungen getroffen sind: Lose Kopplung und Starker Zusammenhalt.\cite[S.68]{buildingms}
 
-\begin{quote}
-	\begin{itshape}
-		[I]f our service boundaries align to the bounded contexts in our domain, and our microservices
-		represent those bounded contexts, we are off to an excellent start in ensuring that our microservices
-		are loosely coupled and strongly cohesive.\cite{buildingms}
-	\end{itshape}
-\end{quote}
+\myquote{[I]f our service boundaries align to the bounded contexts in our domain, and our microservices
+	represent those bounded contexts, we are off to an excellent start in ensuring that our microservices
+	are loosely coupled and strongly cohesive.\cite{buildingms}}
 
 \subsubsection{Kommunikation zwischen Services}
 
@@ -284,7 +288,8 @@ Dies birgt natürlich viele Probleme. Jede noch so kleine Änderung an der "Logi
 
 Des Weiteren ist die technologische Einschränkung ein großer Nachteil. Wenn es auch in den ersten Schritten der Planung und Entwicklung Sinnvoll erscheint eine relationale Datenbank zu verwenden, können spätere Geschäftsentscheidungen oder neu auftretende Probleme den Einsatz einer Graphdatenbank sinnvoller machen. Bei einer geteilten Datenbank eine solche Änderung durchzuführen ist sehr schwierig\cite[S.85]{buildingms}.
 
-\paragraph{\acf{RPC}s}\label{rpcpara} sind eine weitere bekannte Kommunikationsmöglichkeit. Ein Vorteil von RPC ist, dass es sehr einfach und schnell möglich ist Methoden der Services für Clients und andere Services Verfügbar zu machen. Über die Kommunikation muss man sich nahezu keine Gedanken machen\cite[S.91]{buildingms}.
+\paragraph{\acf{RPC}s}\label{rpcpara} sind eine weitere bekannte Kommunikationsmöglichkeit. Die Übersetzung ins deutsche erklärt schon einen Großteil der Idee hinter \ac{RPC}s: "Aufruf einer fernen Prozedur". \ac{RPC}s sind eine weitere Möglichkeit eine Client-Server-Modell umzusetzen. Die erste Idee dazu kam im Jahre 1976 von James White in seinem RFC \#707 \enquote{A High-Level Framework for Network-Based Resource Sharing}\cite{white707}. Ein \ac{RPC} funktioniert, indem der Client einer Anwendung eine Anfrage an einen Server sendet. In dieser Anfrage ist der Name oder die ID einer Methode, sowie die zugehörigen Parameter enthalten. Der empfangende Server führt die gewünschte Methode bei sich aus und liefert dem Client als Antwort den Rückgabewert der Methode.
+Ein Vorteil von RPC ist, dass es sehr einfach und schnell möglich ist Methoden der Services für Clients und andere Services Verfügbar zu machen. Über die Kommunikation muss man sich nahezu keine Gedanken machen\cite[S.91]{buildingms}.
 
 Doch die Nachteile überwiegen schnell und deutlich. Je nach Implementierung führt die Verwendung von RPC zu einer starken Bindung an eine bestimmte Sprache (bekanntestes Beispiel Java RMI). Auch verstecken RPC-Implementierungen die Komplexität der entfernten Aufrufe. Dies kann zu starken Performance-Problemen führen, wenn Entwickler an Interfaces arbeiten, von denen sie denken es seien lokale Methoden\cite[S.93]{buildingms}.
 
@@ -317,11 +322,11 @@ Mit der Verwendung von HATEOAS reicht es, wenn alle Clients die Kundendaten und 
 
 \paragraph{JSON oder XML?} 
 
-Wenn die Entscheidung über den Weg der Kommunikation gefallen ist muss das Datenformat festgelegt werden. JSON und XML sind dabei die bekanntesten Namen. In den vergangenen Jahren ist dabei die Verwendung von XML im Gegensatz zu JSON in APIs zurückgegangen\cite{duvander2}. Jedoch bieten beide Vor- wie Nachteile. JSON ist das einfachere Format und auch leichtgewichtiger, während XML einige sinnvolle Features wie z.B. link control (insbesondere für HATEOAS interessant) oder auch das extrahieren von Teilinformationen durch Standards wie in etwa XPATH\cite[S.101]{buildingms}.
+Wenn die Entscheidung über die Art und Weise der Datenübertragung gefallen ist muss das Datenformat festgelegt werden. JSON und XML sind dabei die bekanntesten Namen. In den vergangenen Jahren ist dabei die Verwendung von XML im Gegensatz zu JSON in APIs zurückgegangen\cite{duvander2}. Jedoch bieten beide Vor- wie Nachteile. JSON ist das einfachere Format und auch leichtgewichtiger, während XML einige sinnvolle Features wie z.B. link control (insbesondere für HATEOAS interessant) oder auch das extrahieren von Teilinformationen durch Standards wie in etwa XPATH\cite[S.101]{buildingms}.
 
 \paragraph{Authentifizierung} todo
 
-\subsection{Monolithische Architektur}
+\subsection{Monolithische Architektur}\label{ch:mon-arch}
 
 Monolithische Software stellt das Gegenteil zu Microservices dar. Eine Monolithische Anwendung vereint die Gesamtlogik in einer einzigen Laufzeitumgebung und ist dadurch meist sehr groß. Die Aufteilung der Logik innerhalb der Anwendung findet nur auf Entwickler-Ebene statt. So zum Beispiel durch Packages in Java, oder Libraries die unabhängig voneinander kompiliert und entwickelt werden können, aber dennoch am Ende eine große Anwendung bilden.
 
@@ -342,7 +347,7 @@ Auch wenn die Skalierung in der Theorie sehr einfach funktionieren sollte, tut s
 
 Der letzte große Nachteil tritt häufig erst lange nach Entwicklungsbeginn auf. Die Anwendung ist gewachsen und neue Features werden verlangt, doch die zu Beginn eingesetzte Sprache ist für bestimmte Einsatzzwecke nur schlecht zu gebrauchen. Doch man ist durch den monolithischen Ansatz gebunden. Auch kann es passieren, dass die Aktualisierung auf neuere Sprachversionen nicht mehr, oder nur schwer möglich wird. Alles durch die größe der Applikation. Im schlimmsten Fall wird der Support für die aktuell verwendete Sprache eingestellt.\cite{richardson}
 
-\subsection{Vorteil von Microservices gegenüber Monolithen}
+\subsection{Vorteile von Microservices gegenüber Monolithen}\label{ch:ms-mon-pro}
 
 Als Vorteile der Microservice-Architektur lassen sich nun folgende Punkte, die Newman in seinem Buch nahelegt bestätigen\cite{buildingms}:
 
@@ -360,6 +365,8 @@ Auch optimieren Microservices die Austauschbarkeit. Die kleinen abgegrenzten Sys
 
 Dies sind einige der Gründe, warum it@M nun mehr auf die Microservice Architektur setzen möchte. Sie behandelt einen Großteil der Probleme, die bei bestehenden Systemen der Landeshauptstadt in der Vergangenheit aufgetreten sind.
 
+\subsection{Nachteile von Microservices gegenüber Monolithen}\label{ch:ms-mon-cons}
+
 \subsection{Vorgegebene Architektur der \acf{LHM}}
 
 Die Entscheidungen, welche Technologien und Architekturen verwendet werden sind bereits von it@M getroffen worden. Die vorgegebene Microservice-Architektur verwendet das Spring-Framework. Auslöser dafür ist, dass bei it@M größtenteils Java-Entwickler arbeiten und diese bereits mit Java EE viel Erfahrung gesammelt haben. Da das Spring-Framework auf viele Konzepte von Java EE aufbaut, erleichtert dies den Einstieg in die Microservice-Welt für kommende Entwicklungen.
@@ -376,13 +383,7 @@ Clients können mit der Domäne über ein API-Gateway kommunizieren (Netflix Zuu
 
 Auch werden Docker-Konfigurationen verwendet, um die Continous Delivery mithilfe eines Container-Frameworks zu ermöglichen.
 
-\vspace{1em}
-\begin{minipage}{\linewidth}
-	\centering
-	\includegraphics[width=0.9\linewidth]{images/img_arch-stadt-gesamt.pdf}
-	\captionof{figure}[Architekturvorgabe it@M]{Architekturvorgabe it@M}
-	\label{fig:img_arch-stadt-gesamt}
-\end{minipage}
+\image{images/img_arch-stadt-gesamt.pdf}{Architekturvorgabe it@M}
 
 Intern sehen die generierten komponenten so aus:
 
@@ -396,17 +397,13 @@ Intern sehen die generierten komponenten so aus:
 
 \subsubsection{Webservice}
 
-\subsection{Unterschiede zwischen Microservices und Monolith-Architekturen}
-
-\subsubsection{Auswirkungen}
-
 % ----------------------------------------------------------------------------------------------------------
 % Software Testen
 % ----------------------------------------------------------------------------------------------------------
 
 \section{Software Testen}
 
-\subsection{Bekannte Testmethoden}
+\subsection{Bekannte Testmethoden}\label{ch:soft-test}
 
 \begin{comment}
 performance, security, usability, compatability...
@@ -420,7 +417,7 @@ performance, security, usability, compatability...
 \end{minipage}
 \end{comment}
 
-\subsection{Testen von Microservices}
+\subsection{Testen von Microservices}\label{ch:ms-test}
 \label{sec:testingms}
 
 \paragraph{Unit Tests}
@@ -485,14 +482,14 @@ performance, security, usability, compatability...
 \end{minipage}
 \end{comment}
 
-\subsubsection{Sinnvolle Teststrategien für den generativen Ansatz}
+\subsubsection{Sinnvolle Teststrategien für den generativen Ansatz}\label{ch:ms-gen-test}
 
-\subsubsection{Frameworks zum Umsetzen von Test-Strategien}
+\subsubsection{Frameworks zum Umsetzen von Test-Strategien}\label{ch:ms-test-frw}
 
 % ----------------------------------------------------------------------------------------------------------
 % Anforderungen an generierte Tests
 % ----------------------------------------------------------------------------------------------------------
-\section{Anforderungen an generierte Tests}
+\section{Anforderungen an generierte Tests}\label{ch:anforderungen-tests}
 
 \subsection{Benötigte Daten}
 
@@ -501,7 +498,7 @@ performance, security, usability, compatability...
 % ----------------------------------------------------------------------------------------------------------
 % Implementierung in Barrakuda
 % ----------------------------------------------------------------------------------------------------------
-\section{Implementierung in Barrakuda}
+\section{Implementierung in Barrakuda}\label{ch:implementierung}
 
 \subsection{Referenz-System}
 
@@ -534,8 +531,8 @@ Wichtig ist, dass im Referenz-System keinerlei Logik zu den modellierten Geschä
 % Literatur
 % ----------------------------------------------------------------------------------------------------------
 \renewcommand\refname{Quellenverzeichnis}
-\bibliographystyle{bibstyle}
-\bibliography{bibfile}
+\bibliographystyle{settings/bibstyle}
+\bibliography{settings/bibfile}
 \pagebreak
 
 % ----------------------------------------------------------------------------------------------------------
