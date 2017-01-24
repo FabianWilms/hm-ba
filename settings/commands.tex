@@ -1,0 +1,27 @@
+% ----------------------------------------------------------------------------------------------------------
+% Eigene Befehle
+% ----------------------------------------------------------------------------------------------------------
+
+% Image Command
+% #1 IMAGE File
+% #2 Caption
+\newcommand{\image}[2]{
+	\vspace{1em}
+	\begin{minipage}{\linewidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{#1}
+		\captionof{figure}{#2}
+		\label{fig:#1}
+	\end{minipage}
+}
+
+% Quote Command
+% #1 Quote Text
+\newcommand{\myquote}[1]{
+	\begin{quote}
+		\begin{itshape}
+			\enquote{#1}
+		\end{itshape}
+	\end{quote}
+}
+%-------------
