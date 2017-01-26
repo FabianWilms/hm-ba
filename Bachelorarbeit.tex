@@ -294,20 +294,19 @@ Zu guter Letzt findet im Compatibility Test die Prüfung statt, ob die Anwendung
 
 Durch einige spezielle Eigenschaften von Microservices ergeben sich teilweise auch spezielle Testanforderungen die in der Entwicklung von Tests Beachtung finden müssen. 
 
-%todo schreiben...
+%todo mehr schreiben...
+
+Toby Clemson hat im Jahr 2004 einen Vortrag über Test-Strategien in einer Microservice-Architektur gehalten.\cite{clemson} In dieser Präsentation geht er insbesondere auf die möglichen Herangehensweisen ein, die notwendig sind um die zusätzliche Komplexität beim Testen solcher Anwendungen zu regeln.
 
 \paragraph{Unit Testing}
 
-Auch bei Microservices beginnt das Testen eines Gesamtsystems auf der niedrigsten Schicht. Diese unterscheidet
-
-%todo schreiben...
+Auch bei Microservices beginnt das Testen eines Gesamtsystems auf der niedrigsten Schicht. Auch hier gilt es, dass Unit Tests generell auf Klassen-Level geschrieben werden.\cite{clemson} Im Falle des Architekturmodells von it@M beschränken sich Unit Tests auf das Testen der Geschäftslogik, sowie der verschiedenen Listenern. Die Repositories und Entitäten sind durch das verwendete Framework nicht mit reinen Unit Tests testbar, sondern werden in den folgenden Integrationstests durch Mocking getestet.
 
 \image{images/img_unit-testing.pdf}{Unit Testing Scope \cite{clemson}}
 
 \paragraph{Integration Testing}
 
-hier kommt noch text hin
-%todo schreiben...
+An dieser Stelle ist die Kernfunktionalitäten der Services, also die Stellen, an denen nicht reiner Code zur Persistierung und Bereitstellung von Schnittstellen, sichergestellt. Doch die korrekte Zusammenarbeit der getesteten Komponenten ist noch nicht gewährleistet. Bei den Integrationstests werden nun mehrere Module zusammengefasst um das Zusammenspiel dieser Komponenten zu testen.\cite{clemson} Auch hier wird also nicht vom Regelfall aus Kapitel \ref{ch:soft-test} abgewichen. Auch wird in diesem Stadium das Zusammenspiel des Data Mappers und der angebundenen Datenbank, sowie die daraus resultierenden Ressourcen auf Korrektheit geprüft. Wichtig an dieser Stelle ist es, aufgrund der fortschrittlichen implementierung von modernen \acp{ORM}, sicherzustellen dass die Testdaten nicht nur temporär vorgehalten wurden, sondern tatsächlich in die Datenbank geschrieben und von dort herausgelesen wurden, um etwaige Fehler auf diesen Schichten auszuschließen.\cite{clemson}
 
 \image{images/img_integration-testing.pdf}{Integration Testing Scope \cite{clemson}}
 
@@ -316,21 +315,26 @@ hier kommt noch text hin
 Unit- und Integrationstests sorgen dafür, dass an dieser Stelle bereits Sichergestellt ist, dass die Logik in den einzelnen Komponenten garantiert so funktioniert wie sie beabsichtigt ist. Doch ist dies der Punkt, an dem sich das Testen von Microservices vom Testen von Monolithen unterscheidet. Nur, weil der getestete Service alle Anforderungen erfüllt, gilt dies noch nicht für die Services zu denen Abhängigkeiten bestehen.
 Das Problem an dieser Stelle: End-to-End-Tests, also Tests bei denen die gesamte Domäne gestartet und getestet wird sind sehr aufwändig und bieten nur sehr lange Feedback-Zyklen, im Gegensatz zu automatisierten Testmethoden.\cite{clemson}
 
-Komponententests treten an dieser Stelle ein. %todo schreiben...
+Component testing tritt an dieser Stelle ein. Es eignet sich besonders gut für Microservice Architekturen, da die sich diese leicht in die getrennt zu testenden Komponenten aufteilen lassen: Jeder Service entspricht einer Komponente. Externe Kommunikationspartner können durch \textit{test doubles} ersetzt werden, dadurch wird eine Isolierung des Service für den Test sichergestellt.\cite{clemson}
 
-\image{images/img_component-testing.pdf}{Component Testing Scope \cite{clemson}}
+%todo bild überarbeiten
+%\image{images/img_component-testing.pdf}{Component Testing Scope \cite{clemson}}
+
+Bei Services die komplexere Integrations- oder Bootlogik besitzen kann es auch sinnvoll sein die test doubles durch externe stubs von den benötigten Services zu ersetzen. Dadurch wird die Testlogik zwar zu teilen in den Test-Harnisch, der für die korrekte Ausführung der Tests verantwortlich ist, geschoben, doch können zusätzliche Fehlerquellen durch die Verwendung von echten Netzwerkanfragen erkannt werden. Zu beachten ist jedoch, dass sich dadurch auch die Zeit der Testausführung erhöhen kann.\cite{clemson}
 
 \paragraph{Contract Testing}
 
-hier kommt noch text hin
-%todo schreiben...
+Durch die Kombination von unit-, integration- und component testing ist bereits eine hohe Abdeckung der Module eines Microservice erreicht und es ist sichergestellt, dass der Service die Geschäftslogik korrekt implementiert hat. Doch für das Gesamtsystem reicht dies nicht aus. Der wahre Wert der Anwendung entsteht erst durch das Zusammenspiel der verschiedenen Services und in dem Gesamtbild, welches diese Formen. Momentan ist nicht durch Tests sichergestellt, dass externe Komponenten die eigenen Anforderungen so erfüllen wie diese gewünscht sind, oder dass alle Services der Domäne einwandfrei zusammenspielen.\cite{clemson} Um diese Lücken zu schließen bieten contract testing und end-to-end testing abhilfe.
+
+
+%todo fertig schreiben...
 
 \image{images/img_contract-testing.pdf}{Contract Testing \cite{clemson}}
 
 \paragraph{End-To-End Testing}
 
 hier kommt noch text hin
-%todo schreiben...
+%todo fertig schreiben...
 
 \image{images/img_end-to-end-testing.pdf}{End-To-End Testing Scope \cite{clemson}}
 
