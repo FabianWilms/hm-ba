@@ -56,7 +56,7 @@ Das ganze auf Englisch.
 % ----------------------------------------------------------------------------------------------------------
 \section{Einführung und Motivation}
 
-IT nimmt sowohl im privaten als auch geschäftlichen Alltag eine immer größere Rolle ein. Die Übernahme von Bereichen, die ehemals als nicht durch Computer austauschbar erachtet wurden, schreitet immer weiter fort. Doch dadurch steigen nicht nur bestehende Anforderungen an Software, sondern es entstehen auch neue Kriterien an die Qualität. Sobald Türklingeln, Alarmanlagen und Schließanlagen \textit{smart} werden, ist die Fehlertoleranz gleich null. Ganz abgesehen davon steigt auch die Komplexität von modernen Software-Systemen immens an.
+IT nimmt sowohl im privaten als auch geschäftlichen Alltag eine immer größere Rolle ein. Die Übernahme von Bereichen, die ehemals als nicht durch Computer austauschbar erachtet wurden, schreitet immer weiter fort. Doch dadurch steigen nicht nur bestehende Anforderungen an Software, sondern es entstehen auch neue Kriterien an die Qualität. Sobald Türklingeln, Alarmanlagen und Schließanlagen \textit{smart} werden, ist die Fehlertoleranz gleich null. Es ist bereits zu schwerwiegenden Unfällen, wie etwas Flugzeugabstürzen bekommen.\cite{pantesting} Ganz abgesehen davon steigt auch die Komplexität von modernen Software-Systemen immens an, auch weil dies von den Nutzern der Anwendungen durch den Wunsch an neuen Features gefordert wird.\cite{pantesting}.
 
 Mit steigender Komplexität und höherer Nachfrage am Markt, sowie engen Zeitplänen für Projekte wird leider häufig aus Zeit- und Kostengründen auf Qualität nur geringfügig Rücksicht genommen. Zunächst verursacht eine gute Software-Qualität nämlich Mehrkosten. Personelle wie zeitliche. Dies zeigt das Magische Dreieck, oder im englischen das Project Management Triangle.
 
@@ -255,17 +255,9 @@ Der Configuration Service aktualisiert bei Bedarf die Einstellungen aller beteil
 
 \image{images/img_arch-stadt-gesamt-full.pdf}{Kommunikation innerhalb der Architektur}
 
-Intern sehen die generierten Komponenten so aus:
+Jeder Service der Anwendung hat intern eine gleiche Aufteilung. Nach außen werden, REST-konform, nur die Ressourcen über \acp{URI} angeboten. Diese Ressourcen bestehen entweder aus Entitäten oder Geschäftsanwendungen. Entitäten werden über sogenannte Repositories als Ressource bereitgestellt und über eine ORM-Bibliothek in einer Datenbank persistiert. Zum zusätzlichen Eingriff durch Entwickler können, kann auf verschiedene Events mithilfe von Listenern reagiert werden. Zur Kommunikation mit anderen Services existiert ein \textit{Security REST Client}, der die Kommunikation mit anderen Services durch Verwendung des Discovery und Authentication Service so einfach wie möglich machen soll. 
 
-\subsection{Authentifizierungsservice}
-
-\subsection{Discoveryservice}
-
-\subsection{Configurationservice}
-
-\subsection{Service}
-
-\subsection{Edge Server}
+\image{images/img_architecture_testing.pdf}{Aufbau eines Service innerhalb der it@M-Architektur}
 
 % ----------------------------------------------------------------------------------------------------------
 % Software Testen
@@ -275,82 +267,72 @@ Intern sehen die generierten Komponenten so aus:
 
 \subsection{Bekannte Testmethoden}\label{ch:soft-test}
 
-\begin{comment}
-performance, security, usability, compatability...
+Das Testen von Software ist der Prozess, ein Programm auszuführen mit dem Ziel Fehler zu finden und zu beheben. Im Gegensatz zu physikalischen Systemen kann Software auf unterschiedliche und unvorhersehbare Weisen defekte aufweisen.\cite{pantesting} Dies liegt unter anderem daran, dass die viele Fehler in Anwendungen nicht durch Fehler in Produktionsabläufen, sondern durch falsche oder schlechte Design-Entscheidungen entstehen.\cite{pantesting}
 
-\vspace{1em}
-\begin{minipage}{\linewidth}
-	\centering
-	\includegraphics[width=0.9\linewidth]{images/img_testmethods_functional.pdf}
-	\captionof{figure}[Bekannte Testmethoden]{Bekannte Testmethoden}
-	\label{fig:img_testmethods_functional}
-\end{minipage}
-\end{comment}
+Zunächst kann das Testen von Software in Funktionale und nicht-funktionale Tests getrennt werden. Zur weiteren Erklärung müssen zunächst die Begriffe der funktionalen und nicht-funktionalen Anforderungen beschrieben werden. Einfach gesagt beschreiben funktionale Anforderungen \textit{was} das System tun sollte (Kundenanforderungen) und nicht-funktionale Anforderungen \textit{wie} das System funktioniert(Technische Anforderungen).\cite{erikssonreq} 
+
+\image{images/img_testmethods.pdf}{Funktionale und nicht-funktionale Testmethoden}
+
+Funktionale Tests beschäftigen sich nur mit den funktionalen Anforderungen einer Anwendung und stellen fest, ob, und wie gut diese Anforderungen erfüllt werden.\cite{erikssontesting}. Funktionales Testen wird häufig in vier Komponenten aufgeteilt, die auch meist in Reihenfolge abgearbeitet werden.\cite{inflectra}
+
+\begin{description}
+	\item[Unit Tests] testen einzelne Module einer Software und werden meist direkt vom Entwickler dieses Teilmoduls implementiert. Sie bewegen sich meist auf Klassenebene um die Komponenten so klein  wie möglich zu halten. In testgeleiteten Programmierparadigmen werden diese Tests bereits vor der Implementierung der eigentlichen Komponente umgesetzt.\cite{inflectra}
+	\item[Integration Tests] sind der nächste Schritt, wenn mehrere Komponenten durch Unit Tests abgedeckt sind. Diese getesteten Teile der Anwendung werden dann zusammengeführt und ihre Zusammenarbeit wird geprüft.\cite{inflectra}
+	\item[System Tests] testen abschließend das Gesamtsystem. Also das Zusammenspiel aller Unit- und Integrationsgetesteten Teilkomponenten.\cite{inflectra}
+	\item[Acceptance Tests] sollen sicherstellen, dass alle Produkt und Projekt-Anforderungen zur Zufriedenheit des Kunden erfüllt wurden. Sie stellt die finale Phase der funktionalen Tests dar.\cite{inflectra}
+\end{description}
+
+\image{images/img_testmethods_functional.pdf}{Umfang der verschiedenen Testmethoden}
+
+Nicht-funktionales Testen evaluiert die \textit{Bereitschaft} des Systems.\cite{erikssontesting} Beispielsweise wird durch Performance-Tests festgestellt, wie gut eine Anwendung mit vielen Anfragen umgehen kann.\cite{inflectra}
+Das Security Testing konzentriert sich auf das prüfen der Anwendung in Hinblick auf Vertraulichkeit von Informationen, Integrität, Erreichbarkeit und die Authentifizierung.\cite{inflectra}
+Usability Tests sind eine eher objektive Testmethode mit deren Hilfe die Benutzerfreundlichkeit einer Anwendung sichergestellt werden soll. Es wird besonders auf die Erlernbarkeit der Anwendung, Effizienz bei der Nutzung, Zufriedenstellung des Nutzers und Einprägsamkeit Wert gelegt.
+Zu guter Letzt findet im Compatibility Test die Prüfung statt, ob die Anwendung auf allen geforderten Betriebssystemen, Browsern und/oder Hardware-Plattformen lauffähig ist und alle Funktionen sich kongruent verhalten.
 
 \subsection{Testen von Microservices}\label{ch:ms-test}
 \label{sec:testingms}
 
-\paragraph{Unit Tests}
+Durch einige spezielle Eigenschaften von Microservices ergeben sich teilweise auch spezielle Testanforderungen die in der Entwicklung von Tests Beachtung finden müssen. 
 
+%todo schreiben...
 
-\begin{comment}
-\vspace{1em}
-\begin{minipage}{\linewidth}
-	\centering
-	\includegraphics[width=0.9\linewidth]{images/img_unit-testing.pdf}
-	\captionof{figure}[Unit Testing Scope]{Unit Testing Scope \cite{clemson}}
-	\label{fig:img_unit-testing}
-\end{minipage}
-\end{comment}
+\paragraph{Unit Testing}
 
-\paragraph{Integrationstests}
+Auch bei Microservices beginnt das Testen eines Gesamtsystems auf der niedrigsten Schicht. Diese unterscheidet
 
+%todo schreiben...
 
-\begin{comment}
-\vspace{1em}
-\begin{minipage}{\linewidth}
-	\centering
-	\includegraphics[width=0.9\linewidth]{images/img_integration-testing.pdf}
-	\captionof{figure}[Integration Testing Scope]{Integration Testing Scope \cite{clemson}}
-	\label{fig:img_integration-testing}
-\end{minipage}
-\end{comment}
+\image{images/img_unit-testing.pdf}{Unit Testing Scope \cite{clemson}}
 
-\paragraph{Komponententests}
+\paragraph{Integration Testing}
 
-\begin{comment}
-\vspace{1em}
-\begin{minipage}{\linewidth}
-	\centering
-	\includegraphics[width=0.9\linewidth]{images/img_component-testing.pdf}
-	\captionof{figure}[Component Testing Scope]{Component Testing Scope \cite{clemson}}
-	\label{fig:img_component-testing}
-\end{minipage}
-\end{comment}
+hier kommt noch text hin
+%todo schreiben...
+
+\image{images/img_integration-testing.pdf}{Integration Testing Scope \cite{clemson}}
+
+\paragraph{Component Testing}
+
+Unit- und Integrationstests sorgen dafür, dass an dieser Stelle bereits Sichergestellt ist, dass die Logik in den einzelnen Komponenten garantiert so funktioniert wie sie beabsichtigt ist. Doch ist dies der Punkt, an dem sich das Testen von Microservices vom Testen von Monolithen unterscheidet. Nur, weil der getestete Service alle Anforderungen erfüllt, gilt dies noch nicht für die Services zu denen Abhängigkeiten bestehen.
+Das Problem an dieser Stelle: End-to-End-Tests, also Tests bei denen die gesamte Domäne gestartet und getestet wird sind sehr aufwändig und bieten nur sehr lange Feedback-Zyklen, im Gegensatz zu automatisierten Testmethoden.\cite{clemson}
+
+Komponententests treten an dieser Stelle ein. %todo schreiben...
+
+\image{images/img_component-testing.pdf}{Component Testing Scope \cite{clemson}}
 
 \paragraph{Contract Testing}
 
-\begin{comment}
-\vspace{1em}
-\begin{minipage}{\linewidth}
-	\centering
-	\includegraphics[width=0.9\linewidth]{images/img_contract-testing.pdf}
-	\captionof{figure}[Contract Testing]{Contract Testing \cite{clemson}}
-	\label{fig:img_contract-testing}
-\end{minipage}
-\end{comment}
+hier kommt noch text hin
+%todo schreiben...
+
+\image{images/img_contract-testing.pdf}{Contract Testing \cite{clemson}}
 
 \paragraph{End-To-End Testing}
 
-\begin{comment}
-\vspace{1em}
-\begin{minipage}{\linewidth}
-	\centering
-	\includegraphics[width=0.9\linewidth]{images/img_end-to-end-testing.pdf}
-	\captionof{figure}[End-To-End Testing Scope]{End-To-End Testing Scope \cite{clemson}}
-	\label{fig:img_end-to-end-testing}
-\end{minipage}
-\end{comment}
+hier kommt noch text hin
+%todo schreiben...
+
+\image{images/img_end-to-end-testing.pdf}{End-To-End Testing Scope \cite{clemson}}
 
 \subsubsection{Sinnvolle Teststrategien für den generativen Ansatz}\label{ch:ms-gen-test}
 
@@ -372,6 +354,8 @@ performance, security, usability, compatability...
 
 \subsection{Referenz-System}
 
+\subsubsection{Architektur}
+
 Das Referenzsystem basiert auf der in Kapitel~\ref{ch:arch-itm} angesprochenen Architektur. Es wird das Spring-Framework verwendet. Auslöser dafür ist, dass bei it@M größtenteils Java-Entwickler arbeiten und diese bereits mit Java EE viel Erfahrung gesammelt haben. Da das Spring-Framework auf viele Konzepte von Java EE aufbaut, erleichtert dies den Einstieg in die Microservice-Welt für kommende Entwicklungen.
 
 Die Services kommunizieren über eine REST-\ac{API}, die ihre Daten im JSON-Format überträgt. HATEOAS wird über Spring HATEOAS\footnote{\url{http://projects.spring.io/spring-hateoas/}} genutzt.
@@ -385,6 +369,8 @@ Das Problem der Findung von Service wird mithilfe von Netflixs Eureka-Service ge
 Clients können mit der Domäne über ein \ac{API}-Gateway kommunizieren (Netflix Zuul). Dieses öffnet nach außen eine einzige Schnittstelle, über die sowohl eine graphische Nutzeroberfläche aufgerufen, als auch die einzelnen Services kontaktiert werden können. Auch ermöglicht das Gateway den Zugriff auf bestimmte Endpunkte zur sperren, was für die Landeshauptstadt insbesondere für Software interessant ist, die sowohl interne, als auch externe Schnittstellen bieten soll.
 
 Auch werden Docker-Konfigurationen verwendet, um die Continous Delivery mithilfe eines Container-Frameworks zu ermöglichen.
+
+\subsubsection{Beispiel-Anwendung}
 
 Es wird ein vereinfachtes Modell eines Online-Shops, beispielhaft \textit{Kongo} genannt, als Anwendungszweck herangezogen. Das Model in der Barrakuda-Sprache sieht folgendermaßen aus:
 
