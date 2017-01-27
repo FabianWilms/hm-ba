@@ -169,7 +169,7 @@ Mit der Verwendung von HATEOAS reicht es, wenn alle Clients die Kundendaten und 
 
 Wenn die Entscheidung über die Art und Weise der Datenübertragung gefallen ist muss das Datenformat festgelegt werden. JSON und XML sind dabei die bekanntesten Namen. In den vergangenen Jahren ist dabei die Verwendung von XML im Gegensatz zu JSON in \acp{API} zurückgegangen\cite{duvander2}. Jedoch bieten beide Vor- wie Nachteile. JSON ist das einfachere Format und auch leichtgewichtiger, während XML einige sinnvolle Features wie z.B. link control (insbesondere für HATEOAS interessant) oder auch das extrahieren von Teilinformationen durch Standards wie in etwa XPATH\cite[S.101]{buildingms}.
 
-\paragraph{Authorisierung}
+\subsubsection{Authorisierung}
 
 Beim Thema der Clientauthorisierung von Web-\acp{API} ist OAuth2 weit verbreitet [citation needed]. Wichtig ist hierbei die Unterscheidung zwischen Authorisierung und Authentifizierung. OAuth2 bietet keine Möglichkeit der Authentifizierung, also beispielsweise der Frage nach einem Nutzernamen und Passwort, sondern kümmert sich Ausschließlich darum festzustellen, ob ein Nutzer die nötigen Rechte zum durchführen einer bestimmten Operation besitzt.\cite{degges}
 
@@ -326,17 +326,51 @@ Bei Services die komplexere Integrations- oder Bootlogik besitzen kann es auch s
 
 Durch die Kombination von unit-, integration- und component testing ist bereits eine hohe Abdeckung der Module eines Microservice erreicht und es ist sichergestellt, dass der Service die Geschäftslogik korrekt implementiert hat. Doch für das Gesamtsystem reicht dies nicht aus. Der wahre Wert der Anwendung entsteht erst durch das Zusammenspiel der verschiedenen Services und in dem Gesamtbild, welches diese Formen. Momentan ist nicht durch Tests sichergestellt, dass externe Komponenten die eigenen Anforderungen so erfüllen wie diese gewünscht sind, oder dass alle Services der Domäne einwandfrei zusammenspielen.\cite{clemson} Um diese Lücken zu schließen bieten contract testing und end-to-end testing abhilfe.
 
+Contract testing basiert auf der Annahme, dass zwischen einem Konsumenten und einem Produzenten eine Art Vertrag besteht, den der Produzent einzuhalten hat. Dieser Vertrag besteht beispielsweise aus Erwartungen bezüglich In- und Outputs eines Interface. Jeder Konsument hält mit dem Produzenten einen Vertrag der für seinen Anwendungsfall einzuhalten ist. Wenn am Produzenten Änderungen vorgenommen werden, muss sichergestellt sein, dass alle Verträge ihre Gültigkeit behalten, sodass die abhängigen Konsumenten keine Funktionalität einbüßen müssen.\cite{clemson}
 
-%todo fertig schreiben...
+Bei Microservices besteht das im Vertrag festgehaltene Interface aus der öffentlichen \ac{API} dieses Service. Jeder Betreiber eines Konsumierenden Service schreibt eine Testsuite, die unabhängig voneinander nur die verwendeten Schnittstellen des Produzenten prüft. Im Idealfall werden diese Testsuites dann in der build pipeline des produzierenden Service eingebunden, sodass die Entwickler des Produzenten Auswirkungen auf die Konsumenten sofort erkennen können.\cite{clemson}
+
+Diese Art von Test ist nicht gleichzusetzen mit component testing. Es wird nicht die tiefgehende interne Logik eines Service geprüft, sondern lediglich die Erwartungen von in- und outputs sowie die Einhaltung von Latenz und Durchsatz gegenüber der Realität validiert.\cite{clemson}
 
 \image{images/img_contract-testing.pdf}{Contract Testing \cite{clemson}}
 
+Ein großer Vorteil von dieser Vorgehensweise ist der, dass der Produzierende Service viel leichte Änderungen durchführen kann, da er weiß, welche Schnittstellen und Felder von seinen Konsumenten wirklich benötigt werden. So könnte der Produzent aus \ref{fig:images/img_contract-testing.pdf} eine Ressource anbieten die die Felder \textit{id}, \textit{name} und \textit{age} anbietet. Konsument A benötigt nur die \textit{id} und \textit{name}-Felder, somit wird in den contract tests zu Vertrag A auch nur die existenz dieser beiden Felder geprüft. Konsument B benötigt nur das \textit{id} und \textit{age}-Feld, während Konsument C alle Felder benötigt, um korrekt zu funktioniere.\cite{clemson}
+
+Sollte nun ein weiterer Konsument zur Anwendung hinzukommen, der neben dem Vornamen auch einen Nachnamen benötigt, können die Betreiber des Produzenten sich dazu entscheiden, dass alte \textit{name}-Feld als veraltet markieren und ein neues Zusammengesetztes Objekt aus Vor- und Nachname anbieten. Durch die Durchführung aller component tests wird schnell deutlich, dass die Konsumenten A und C von dieser Änderung betroffen und somit informiert werden müssen. Sobald die beiden Konsumenten an die neue Schnittstelle angepasst sind, kann das alte Feld \textit{name} aus der Ressource entfernt werden. Laufen dann alle contract tests ohne Fehler ist die Migration auf die neue Schnittstelle erfolgreich.\cite{clemson}
+
 \paragraph{End-To-End Testing}
 
-hier kommt noch text hin
-%todo fertig schreiben...
+Der letzte Schritt zur Sicherstellung, dass alle funktionalen Anforderungen des Systems erfüllt sind ist das end-to-end testing. Im Gegensatz zu den vorherigen Testmethoden soll durch diese Art von Test festgestellt werden, dass sämtliche Geschäftsanforderungen vom System gelöst werden, unabhängig von der Architektur der verwendeten Komponenten.\cite{clemson}
 
-\image{images/img_end-to-end-testing.pdf}{End-To-End Testing Scope \cite{clemson}}
+Das Gesamtsystem wird für end-to-end tests als black box gesehen und es werden möglichst viele der Aufgaben des Systems über öffentliche Schnittstellen getestet. Da in Microservice-Architekturen aufgrund ihrer hohen Modularität viele Lücken zwischen den Komponenten entstehen, helfen diese Tests auch die Konfigurationen von etwa verwendeter Infrastruktur wie Firewalls, Proxis und Load-Balancern zu testen.\cite{clemson}
+
+Verlangt ein System nach Nutzer-Interaktion kann die durch einen Service bereitgestellte GUI durch die Verwendung von etwa Selenium\footnote{\url{http://www.seleniumhq.org/}} getestet werden. Dazu werden typische Nutzerabläufe, beispielsweise aus user stories, aufgenommen und automatisiert ausgeführt, sodass ein Zusammenspiel des Gesamtsystems nötig ist.\cite{clemson}
+
+Für Systeme die keine Nutzeroberfläche bieten werden direkt die öffentlichen \acp{API} der Services angesprochen um diese zu manipulieren. Dies geschieht durch die Verwendung eines, möglichst automatischen, HTTP-Clients.\cite{clemson}
+
+\image{images/img_end-to-end-testing.pdf}{End-To-End Testing Scope mit externen Abhängigkeiten \cite{clemson}}
+
+Sollte nicht ein Team Komponentenverantwortlich für die Gesamtanwendung sein,  werden bei end-to-end tests auch externe Services mit eingesetzt. Es gibt allerdings Fälle in denen es Sinnvoll sein kann diese aus dem scope zu exkludieren. Bei Abhängigkeiten die nicht einmal mehr in den Händen der Firma selbst, sondern bei Drittanbietern liegen gibt es viele Faktoren, wie etwa die Stabilität der Systeme des Drittanbieters selbst, die die Testergebnisse für das eigene System verfälschen können. In solchen Situationen ist es Sinnvoll, auch in end-to-end tests noch stubs dieser externen Systeme zu verwenden, um sinnvolle Resultate für die eigene Anwendung zu erhalten. Dadurch verliert zwar die Testmethode selbst ein wenig an Vertraulichkeit in Bezug auf die Resultate, jedoch bleiben diese Resultate wenigstens stabil.\cite{clemson}
+
+End-to-end tests haben einen großen Nachteil: Sie sind die tests mit den meisten Faktoren und Komponenten und haben dadurch auch die größte Spanne an möglichen Schwachstellen die zu einem Fehlschlagen der Tests führen können. Dies führt dazu, dass die Laufzeit dieser Tests extrem hoch sein kann und auch das pflegen der Test suites ist mit einem großen Arbeitsaufwand verbunden.\cite{clemson} Daher ist es wichtig beim schreiben eben dieser auf einige Punkte acht zu geben.
+
+\begin{description}
+	\item[So wenige end-to-end tests schreiben wie möglich] Da ein hoher Vertrauensgrad bereits durch die vorhergehenden Teststufen erreicht werden kann, und end-to-end tests nur noch das Zusammenspiel der bereits durchgängig getesteten Komponenten darstellen soll, sollte nicht zu viel Zeit in zu viele Testszenarien gesteckt werden. Am besten ist es, sich ein Zeitbudget zurechtzulegen, welches man bereits ist für die Laufzeit aller end-to-end tests abzuwarten. Sobald das Zeitbudget durch die Laufzeit überschritten wird, sollten die Tests, die am wenigsten Mehrwert bieten detektiert und gelöscht werden. Das Zeitbudge sollte jedoch in Minuten, nicht in Stunden festgelegt sein.\cite{clemson}	
+	
+	\item[Auf user stories und Anwendungsfälle fokusieren] Wenn man sich beim end-to-end testing auf reale Anwendungsfälle der Software beschränkt entsteht auch nicht das Problem, dass zu viele Tests dieses Typs geschrieben werden. Es werden nur die Hauptsituationen in denen sich ein Nutzer wiederfindet geprüft, alle anderen Szenarien werden in den meisten Fällen durch die anderen Testmethoden sichergestellt.\cite{clemson}
+	
+	\item[Sinnvolle definition des scopes] Wie bereits im vorherigen Abschnitt beschrieben, kann es sinnvoll sein externe Services aus dem end-to-end testscope auszuklammern. Dies kann auch für \acsp{GUI} von Vorteil sein, sollten diese Beispielsweise Ungenauigkeiten in den Testergebnissen verursachen. Wie bereits zuvor erwähnt tauscht man die Abdeckung der Tests gegen die Zuverlässigkeit der Ergebnisse.\cite{clemson}
+	
+	\item[Auf \ac{IaC} zur Wiederholbarkeit von Tests setzen] \ac{IaC} ist eine Herangehensweise die, insbesondere in Agilen Entwicklungsteams, für konsistentere Testumgebungen sorgen soll. Wenn Server manuell aufgesetzt und konfiguriert werden, kann dies zu Problemen führen. Es werden bestimmte Versionen von Softwarepaketen installiert, Konfigurationen am System werden vorgenommen etc. Desto mehr dieser von Hand getätigten Schritte führen zur Bildung von Servern, die keinem anderen mehr gleichen. Martin  Fowler bezeichnet diese als \textit{Snowflake Server}\cite{fowlersnow}. Es ist schwer Testumgebungen an die Produktionsumgebungen anzupassen, desto mehr solcher \textit{Schneeflocken} durch das Rechenzentrum treiben. Der Ansatz von \ac{IaC} geht dahin, diese Konfigurationen in Code zu definieren, sodass die Konfiguration der Test- und Produktionsumgebungen in einer Datei festgehalten ist und diese sogar mit der Anwendung selber in einem \acs{VCS} abgelegt werden kann. Auch wird es dadurch möglich, Infrastrukturen bei Änderungen automatisch zu starten und Änderungen an mehreren Systemen gleichzeitig durchführen zu lassen.\cite{fowlersnow}
+	
+	Beim end-to-end testing spielt dies eine große Rolle, da durch \ac{IaC} homogene Laufzeitumgebungen geschaffen werden können, sodass Fehler durch unterschiedlich konfigurierte Server und Systeme ausgeschlossen werden können.\cite{clemson}
+	
+	\item[Tests Datenunabhängig gestalten] Anstatt auf bereits existente Datensätze zu Vertrauen, sollten die end-to-end tests selbst die Möglichkeit zur Erzeugung von Daten über die öffentlichen Schnittstellen der Anwendung nutzen, um bei den Tests ständig mit den gleichen Daten zu arbeiten. Wird dies nicht so umgesetzt, kann es zu fehlerhaften Testergebnissen kommen, die jedoch nicht Fehler in der eigentlichen Anwendung als Ursache haben.\cite{clemson}
+\end{description}
+
+Durch das aufbrechen einer Anwendung in mehrere sauber getrennte Services treten zu teilen neue Grenzen auf, die zuvor wahrscheinlich unentdeckt geblieben werden. Diese neuen Grenzen erlauben es auch, Tests weitaus flexibler zu gestalten, als es bei Monolithen möglich wäre.
+
+Hat ein Service eine immens wichtige Aufgabe im Sinne der Geschäftsanforderungen, ist es sinnvoll die volle Bandbreite an möglichen Testmethoden im höchsten Detailgrad auf diesen Service anzusetzen um sein korrektes Verhalten zu garantieren. Wird allerdings ein weiterer Service betrachtet, der weniger wichtige Aufgaben, oder gar experimentelle Funktionen bereitstellt, kann es Sinn machen, die Entwicklungszeit auf andere Gebiete zu fokussieren und nur ein paar der hier vorgestellten Herangehensweisen zu implementieren.\cite{clemson}
 
 \subsubsection{Sinnvolle Teststrategien für den generativen Ansatz}\label{ch:ms-gen-test}
 
