@@ -56,11 +56,13 @@ Das ganze auf Englisch.
 % ----------------------------------------------------------------------------------------------------------
 \section{Einführung und Motivation}
 
-IT nimmt sowohl im privaten als auch geschäftlichen Alltag eine immer größere Rolle ein. Die Übernahme von Bereichen, die ehemals als nicht durch Computer austauschbar erachtet wurden, schreitet immer weiter fort. Doch dadurch steigen nicht nur bestehende Anforderungen an Software, sondern es entstehen auch neue Kriterien an die Qualität. Sobald Türklingeln, Alarmanlagen und Schließanlagen \textit{smart} werden, ist die Fehlertoleranz gleich null. Es ist bereits zu schwerwiegenden Unfällen, wie etwas Flugzeugabstürzen bekommen.\cite{pantesting} Ganz abgesehen davon steigt auch die Komplexität von modernen Software-Systemen immens an, auch weil dies von den Nutzern der Anwendungen durch den Wunsch an neuen Features gefordert wird.\cite{pantesting}.
+Ziel dieser Arbeit ist es, mithilfe von generativer Testerstellung die Qualität einer Anwendung in Microservice-Architektur steigen zu lassen, ohne dabei die Kosten des Projekts zu erhöhen.
+
+Sowohl im privaten als auch geschäftlichen Alltag nimmt IT eine immer größere Rolle ein. Die Übernahme von Bereichen, die ehemals als nicht durch Computer austauschbar erachtet wurden, schreitet immer weiter fort. Doch dadurch steigen nicht nur bestehende Anforderungen an Software, sondern es entstehen auch neue Kriterien an die Qualität. Sobald Türklingeln, Alarmanlagen und Schließanlagen \textit{smart} werden, ist die Fehlertoleranz gleich null. Auch Autos und medizinische Geräte sind nicht ausgenommen. In diesen Bereichen kann es sogar um Menschenleben gehen. Ganz abgesehen davon steigt auch die Komplexität von modernen Software-Systemen immens an, auch weil dies von den Nutzern der Anwendungen durch den Wunsch an neuen Features gefordert wird.\cite{pantesting}.
 
 Mit steigender Komplexität und höherer Nachfrage am Markt, sowie engen Zeitplänen für Projekte wird leider häufig aus Zeit- und Kostengründen auf Qualität nur geringfügig Rücksicht genommen. Zunächst verursacht eine gute Software-Qualität nämlich Mehrkosten. Personelle wie zeitliche. Dies zeigt das Magische Dreieck, oder im englischen das Project Management Triangle.
 
-\image{images/img_magisches_dreieck.pdf}{Magisches Dreieck des Projektmanagements\cite{hagen}}
+\image{images/img_magisches_dreieck.eps}{Magisches Dreieck des Projektmanagements\cite{hagen}}
 
 Dieses besagt, dass die Qualität eines Projekts durch die drei Faktoren der Leistung, Kosten und Zeit beeinflusst wird. Diese Faktoren müssen vom Management eines Projekts möglichst ausbalanciert gehalten werden. Beispiel anhand des Hausbaus: Vom Bauherren ist ein fester Termin für die Fertigstellung des Hauses angedacht (Faktor Zeit), doch lässt der aktuelle Baufortschritt eine Fertigstellung zum festgelegten Termin nicht mehr zu. Die Lösung wäre, mehr Arbeiter einzustellen und somit den Fortschritt zu beschleunigen. Somit werden zum Ausgleich die Kosten erhöht.
 
@@ -93,9 +95,9 @@ Schließlich sollen Anforderungen, die an die zu generierenden Tests gestellt we
 % ----------------------------------------------------------------------------------------------------------
 \section{Architekturvergleich Microservice und Monolith}
 
-Architekturen gibt es in der Welt der Softwareentwicklung viele. Eine der momentan bekanntesten Neuerungen an den Whiteboards der IT-Architekten ist die "Microservice" Architektur. Viele kleine Services die im Konglomerat für ein gemeinsames Ziel zusammenarbeiten. Vorbei sein soll die Zeit der Monolithischen Softwaresysteme, bei denen die Gesamtlogik in einer einzigen Anwendung gekapselt ist.
+Architekturen gibt es in der Welt der Softwareentwicklung viele. Eine der momentan bekanntesten Neuerungen an den Whiteboards der IT-Architekten ist die \enquote{Microservice} Architektur: Viele kleine Services die im Konglomerat für ein gemeinsames Ziel zusammenarbeiten. 
 
-\image{images/img_monolith-vs-ms.pdf}{Logische Unterscheidung zwischen Monolithischer und Microservice Architektur}
+\image{images/img_monolith-vs-ms.eps}{Logische Unterscheidung zwischen Monolithischer und Microservice Architektur}
 
 Sam Newman stellt in seinem Buch \textit{Building Microservices}\cite{buildingms} einige Vorteile dar, die Microservices gegenüber Monolithischen Architekturen bieten. Doch um diese Vorteile besser zu verstehen muss man zunächst die Unterschiede der zwei Architekturstile im Detail betrachten.
 
@@ -132,7 +134,7 @@ Des Weiteren ist die technologische Einschränkung ein großer Nachteil. Wenn es
 \paragraph{\acfp{RPC}}\label{rpcpara} sind eine weitere bekannte Kommunikationsmöglichkeit. Die Übersetzung ins deutsche erklärt schon einen Großteil der Idee hinter \acp{RPC}: "Aufruf einer fernen Prozedur". \acp{RPC} sind eine weitere Möglichkeit eine Client-Server-Modell umzusetzen. Die erste Idee dazu kam im Jahre 1976 von James White in seinem RFC \#707 \enquote{A High-Level Framework for Network-Based Resource Sharing}\cite{white707}. Ein \ac{RPC} funktioniert, indem der Client einer Anwendung eine Anfrage an einen Server sendet. In dieser Anfrage ist der Name oder die ID einer Methode, sowie die zugehörigen Parameter enthalten. Der empfangende Server führt die gewünschte Methode bei sich aus und liefert dem Client als Antwort den Rückgabewert der Methode.
 Ein Vorteil von RPC ist, dass es sehr einfach und schnell möglich ist Methoden der Services für Clients und andere Services Verfügbar zu machen. Über die Kommunikation muss man sich nahezu keine Gedanken machen\cite[S.91]{buildingms}.
 
-\image{images/img_rpc-call.pdf}{Ablauf eines \ac{RPC}}
+\image{images/img_rpc-call.eps}{Ablauf eines \ac{RPC}}
 
 Doch die Nachteile überwiegen schnell und deutlich. Je nach Implementierung führt die Verwendung von RPC zu einer starken Bindung an eine bestimmte Sprache (bekanntestes Beispiel Java RMI). Auch verstecken RPC-Implementierungen die Komplexität der entfernten Aufrufe. Dies kann zu starken Performance-Problemen führen, wenn Entwickler an Interfaces arbeiten, von denen sie denken es seien lokale Methoden\cite[S.93]{buildingms}.
 
@@ -152,14 +154,14 @@ Das \enquote{Uniform Interface} ist eine der größten Unterschiede von REST zu 
 	\item [\acf{HATEOAS}] ist ein wichtiger Teil der REST-Spezifizierung und beschreibt ein Konzept, nach dem, einfach gesagt, Informationen Links zu anderen Informationen enthalten. 
 \end{description}
 
-\image{images/img_rest-call.pdf}{Beispiel einer REST-Konformen Anwendung\cite{restexample}}
+\image{images/img_rest-call.eps}{Beispiel einer REST-Konformen Anwendung\cite{restexample}}
 
 Die fünfte Eigenschaft verlangt nach \enquote{Layered Systems}, also mehrschichtigen Systemen. Die Idee dahinter ist, dass die Komponenten nur die Komponenten im System kennen mit denen sie in direkter Interaktion stehen. Alles weitere bleibt verborgen.
 \enquote{Code-On-Demand} ist die letzte und eine optionale Eigenschaft der Spezifikation. Fielding beschreibt hiermit die Erweiterung von Client-Funktionalität durch den Server. Dieser sendet, wie zum Beispiel mit Javascript der Fall, Code für den Client direkt an den Client.\cite{fielding}
 
 REST wird, auch wenn die Spezifikation es nicht vorschreibt, in den häufigsten Fällen über HTTP genutzt \cite[S.97]{buildingms}. Dies rührt daher, dass beispielsweise die bekannten HTTP-Methoden POST, GET, PUT usw. es sehr einfach machen die geforderte homogene Verhaltensweise von Methoden auf allen Ressourcen umzusetzen. Auch wird HTTP gerne genutzt, da es bereits eine breite Masse an bestehenden Tools gibt die zur weiteren Qualitätsverbesserung eines Systems genutzt werden können, wie zum Beispiel Proxies und Load Balancer. Doch dies sind alles zunächst nur Vorteile von HTTP.
 
-Die Verwendung von REST bietet viele Möglichkeiten die lose Kopplung zwischen Services zu ermöglichen. Dazu zählt unter anderem \ac{HATEOAS}. Um bei dem Kundenbeispiel aus \ref{rpcpara} zu bleiben: Wird die Information eines Kunden abgerufen, kann das Kundenobjekt zusätzlich zu den Kundendaten ein Feld enthalten welches zur Bestellliste dieses Kund zeigt.
+Die Verwendung von REST bietet viele Möglichkeiten die lose Kopplung zwischen Services zu ermöglichen. Dazu zählt unter anderem \ac{HATEOAS}. Um bei dem Kundenbeispiel aus \ref{rpcpara} zu bleiben: Wird die Information eines Kunden abgerufen, kann das Kundenobjekt zusätzlich zu den Kundendaten ein Feld enthalten welches zur Bestellliste dieses Kunden zeigt.
 
 \lstinputlisting{code/customer.json}
 
@@ -176,7 +178,7 @@ Beim Thema der Clientauthorisierung von Web-\acp{API} ist OAuth2 weit verbreitet
 OAuth2 bietet dazu sogenannte \textit{Grant Types} an. Vier an der Zahl, und alle für unterschiedliche Anwendungsfälle.
 
 \begin{description}  
-	\item [Authorization Code] Wird verwendet, um den Login über einen Drittanbieter auf einer Seite zu ermöglichen. Zum Beispiel über Twitter, Facebook oder Google. Der Nutzer wird beim versuch sich einzuloggen auf die Seite des OAuth2-Providers weitergeleitet um dort seine Identität zu bestätigen. Anschließend wird er zurückgeleitet auf die Ursprüngliche Website. Diese erhält vom Provider einen \textit{authorization code} durch den die Authentifizierung sichergestellt ist. Mit diesem \textit{authorization code} kann nun eine Anfrage an den Provider gestellt werden um einen \textit{access token} zu erhalten, mit dem dann auch Daten des Nutzers angefragt werden können.\cite{degges}
+	\item [Authorization Code] Wird verwendet, um den Login über einen Drittanbieter auf einer Seite zu ermöglichen. Zum Beispiel über Twitter, Facebook oder Google. Der Nutzer wird beim Versuch sich einzuloggen auf die Seite des OAuth2-Providers weitergeleitet um dort seine Identität zu bestätigen. Anschließend wird er zurückgeleitet auf die Ursprüngliche Website. Diese erhält vom Provider einen \textit{authorization code} durch den die Authentifizierung sichergestellt ist. Mit diesem \textit{authorization code} kann nun eine Anfrage an den Provider gestellt werden um einen \textit{access token} zu erhalten, mit dem dann auch Daten des Nutzers angefragt werden können.\cite{degges}
 	\item [Implicit] Dieser \textit{Grant Type} funktioniert auf eine ähnliche weise wie der des \textit{Authorization Codes}, jedoch wird kein \textit{authorization code} zurückgeliefert, mit dem anschließend ein \textit{access token} angefordert werden muss. Stattdessen wird direkt ein \textit{access token} zurückgeliefert.\cite{degges} Dieser Grant Type sollte jedoch nur in speziellen Fällen (wie zum Beispiel bei reinen Client-Seitigen Anwendungen, die nur kurzzeitig Zugriff über einen \textit{access token} benötigen) verwendet werden, da er im Gegensatz zum \textit{Authorization Code} unsicherer ist.
 	\item [Password] Bei Verwendung eines eigenen OAuth2-Servers bietet dieser Grant Type die Möglichkeit einen Nutzer über eine Nutzername und Password Kombination zu Authentifizieren und anschließend zu Autorisieren. Bei einer Anfrage erhält die anfragende Anwendung, vorausgesetzt der Nutzer konnte authentifiziert werden, den \textit{access token}.\cite{degges}
 	\item [Client credentials] Die letzte Möglichkeit findet nur bei rein automatischen Anwendungen ihren Einsatzzweck. Beispielsweise für Hintergrundprozesse die Datenanalyse betreiben o.ä. Solche Anwendunden verwenden den \textit{Client Credentials} grant type um mithilfe einer client id und eines secrets ein \textit{access token} zu erhalten.\cite{degges}
@@ -201,7 +203,7 @@ Kleine Änderungen in Produktion zu geben ist eine große Aufgabe. Immer muss da
 
 Auch wenn die Skalierung in der Theorie sehr einfach funktionieren sollte, tut sie das in der Praxis meist nicht. Das Problem: Monolithen lassen sich nur eindimensional Skalieren. Auf eine höhere Anzahl von Anfragen kann also durch das starten einer weiteren Instanz reagiert werden. Doch wenn Teilkomponenten von Überlast betroffen sind wird es ineffizient. Beispielsweise gibt es eine Teilkomponente die sehr CPU-Intensive Berechnungen durchführt. Es müssen weitere Instanzen gestartet und dadurch Ressourcen belastet werden, die von der CPU-Intensiven Komponente besser verwendet werden könnten.
 
-\image{images/img_mon-scaling-problem.pdf}{Auslastungsproblem bei der Skalierung von Monolithen}
+\image{images/img_mon-scaling-problem.eps}{Auslastungsproblem bei der Skalierung von Monolithen}
 
 Der letzte große Nachteil tritt häufig erst lange nach Entwicklungsbeginn auf. Die Anwendung ist gewachsen und neue Features werden verlangt, doch die zu Beginn eingesetzte Sprache ist für bestimmte Einsatzzwecke nur schlecht zu gebrauchen. Doch man ist durch den monolithischen Ansatz gebunden. Auch kann es passieren, dass die Aktualisierung auf neuere Sprachversionen nicht mehr, oder nur schwer möglich wird. Alles durch die größe der Applikation. Im schlimmsten Fall wird der Support für die aktuell verwendete Sprache eingestellt.\cite{richardson}
 
@@ -241,11 +243,17 @@ Ebenfalls zu ergänzen ist, dass auch wenn Microservices zunächst klein und kom
 
 \section{Vorgegebene Architektur der \acf{LHM}}\label{ch:arch-itm}
 
+\subsection{Backing Services der Architektur}
+
 Von it@M sind bereits Entscheidungen zum Aussehen einer Anwendung in Microservice-Architektur getroffen worden. Als Infrastrukturelle Unterstützung gibt es innerhalb der Anwendung einen Authentifizierungs-Service, der sowohl eine Authentifizierung über die städtische Infrastruktur bietet, als auch über eine eigene Nutzerverwaltung. Sowie einen Discovery-Service, der allen beteiligten Services einen Anlaufpunkt zur Service-Discovery bietet. Zusätzlich existiert ein Configuration Service der die zentrale Steuerung von gemeinsamen Einstellungen erlaubt.
 
-Zusätzlich zur Grundstruktur kann es in einer Anwendung mehrere Services geben, die alle innerhalb ihrer Kontextgrenzen Aufgaben erfüllen. Es wird ein ORM-Mapper zur Nutzung einer relationalen Datenbank genutzt. Des weiteren gibt es einen Edge Server. Dieser funktioniert als eine Art Gateway. Er bietet eine Schnittstelle für die Gesamtanwendung und verhindet somit, dass die Komplexität der vielen kleinen Services für weitere Anwendungen und Nutzer nach außen getragen wird.
+Des weiteren gibt es einen Edge Server. Dieser funktioniert als eine Art Gateway. Er bietet eine Schnittstelle für die Gesamtanwendung und verhindet somit, dass die Komplexität der vielen kleinen Services für weitere Anwendungen und Nutzer nach außen getragen wird.
 
-\image{images/img_arch-stadt-gesamt.pdf}{Architekturvorgabe it@M}
+Zusätzlich zur Grundstruktur kann es in einer Anwendung mehrere Services geben, die alle innerhalb ihrer Kontextgrenzen Aufgaben erfüllen. 
+
+\image{images/img_arch-stadt-gesamt.eps}{Architekturvorgabe it@M}
+
+\subsection{Kommunikation zwischen den Komponenten}
 
 Zum Start der Anwendung registrieren sich alle Komponenten beim Discovery Service um für Anfragen erreichbar zu sein.
 
@@ -253,11 +261,13 @@ Der Konsument der Anwendung, sei es ein Nutzer oder eine weitere Software, kommu
 
 Der Configuration Service aktualisiert bei Bedarf die Einstellungen aller beteiligten Services innerhalb der Anwendung.
 
-\image{images/img_arch-stadt-gesamt-full.pdf}{Kommunikation innerhalb der Architektur}
+\image{images/img_arch-stadt-gesamt-full.eps}{Kommunikation innerhalb der Architektur}
 
-Jeder Service der Anwendung hat intern eine gleiche Aufteilung. Nach außen werden, REST-konform, nur die Ressourcen über \acp{URI} angeboten. Diese Ressourcen bestehen entweder aus Entitäten oder Geschäftsanwendungen. Entitäten werden über sogenannte Repositories als Ressource bereitgestellt und über eine ORM-Bibliothek in einer Datenbank persistiert. Zum zusätzlichen Eingriff durch Entwickler können, kann auf verschiedene Events mithilfe von Listenern reagiert werden. Zur Kommunikation mit anderen Services existiert ein \textit{Security REST Client}, der die Kommunikation mit anderen Services durch Verwendung des Discovery und Authentication Service so einfach wie möglich machen soll. 
+\subsection{Interne Struktur der Services}
 
-\image{images/img_architecture_testing.pdf}{Aufbau eines Service innerhalb der it@M-Architektur}
+Jeder Service der Anwendung hat intern eine gleiche Aufteilung. Nach außen werden, REST-konform, nur die Ressourcen über \acp{URI} angeboten. Diese Ressourcen bestehen entweder aus Entitäten oder Geschäftsanwendungen. Entitäten werden über sogenannte Repositories als Ressource bereitgestellt und über eine \ac{ORM}-Bibliothek in einer Datenbank persistiert. Zum zusätzlichen Eingriff durch Entwickler können, kann auf verschiedene Events mithilfe von Listenern reagiert werden. Zur Kommunikation mit anderen Services existiert ein \textit{Security REST Client}, der die Kommunikation mit anderen Services durch Verwendung des Discovery und Authentication Service so einfach wie möglich machen soll. 
+
+\image{images/img_architecture_testing.eps}{Aufbau eines Service innerhalb der it@M-Architektur}
 
 % ----------------------------------------------------------------------------------------------------------
 % Software Testen
@@ -267,11 +277,11 @@ Jeder Service der Anwendung hat intern eine gleiche Aufteilung. Nach außen werd
 
 \subsection{Bekannte Testmethoden}\label{ch:soft-test}
 
-Das Testen von Software ist der Prozess, ein Programm auszuführen mit dem Ziel Fehler zu finden und zu beheben. Im Gegensatz zu physikalischen Systemen kann Software auf unterschiedliche und unvorhersehbare Weisen defekte aufweisen.\cite{pantesting} Dies liegt unter anderem daran, dass die viele Fehler in Anwendungen nicht durch Fehler in Produktionsabläufen, sondern durch falsche oder schlechte Design-Entscheidungen entstehen.\cite{pantesting}
+Das Testen von Software ist der Prozess, ein Programm auszuführen mit dem Ziel Fehler zu finden und zu beheben. Im Gegensatz zu physikalischen Systemen kann Software auf unterschiedliche und unvorhersehbare Weisen defekte aufweisen. Dies liegt unter anderem daran, dass die vielen Fehler in Anwendungen nicht durch Fehler in Produktionsabläufen, sondern durch falsche oder schlechte Design-Entscheidungen entstehen.\cite{pantesting}
 
-Zunächst kann das Testen von Software in Funktionale und nicht-funktionale Tests getrennt werden. Zur weiteren Erklärung müssen zunächst die Begriffe der funktionalen und nicht-funktionalen Anforderungen beschrieben werden. Einfach gesagt beschreiben funktionale Anforderungen \textit{was} das System tun sollte (Kundenanforderungen) und nicht-funktionale Anforderungen \textit{wie} das System funktioniert(Technische Anforderungen).\cite{erikssonreq} 
+Zunächst kann das Testen von Software in Funktionale und nicht-funktionale Tests getrennt werden. Zur weiteren Erklärung müssen zunächst die Begriffe der funktionalen und nicht-funktionalen Anforderungen beschrieben werden. Einfach gesagt beschreiben funktionale Anforderungen \textit{was} das System tun sollte (Kundenanforderungen) und nicht-funktionale Anforderungen \textit{wie} das System funktioniert(Technische Anforderungen).\cite{erikssonreq}
 
-\image{images/img_testmethods.pdf}{Funktionale und nicht-funktionale Testmethoden}
+\image{images/img_testmethods.eps}{Funktionale und nicht-funktionale Testmethoden}
 
 Funktionale Tests beschäftigen sich nur mit den funktionalen Anforderungen einer Anwendung und stellen fest, ob, und wie gut diese Anforderungen erfüllt werden.\cite{erikssontesting}. Funktionales Testen wird häufig in vier Komponenten aufgeteilt, die auch meist in Reihenfolge abgearbeitet werden.\cite{inflectra}
 
@@ -282,7 +292,7 @@ Funktionale Tests beschäftigen sich nur mit den funktionalen Anforderungen eine
 	\item[Acceptance Tests] sollen sicherstellen, dass alle Produkt und Projekt-Anforderungen zur Zufriedenheit des Kunden erfüllt wurden. Sie stellt die finale Phase der funktionalen Tests dar.\cite{inflectra}
 \end{description}
 
-\image{images/img_testmethods_functional.pdf}{Umfang der verschiedenen Testmethoden}
+\image{images/img_testmethods-functional.pdf}{Umfang der verschiedenen Testmethoden}
 
 Nicht-funktionales Testen evaluiert die \textit{Bereitschaft} des Systems.\cite{erikssontesting} Beispielsweise wird durch Performance-Tests festgestellt, wie gut eine Anwendung mit vielen Anfragen umgehen kann.\cite{inflectra}
 Das Security Testing konzentriert sich auf das prüfen der Anwendung in Hinblick auf Vertraulichkeit von Informationen, Integrität, Erreichbarkeit und die Authentifizierung.\cite{inflectra}
@@ -296,19 +306,19 @@ Durch einige spezielle Eigenschaften von Microservices ergeben sich teilweise au
 
 %todo mehr schreiben...
 
-Toby Clemson hat im Jahr 2004 einen Vortrag über Test-Strategien in einer Microservice-Architektur gehalten.\cite{clemson} In dieser Präsentation geht er insbesondere auf die möglichen Herangehensweisen ein, die notwendig sind um die zusätzliche Komplexität beim Testen solcher Anwendungen zu regeln.
+Toby Clemson hat im Jahr 2014 einen Vortrag über Test-Strategien in einer Microservice-Architektur gehalten.\cite{clemson} In dieser Präsentation geht er insbesondere auf die möglichen Herangehensweisen ein, die notwendig sind um die zusätzliche Komplexität beim Testen solcher Anwendungen zu regeln.
 
 \paragraph{Unit Testing}
 
 Auch bei Microservices beginnt das Testen eines Gesamtsystems auf der niedrigsten Schicht. Auch hier gilt es, dass Unit Tests generell auf Klassen-Level geschrieben werden.\cite{clemson} Im Falle des Architekturmodells von it@M beschränken sich Unit Tests auf das Testen der Geschäftslogik, sowie der verschiedenen Listenern. Die Repositories und Entitäten sind durch das verwendete Framework nicht mit reinen Unit Tests testbar, sondern werden in den folgenden Integrationstests durch Mocking getestet.
 
-\image{images/img_unit-testing.pdf}{Unit Testing Scope \cite{clemson}}
+\image{images/img_unit-testing.eps}{Unit Testing Scope \cite{clemson}}
 
 \paragraph{Integration Testing}
 
 An dieser Stelle ist die Kernfunktionalitäten der Services, also die Stellen, an denen nicht reiner Code zur Persistierung und Bereitstellung von Schnittstellen, sichergestellt. Doch die korrekte Zusammenarbeit der getesteten Komponenten ist noch nicht gewährleistet. Bei den Integrationstests werden nun mehrere Module zusammengefasst um das Zusammenspiel dieser Komponenten zu testen.\cite{clemson} Auch hier wird also nicht vom Regelfall aus Kapitel \ref{ch:soft-test} abgewichen. Auch wird in diesem Stadium das Zusammenspiel des Data Mappers und der angebundenen Datenbank, sowie die daraus resultierenden Ressourcen auf Korrektheit geprüft. Wichtig an dieser Stelle ist es, aufgrund der fortschrittlichen implementierung von modernen \acp{ORM}, sicherzustellen dass die Testdaten nicht nur temporär vorgehalten wurden, sondern tatsächlich in die Datenbank geschrieben und von dort herausgelesen wurden, um etwaige Fehler auf diesen Schichten auszuschließen.\cite{clemson}
 
-\image{images/img_integration-testing.pdf}{Integration Testing Scope \cite{clemson}}
+\image{images/img_integration-testing.eps}{Integration Testing Scope \cite{clemson}}
 
 \paragraph{Component Testing}
 
@@ -318,7 +328,7 @@ Das Problem an dieser Stelle: End-to-End-Tests, also Tests bei denen die gesamte
 Component testing tritt an dieser Stelle ein. Es eignet sich besonders gut für Microservice Architekturen, da die sich diese leicht in die getrennt zu testenden Komponenten aufteilen lassen: Jeder Service entspricht einer Komponente. Externe Kommunikationspartner können durch \textit{test doubles} ersetzt werden, dadurch wird eine Isolierung des Service für den Test sichergestellt.\cite{clemson}
 
 %todo bild überarbeiten
-%\image{images/img_component-testing.pdf}{Component Testing Scope \cite{clemson}}
+%\image{images/img_component-testing.eps}{Component Testing Scope \cite{clemson}}
 
 Bei Services die komplexere Integrations- oder Bootlogik besitzen kann es auch sinnvoll sein die test doubles durch externe stubs von den benötigten Services zu ersetzen. Dadurch wird die Testlogik zwar zu teilen in den Test-Harnisch, der für die korrekte Ausführung der Tests verantwortlich ist, geschoben, doch können zusätzliche Fehlerquellen durch die Verwendung von echten Netzwerkanfragen erkannt werden. Zu beachten ist jedoch, dass sich dadurch auch die Zeit der Testausführung erhöhen kann.\cite{clemson}
 
@@ -332,9 +342,9 @@ Bei Microservices besteht das im Vertrag festgehaltene Interface aus der öffent
 
 Diese Art von Test ist nicht gleichzusetzen mit component testing. Es wird nicht die tiefgehende interne Logik eines Service geprüft, sondern lediglich die Erwartungen von in- und outputs sowie die Einhaltung von Latenz und Durchsatz gegenüber der Realität validiert.\cite{clemson}
 
-\image{images/img_contract-testing.pdf}{Contract Testing \cite{clemson}}
+\image{images/img_contract-testing.eps}{Contract Testing \cite{clemson}}
 
-Ein großer Vorteil von dieser Vorgehensweise ist der, dass der Produzierende Service viel leichte Änderungen durchführen kann, da er weiß, welche Schnittstellen und Felder von seinen Konsumenten wirklich benötigt werden. So könnte der Produzent aus \ref{fig:images/img_contract-testing.pdf} eine Ressource anbieten die die Felder \textit{id}, \textit{name} und \textit{age} anbietet. Konsument A benötigt nur die \textit{id} und \textit{name}-Felder, somit wird in den contract tests zu Vertrag A auch nur die existenz dieser beiden Felder geprüft. Konsument B benötigt nur das \textit{id} und \textit{age}-Feld, während Konsument C alle Felder benötigt, um korrekt zu funktioniere.\cite{clemson}
+Ein großer Vorteil von dieser Vorgehensweise ist der, dass der Produzierende Service viel leichte Änderungen durchführen kann, da er weiß, welche Schnittstellen und Felder von seinen Konsumenten wirklich benötigt werden. So könnte der Produzent aus \ref{fig:images/img_contract-testing.eps} eine Ressource anbieten die die Felder \textit{id}, \textit{name} und \textit{age} anbietet. Konsument A benötigt nur die \textit{id} und \textit{name}-Felder, somit wird in den contract tests zu Vertrag A auch nur die existenz dieser beiden Felder geprüft. Konsument B benötigt nur das \textit{id} und \textit{age}-Feld, während Konsument C alle Felder benötigt, um korrekt zu funktioniere.\cite{clemson}
 
 Sollte nun ein weiterer Konsument zur Anwendung hinzukommen, der neben dem Vornamen auch einen Nachnamen benötigt, können die Betreiber des Produzenten sich dazu entscheiden, dass alte \textit{name}-Feld als veraltet markieren und ein neues Zusammengesetztes Objekt aus Vor- und Nachname anbieten. Durch die Durchführung aller component tests wird schnell deutlich, dass die Konsumenten A und C von dieser Änderung betroffen und somit informiert werden müssen. Sobald die beiden Konsumenten an die neue Schnittstelle angepasst sind, kann das alte Feld \textit{name} aus der Ressource entfernt werden. Laufen dann alle contract tests ohne Fehler ist die Migration auf die neue Schnittstelle erfolgreich.\cite{clemson}
 
@@ -348,11 +358,11 @@ Verlangt ein System nach Nutzer-Interaktion kann die durch einen Service bereitg
 
 Für Systeme die keine Nutzeroberfläche bieten werden direkt die öffentlichen \acp{API} der Services angesprochen um diese zu manipulieren. Dies geschieht durch die Verwendung eines, möglichst automatischen, HTTP-Clients.\cite{clemson}
 
-\image{images/img_end-to-end-testing.pdf}{End-To-End Testing Scope mit externen Abhängigkeiten \cite{clemson}}
+\image{images/img_end-to-end-testing.eps}{End-To-End Testing Scope mit externen Abhängigkeiten \cite{clemson}}
 
-Sollte nicht ein Team Komponentenverantwortlich für die Gesamtanwendung sein,  werden bei end-to-end tests auch externe Services mit eingesetzt. Es gibt allerdings Fälle in denen es Sinnvoll sein kann diese aus dem scope zu exkludieren. Bei Abhängigkeiten die nicht einmal mehr in den Händen der Firma selbst, sondern bei Drittanbietern liegen gibt es viele Faktoren, wie etwa die Stabilität der Systeme des Drittanbieters selbst, die die Testergebnisse für das eigene System verfälschen können. In solchen Situationen ist es Sinnvoll, auch in end-to-end tests noch stubs dieser externen Systeme zu verwenden, um sinnvolle Resultate für die eigene Anwendung zu erhalten. Dadurch verliert zwar die Testmethode selbst ein wenig an Vertraulichkeit in Bezug auf die Resultate, jedoch bleiben diese Resultate wenigstens stabil.\cite{clemson}
+Sollte nicht ein Team Komponentenverantwortlich für die Gesamtanwendung sein,  werden bei end-to-end tests auch externe Services mit eingesetzt. Es gibt allerdings Fälle in denen es sinnvoll sein kann diese aus dem scope zu exkludieren. Bei Abhängigkeiten die nicht einmal mehr in den Händen der Firma selbst, sondern bei Drittanbietern liegen gibt es viele Faktoren, wie etwa die Stabilität der Systeme des Drittanbieters selbst, die die Testergebnisse für das eigene System verfälschen können. In solchen Situationen ist es Sinnvoll, auch in end-to-end tests noch stubs dieser externen Systeme zu verwenden, um sinnvolle Resultate für die eigene Anwendung zu erhalten. Dadurch verliert zwar die Testmethode selbst ein wenig an Vertraulichkeit in Bezug auf die Resultate, jedoch bleiben diese Resultate wenigstens stabil.\cite{clemson}
 
-End-to-end tests haben einen großen Nachteil: Sie sind die tests mit den meisten Faktoren und Komponenten und haben dadurch auch die größte Spanne an möglichen Schwachstellen die zu einem Fehlschlagen der Tests führen können. Dies führt dazu, dass die Laufzeit dieser Tests extrem hoch sein kann und auch das pflegen der Test suites ist mit einem großen Arbeitsaufwand verbunden.\cite{clemson} Daher ist es wichtig beim schreiben eben dieser auf einige Punkte acht zu geben.
+End-to-end tests haben einen großen Nachteil: Sie sind die Tests mit den meisten Faktoren und Komponenten und haben dadurch auch die größte Spanne an möglichen Schwachstellen die zu einem Fehlschlagen der Tests führen können. Dies führt dazu, dass die Laufzeit dieser Tests extrem hoch sein kann und auch das pflegen der Test suites ist mit einem großen Arbeitsaufwand verbunden.\cite{clemson} Daher ist es wichtig beim schreiben eben dieser auf einige Punkte acht zu geben.
 
 \begin{description}
 	\item[So wenige end-to-end tests schreiben wie möglich] Da ein hoher Vertrauensgrad bereits durch die vorhergehenden Teststufen erreicht werden kann, und end-to-end tests nur noch das Zusammenspiel der bereits durchgängig getesteten Komponenten darstellen soll, sollte nicht zu viel Zeit in zu viele Testszenarien gesteckt werden. Am besten ist es, sich ein Zeitbudget zurechtzulegen, welches man bereits ist für die Laufzeit aller end-to-end tests abzuwarten. Sobald das Zeitbudget durch die Laufzeit überschritten wird, sollten die Tests, die am wenigsten Mehrwert bieten detektiert und gelöscht werden. Das Zeitbudge sollte jedoch in Minuten, nicht in Stunden festgelegt sein.\cite{clemson}	
