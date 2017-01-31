@@ -95,15 +95,17 @@ Schließlich sollen Anforderungen, die an die zu generierenden Tests gestellt we
 % ----------------------------------------------------------------------------------------------------------
 \section{Architekturvergleich Microservice und Monolith}
 
-Architekturen gibt es in der Welt der Softwareentwicklung viele. Eine der momentan bekanntesten Neuerungen an den Whiteboards der IT-Architekten ist die \enquote{Microservice} Architektur: Viele kleine Services die im Konglomerat für ein gemeinsames Ziel zusammenarbeiten. 
+Eine der momentan am meisten diskutierten Architekturen ist die \enquote{Microservice} Architektur\footnote{\url{https://www.google.de/trends/explore?q=microservices}}\footnote{\url{https://jaxenter.de/ausgaben/java-magazin-5-16}}\footnote{\url{https://www.heise.de/developer/artikel/Microservices-im-Zusammenspiel-mit-Continuous-Delivery-Teil-1-die-Theorie-2376386.html?artikelseite=2}}: Viele kleine Services die im Konglomerat für ein gemeinsames Ziel zusammenarbeiten. 
 
-\image{images/img_monolith-vs-ms.eps}{Logische Unterscheidung zwischen Monolithischer und Microservice Architektur}
+\image{images/img_monolith-vs-ms.eps}{Logische Unterscheidung zwischen monolithischer und Microservice Architektur}
 
-Sam Newman stellt in seinem Buch \textit{Building Microservices}\cite{buildingms} einige Vorteile dar, die Microservices gegenüber Monolithischen Architekturen bieten. Doch um diese Vorteile besser zu verstehen muss man zunächst die Unterschiede der zwei Architekturstile im Detail betrachten.
+Sam Newman stellt in seinem Buch \textit{Building Microservices}\cite{buildingms} einige Vorteile dar, die Microservices gegenüber monolithischen Architekturen bieten. Doch um diese Vorteile besser zu verstehen muss man zunächst die Unterschiede der zwei Architekturstile im Detail betrachten.
 
 \subsection{Microservice Architektur}\label{ch:ms-arch}
 
-Um die Vorteile dieser Architektur in einem System effektiv zu nutzen gibt es bereits in der Planung einiges zu beachten.
+Microservices sind eine Art der Architektur, in der die Modularisierung im Vordergrund steht. Dazu werden komplexe Anwendungen in kleinere, einzelne Prozesse aufgeteilt die miteinander Sprachunabhängig in Verbindung stehen. \cite[S. 2-3]{wolff}
+
+Um die Vorteile, die diese Architektur mit sich bringt, in einem System effektiv zu nutzen gibt es bereits in der Planung einiges zu beachten.
 
 Dazu zählt, dass es zwei Dinge gibt, die einen guten Microservice ausmachen. Lose Kopplung und Starker Zusammenhalt \cite[S.62]{buildingms}.
 
@@ -112,9 +114,15 @@ Ein lose gekoppelter Service weiß von seinem Kommunikationspartner nur so wenig
 
 Starker Zusammenhalt soll dafür sorgen, dass bestimmte Funktionalitäten an einem Ort vorhanden sind, sodass diese leicht geändert werden können und nicht mehrere Komponenten angepasst werden müssen.\cite[S.64]{buildingms}
 
-Zum Planen einer Software mit Mircoservice Architektur ist es sinnvoll, sich zunächst über Kontextgrenzen (\textit{bounded context}) Gedanken zu machen. Kontextgrenzen sind eine Definition aus dem Buch \textit{Domain Driven Design} von Eric Evans \cite{dddesign}.
+\subsubsection{Definition von Service-Grenzen}
 
-Sie lassen sich gut am Beispiel eines Online-Shops zeigen. Wenn ein Online-Shop geplant wird ist einer der zentralen Bestandteile die Lagerverwaltung. Die Daten der Lagerverwaltung werden herangezogen um dem potentiellen Kunden des Shops anzuzeigen welche und wie viele Produkte verfügbar sind. Doch möchte ein Kunde nun ein Produkt bestellen hat dies nichts mehr mit einer Lagerverwaltung, sondern mit einem Bestellsystem zu tun. Man verlässt also den ursprünglichen Kontext der Lagerverwaltung. Somit entsteht in der Planung eine neue Kontextgrenze: Die des Bestellsystems. Es verwaltet Bestellungen von Kunden. Doch woher kommen die Kundendaten? Kundendaten haben zwar einen Verwendungszweck im Bestellsystem, doch die Verwaltung der Daten hat mit der eigentlichen Kompetenz dieses Systems nichts mehr zu tun. Somit wird eine weitere Kontextgrenze erstellt, nämlich die der Kundenverwaltung.
+Zum Planen einer Software mit Mircoservice Architektur ist es von großer Bedeutung, sich zunächst über die Grenzen seiner Services Gedanken zu machen. Als Ansatz zur Planung gibt es zwei bekannte Möglichkeiten.
+
+\paragraph{Bounded Context} Kontextgrenzen sind eine Definition aus dem Buch \textit{Domain Driven Design} von Eric Evans \cite{dddesign} und bieten eine Möglichkeit in der Planungsphase eines Projekts diese Grenzen zu definieren.
+
+Dies lässt sich gut am Beispiel eines Online-Shops zeigen. Wenn ein Online-Shop geplant wird ist einer der zentralen Bestandteile die Lagerverwaltung. Die Daten der Lagerverwaltung werden herangezogen um dem potentiellen Kunden des Shops anzuzeigen welche und wie viele Produkte verfügbar sind. Doch möchte ein Kunde nun ein Produkt bestellen hat dies nichts mehr mit einer Lagerverwaltung, sondern mit einem Bestellsystem zu tun. Man verlässt also den ursprünglichen Kontext der Lagerverwaltung. Somit entsteht in der Planung eine neue Kontextgrenze: Die des Bestellsystems. Es verwaltet Bestellungen von Kunden. Doch woher kommen die Kundendaten? Kundendaten haben zwar einen Verwendungszweck im Bestellsystem, doch die Verwaltung der Daten hat mit der eigentlichen Kompetenz dieses Systems nichts mehr zu tun. Somit wird eine weitere Kontextgrenze erstellt, nämlich die der Kundenverwaltung.
+
+%todo online shop bild
 
 Eine Kontextgrenze soll also eine logische Grenze darstellen, welche eventuell über eine oder mehrere Schnittstellen verfügt, die festlegen, welche Informationen mit anderen Kontexten geteilt werden.\cite[S.65]{buildingms}. Damit einher geht die Unterscheidung zwischen geteilten und versteckten Modellen. Versteckte Modelle werden innerhalb einer Kontextgrenze benötigt, sind aber für andere Kontexte uninteressant. Geteilte Modelle hingegen werden über die Grenzen hinweg freigegeben. Sind solche Kontextgrenzen für eine Software modelliert, lassen sich aus diesen sehr leicht Microservices ableiten, da bereits einige Grundvoraussetzungen getroffen sind: Lose Kopplung und Starker Zusammenhalt.\cite[S.68]{buildingms}
 
@@ -122,9 +130,29 @@ Eine Kontextgrenze soll also eine logische Grenze darstellen, welche eventuell �
 	represent those bounded contexts, we are off to an excellent start in ensuring that our microservices
 	are loosely coupled and strongly cohesive.\cite{buildingms}}
 
+\paragraph{Aggregates}
+
+Sind der zweite Mögliche Ansatz zur Planung von sinnvollen Service-Grenzen. Aggregates sind ein weiteres Konzept des \ac{DDD} und stellen eine Zusammensetzung aus Regeln und Objekten dar, die durch ein Aggregate Root zusammengehalten werden.
+
+Als Beispiel dient hier ein Tisch der im Baumarkt gekauft wurde. Dieser Tisch besteht aus einer Sammlung von Holzstücken und Schrauben. Wenn diese auf einem Haufen liegen stellt dies noch lange keinen Tisch dar. Um den Tisch zu erhalten benötigt man Regeln (die Anleitung) die besagen, wie mit den Materialien umgegangen werden soll, um diesen Tisch zu erhalten. Diese Konstellation, von Materialien und der Anleitung zum Aufbau des Tisches, stellt ein Aggregate dar. Die Regeln alleine erfüllen keinen tieferen Zweck, auch die Materialien nicht. Aber vereint in einem Aggregate bilden sie den gewünschten Tisch.\cite{mogosanu}
+
+Wenn man dieses Konzept nun auf das vorhergehende Online-Shop Beispiel überträgt ergibt sich folgendes Bild:
+
+%todo Bild Aggregates des Online-Shops
+
+Wie zu sehen ist, decken sich die gefundenen Aggregates mit dem im vorherigen Abschnitt gefundenen Kontextgrenzen. Somit ist das Ergebnis der Aufteilung auch mit dieser Methode das gleiche. Aggregates machen insbesondere dann Sinn, wenn mit Event-basierter Kommunikation gearbeitet wird, da die Zustandsänderungen, die durch Events beschrieben werden, der Darstellung von Bearbeitungsregeln von Aggregates sehr nahe kommen.
+
 \subsubsection{Kommunikation zwischen Services}
 
-Als weiterer Schritt muss eine Kommunikationsart zwischen Services und zur Außenwelt definiert werden.
+Als weiterer Schritt muss eine Kommunikationsart für die Kommunikation gewählt werden. Dabei gibt es drei Mögliche Kommunikationswege:
+
+\begin{itemize}
+	\item Services kommunizieren Untereinander
+	\item Kommunikation mit einem Service von außen
+	\item Service kommuniziert mit einem anderen System
+\end{itemize}
+
+Wobei der letzte Punkt aufgrund der Abhängigkeit zum externen System vernachlässigt werden kann.
 
 \paragraph{Geteilte Datenbanken} sind eine Möglichkeit zur Servicekommunikation \cite[S.85]{buildingms}. Die Idee hinter dieser Art der Kommunikation ist besonders trivial. Mehrere Services, die miteinander Daten austauschen wollen, nutzen eine gemeinsame Datenbank. Jeder Service hat somit jederzeit Zugriff zu allen Daten der anderen Nutzer dieser geteilten Datenbank und es findet somit keine \textit{echte} Kommunikation statt, sondern nur Zugriffe auf geteilten Speicher.\cite{shareddb}
 Dies birgt natürlich viele Probleme. Jede noch so kleine Änderung an der "Logik" dieser Datenbank, oder an der internen Struktur der Daten muss mit viel Bedacht durchgeführt werden, da jede abhängige Komponente sonst nicht mehr funktionieren könnte.
@@ -165,17 +193,31 @@ Die Verwendung von REST bietet viele Möglichkeiten die lose Kopplung zwischen S
 
 \lstinputlisting{code/customer.json}
 
-Mit der Verwendung von HATEOAS reicht es, wenn alle Clients die Kundendaten und deren Bestellungen verarbeiten wissen, dass Kunden einen Link-Feld mit dem Typ \textit{orders} besitzen. Wenn also später Services unter anderen Adressen erreichbar sind, oder sich interne Datenstrukturen ändern müssen diese Clients nicht neu angepasst werden.
+Mit der Verwendung von \ac{HATEOAS} reicht es, wenn alle Clients die Kundendaten und deren Bestellungen verarbeiten wissen, dass Kunden einen Link-Feld mit dem Typ \textit{orders} besitzen. Wenn also später Services unter anderen Adressen erreichbar sind, oder sich interne Datenstrukturen ändern müssen diese Clients nicht neu angepasst werden.
 
-\paragraph{JSON oder XML?} 
+Ein weiterer interessanter Anwendungsfall für \ac{HATEOAS} ist die Nutzung der weiterführenden Links zur Bildung eines Zustandsautomaten. Die mitgelieferten Informationen zu weiteren \textit{Ressourcen} helfen dabei dem Client einer Anwendung Manipulationsmöglichkeiten des empfangenen Objekts zu prüfen.
 
-Wenn die Entscheidung über die Art und Weise der Datenübertragung gefallen ist muss das Datenformat festgelegt werden. JSON und XML sind dabei die bekanntesten Namen. In den vergangenen Jahren ist dabei die Verwendung von XML im Gegensatz zu JSON in \acp{API} zurückgegangen\cite{duvander2}. Jedoch bieten beide Vor- wie Nachteile. JSON ist das einfachere Format und auch leichtgewichtiger, während XML einige sinnvolle Features wie z.B. link control (insbesondere für HATEOAS interessant) oder auch das extrahieren von Teilinformationen durch Standards wie in etwa XPATH\cite[S.101]{buildingms}.
+\image{images/img_hateoas-state-machine.eps}{Beispiel einer State-Machine mit HATEOAS\cite{hatsm}}
 
-\subsubsection{Authorisierung}
+Theoretisch bilden also die von der \ac{API} gesendeten Daten schon den Ablauf der späteren Endanwendung dar. Ein Nutzer könnte bereits durch dem einfachen folgen der mitgelieferten Links einen Ablauf entsprechend der Geschäftslogik abarbeiten.
 
-Beim Thema der Clientauthorisierung von Web-\acp{API} ist OAuth2 weit verbreitet [citation needed]. Wichtig ist hierbei die Unterscheidung zwischen Authorisierung und Authentifizierung. OAuth2 bietet keine Möglichkeit der Authentifizierung, also beispielsweise der Frage nach einem Nutzernamen und Passwort, sondern kümmert sich Ausschließlich darum festzustellen, ob ein Nutzer die nötigen Rechte zum durchführen einer bestimmten Operation besitzt.\cite{degges}
+\paragraph{Event-basierte Kommunikation}
 
-OAuth2 bietet dazu sogenannte \textit{Grant Types} an. Vier an der Zahl, und alle für unterschiedliche Anwendungsfälle.
+%todo event-basierte Kommunikation erläutern
+
+\subsubsection{Datenformat - JSON oder XML?} 
+
+Wenn die Entscheidung über die Art und Weise der Datenübertragung gefallen ist muss das Datenformat festgelegt werden. JSON und XML sind dabei die bekanntesten Namen. In den vergangenen Jahren ist dabei die Verwendung von XML im Gegensatz zu JSON in \acp{API} zurückgegangen\cite{duvander2}. Jedoch bieten beide Vor- wie Nachteile. JSON ist das einfachere Format und auch leichtgewichtiger, während XML einige sinnvolle Features wie z.B. link control (insbesondere für \ac{HATEOAS} interessant) oder auch das extrahieren von Teilinformationen durch Standards wie in etwa XPATH\cite[S.101]{buildingms}.
+
+\subsubsection{Autorisierung mit OAuth2}
+
+Beim Thema der Clientautorisierung von Web-\acp{API} ist OAuth2 weit verbreitet, insbesondere auf Social Media Plattformen. Ausschlaggebender Faktor dafür ist die Problematik die sich bei verteilten Systemen mit Rechtesystemen gerne aufdrängt: Woher weiß ein Service wer der anfragende Nutzer ist und was er darf? Dieses Problem soll möglichst so gelöst werden, dass es gut in die Philosophie der Microservices integriert werden kann. Eine eigene Autorisierung je existentem Service ist somit keine zufriedenstellende Lösung. OAuth2 bietet an dieser Stelle eine passende Lösung. Mit OAuth2 ist es möglich die Informationen zu den Rechten eines Nutzers einfach über Services hinweg zu propagieren und die Forderung nach Zustandslosigkeit der Anfragen von REST (siehe Kapitel~\ref{label}) nicht zu verletzen.
+
+Wichtig ist hierbei die Unterscheidung zwischen Autorisierung und Authentifizierung. OAuth2 bietet keine Möglichkeit der Authentifizierung, also beispielsweise der Frage nach einem Nutzernamen und Passwort, sondern kümmert sich Ausschließlich darum festzustellen, ob ein Nutzer die nötigen Rechte zum durchführen einer bestimmten Operation besitzt.\cite{degges}
+
+Allerdings ist es für die Verwendung von OAuth2 innerhalb eines Unternehmenskontext zusammen mit der Autorisierung auch eine Authentifizierungsmöglichkeit am Authentifizierungs-Service zu implementieren. Dieser Service kann dann die bestehende Infrastruktur des Unternehmens zur Authentifizierung von Nutzern verwenden. Zusätzlicher Vorteil dieses Vorgehens ist, dass jeder Service der zusätzliche Informationen eines Nutzers erfragen möchte, dies an einer zentralen Stelle mithilfe des vom Nutzer propagierten Tokens einfach tun kann.
+
+OAuth2 bietet zur Autorisierung sogenannte \textit{Grant Types} an. Vier an der Zahl, und alle für unterschiedliche Anwendungsfälle. Ziel dieser Grant Types ist es, den \textit{access token} eines Nutzers zu erhalten, der Informationen über seine Rechte enthält.
 
 \begin{description}  
 	\item [Authorization Code] Wird verwendet, um den Login über einen Drittanbieter auf einer Seite zu ermöglichen. Zum Beispiel über Twitter, Facebook oder Google. Der Nutzer wird beim Versuch sich einzuloggen auf die Seite des OAuth2-Providers weitergeleitet um dort seine Identität zu bestätigen. Anschließend wird er zurückgeleitet auf die Ursprüngliche Website. Diese erhält vom Provider einen \textit{authorization code} durch den die Authentifizierung sichergestellt ist. Mit diesem \textit{authorization code} kann nun eine Anfrage an den Provider gestellt werden um einen \textit{access token} zu erhalten, mit dem dann auch Daten des Nutzers angefragt werden können.\cite{degges}
@@ -183,6 +225,10 @@ OAuth2 bietet dazu sogenannte \textit{Grant Types} an. Vier an der Zahl, und all
 	\item [Password] Bei Verwendung eines eigenen OAuth2-Servers bietet dieser Grant Type die Möglichkeit einen Nutzer über eine Nutzername und Password Kombination zu Authentifizieren und anschließend zu Autorisieren. Bei einer Anfrage erhält die anfragende Anwendung, vorausgesetzt der Nutzer konnte authentifiziert werden, den \textit{access token}.\cite{degges}
 	\item [Client credentials] Die letzte Möglichkeit findet nur bei rein automatischen Anwendungen ihren Einsatzzweck. Beispielsweise für Hintergrundprozesse die Datenanalyse betreiben o.ä. Solche Anwendunden verwenden den \textit{Client Credentials} grant type um mithilfe einer client id und eines secrets ein \textit{access token} zu erhalten.\cite{degges}
 \end{description}
+
+\subsubsection{Deployment}
+
+%todo deployment erläutern
 
 \subsection{Monolithische Architektur}\label{ch:mon-arch}
 
@@ -406,7 +452,7 @@ Hat ein Service eine immens wichtige Aufgabe im Sinne der Geschäftsanforderunge
 
 Das Referenzsystem basiert auf der in Kapitel~\ref{ch:arch-itm} angesprochenen Architektur. Es wird das Spring-Framework verwendet. Auslöser dafür ist, dass bei it@M größtenteils Java-Entwickler arbeiten und diese bereits mit Java EE viel Erfahrung gesammelt haben. Da das Spring-Framework auf viele Konzepte von Java EE aufbaut, erleichtert dies den Einstieg in die Microservice-Welt für kommende Entwicklungen.
 
-Die Services kommunizieren über eine REST-\ac{API}, die ihre Daten im JSON-Format überträgt. HATEOAS wird über Spring HATEOAS\footnote{\url{http://projects.spring.io/spring-hateoas/}} genutzt.
+Die Services kommunizieren über eine REST-\ac{API}, die ihre Daten im JSON-Format überträgt. \ac{HATEOAS} wird über Spring \ac{HATEOAS}\footnote{\url{http://projects.spring.io/spring-hateoas/}} genutzt.
 
 Als Datenbank in der Entwicklungsumgebung kommt eine In-Memory-Datenbank von H2 zum Einsatz. In der Produktion größtenteils Oracles JDBC-Datenbank in der Version 7, aber auch MySQL wird verwendet.
 
