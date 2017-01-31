@@ -217,29 +217,42 @@ Wichtig ist hierbei die Unterscheidung zwischen Autorisierung und Authentifizier
 
 Allerdings ist es für die Verwendung von OAuth2 innerhalb eines Unternehmenskontext zusammen mit der Autorisierung auch eine Authentifizierungsmöglichkeit am Authentifizierungs-Service zu implementieren. Dieser Service kann dann die bestehende Infrastruktur des Unternehmens zur Authentifizierung von Nutzern verwenden. Zusätzlicher Vorteil dieses Vorgehens ist, dass jeder Service der zusätzliche Informationen eines Nutzers erfragen möchte, dies an einer zentralen Stelle mithilfe des vom Nutzer propagierten Tokens einfach tun kann.
 
-OAuth2 bietet zur Autorisierung sogenannte \textit{Grant Types} an. Vier an der Zahl, und alle für unterschiedliche Anwendungsfälle. Ziel dieser Grant Types ist es, den \textit{access token} eines Nutzers zu erhalten, der Informationen über seine Rechte enthält.
-
-\begin{description}  
-	\item [Authorization Code] Wird verwendet, um den Login über einen Drittanbieter auf einer Seite zu ermöglichen. Zum Beispiel über Twitter, Facebook oder Google. Der Nutzer wird beim Versuch sich einzuloggen auf die Seite des OAuth2-Providers weitergeleitet um dort seine Identität zu bestätigen. Anschließend wird er zurückgeleitet auf die Ursprüngliche Website. Diese erhält vom Provider einen \textit{authorization code} durch den die Authentifizierung sichergestellt ist. Mit diesem \textit{authorization code} kann nun eine Anfrage an den Provider gestellt werden um einen \textit{access token} zu erhalten, mit dem dann auch Daten des Nutzers angefragt werden können.\cite{degges}
-	\item [Implicit] Dieser \textit{Grant Type} funktioniert auf eine ähnliche weise wie der des \textit{Authorization Codes}, jedoch wird kein \textit{authorization code} zurückgeliefert, mit dem anschließend ein \textit{access token} angefordert werden muss. Stattdessen wird direkt ein \textit{access token} zurückgeliefert.\cite{degges} Dieser Grant Type sollte jedoch nur in speziellen Fällen (wie zum Beispiel bei reinen Client-Seitigen Anwendungen, die nur kurzzeitig Zugriff über einen \textit{access token} benötigen) verwendet werden, da er im Gegensatz zum \textit{Authorization Code} unsicherer ist.
-	\item [Password] Bei Verwendung eines eigenen OAuth2-Servers bietet dieser Grant Type die Möglichkeit einen Nutzer über eine Nutzername und Password Kombination zu Authentifizieren und anschließend zu Autorisieren. Bei einer Anfrage erhält die anfragende Anwendung, vorausgesetzt der Nutzer konnte authentifiziert werden, den \textit{access token}.\cite{degges}
-	\item [Client credentials] Die letzte Möglichkeit findet nur bei rein automatischen Anwendungen ihren Einsatzzweck. Beispielsweise für Hintergrundprozesse die Datenanalyse betreiben o.ä. Solche Anwendunden verwenden den \textit{Client Credentials} grant type um mithilfe einer client id und eines secrets ein \textit{access token} zu erhalten.\cite{degges}
-\end{description}
-
 \subsubsection{Deployment}
 
 %todo deployment erläutern
 
 \subsection{Monolithische Architektur}\label{ch:mon-arch}
 
-Monolithische Software stellt das Gegenteil zu Microservices dar. Eine Monolithische Anwendung vereint die Gesamtlogik in einer einzigen Laufzeitumgebung und ist dadurch meist sehr groß. Die Aufteilung der Logik innerhalb der Anwendung findet nur auf Entwickler-Ebene statt. Dies wird durch verschiedene Module erreicht die nur über definierte Schichten hinweg miteinander kommunizieren. In der Entwicklung werden diese Module auch gerne physikalisch durch Auslagerung in Bibliotheken getrennt, um ein Abweichen von den vorgeschriebenen Kommunikationswegen zu unterbinden.
+Eine Monolithische Anwendung vereint die Gesamtlogik in einer einzigen Laufzeitumgebung und ist dadurch meist sehr groß. Die Aufteilung der Logik innerhalb der Anwendung findet nur auf Entwickler-Ebene statt. Dies wird durch verschiedene Module erreicht die nur über definierte Schichten hinweg miteinander kommunizieren. In der Entwicklung werden diese Module auch gerne physikalisch durch Auslagerung in Bibliotheken getrennt, um ein Abweichen von den vorgeschriebenen Kommunikationswegen zu unterbinden.
 
-Die Probleme bei monolithischen Systemen treten nicht zu Beginn der Entwicklung eines Produkts auf. Am Anfang stehen sogar einige Vorteile und gute Gründe, warum ein solcher Ansatz sinnvoll sein kann.
-Die Entwicklung ist sehr einfach. Entwicklungstools und IDEs sind erst in der letzten Zeit dazu übergegangen, auch die Entwicklung von Microservices besser zu unterstützen, während der Support für monolithische Architekturen bereits vorhanden ist, da dies auch der bisherige Ansatz zur Entwicklung war.
-Das Deployment ist weitaus einfacher als die Orchestrierung, die für Microservices nötig ist. Beispielsweise reicht es bereits, ein einfaches WAR-File auf einem Application-Server auszuliefern.
-Auch die Skalierung ist möglich, durch die Verwendung eines Load-Balancers und das starten von mehreren Instanzen der Anwendung.\cite{richardson}
+Entwicklungstools und IDEs sind erst in der letzten Zeit dazu übergegangen, auch die Entwicklung von Microservices besser zu unterstützen, während der Support für monolithische Architekturen bereits vorhanden ist, da dies auch der bisherige Ansatz zur Entwicklung war.
+Das Deployment ist sehr einfach. Beispielsweise reicht es bereits, ein einfaches WAR-File auf einem Application-Server auszuliefern.
+Auch die Skalierung ist einfach möglich, durch die Verwendung eines Load-Balancers und das starten von mehreren Instanzen der Anwendung.\cite{richardson}
 
-Doch ab einem gewissen Entwicklungsstand nehmen die Probleme überhand. Viele Leute arbeiten an einer Code-Basis die stetig wächst. Wenn über den Projektzeitraum neue Entwickler am Projekt teilnehmen können diese zunächst leicht überfordert sein, da die anfängliche Modularität dadurch, dass sie nicht hart vorgeschrieben ist, stetig abnimmt. Dies führt auch dazu, dass bei Änderungen an großen Systemen nicht mehr direkt klar ist, welche Auswirkungen es auf andere Teilkomponenten und somit das Gesamtsystem gibt. Die Entwicklungsgeschwindigkeit verringert sich.
+\subsection{Vorteile von Microservices gegenüber Monolithen}\label{ch:ms-mon-pro}
+%todo durchlesen, überarbeiten und Punkte nach Gewichtung sortieren sowie bullet points
+
+Als Vorteile der Microservice-Architektur lassen sich nun folgende Punkte, die Newman in seinem Buch nahelegt vorstellen\cite{buildingms}:
+
+Die Heterogenität, welche es erlaubt, für verschiedene Einsatzzwecke verschiedene Sprachen und Technologien zu verwenden, ohne das ganze System damit implementieren zu müssen. Dieser Punkt ist insbesondere Interessant, wenn Firmen zusammengeführt werden, deren Anwendungen auf verschiedenen Sprachen basieren.
+
+Die erhöhte Widerstandsfähigkeit gegenüber Fehlern im System, da die Grenzen von Microservices eine Kaskadierung von Fehlern verhindern können.
+
+Auch wenn die Skalierung in der Theorie sehr einfach funktionieren sollte, tut sie das in der Praxis meist nicht. Das Problem: Monolithen lassen sich nur eindimensional Skalieren. Auf eine höhere Anzahl von Anfragen kann also durch das starten einer weiteren Instanz reagiert werden. Doch wenn Teilkomponenten von Überlast betroffen sind wird es ineffizient. Beispielsweise gibt es eine Teilkomponente die sehr CPU-Intensive Berechnungen durchführt. Es müssen weitere Instanzen gestartet und dadurch Ressourcen belastet werden, die von der CPU-Intensiven Komponente besser verwendet werden könnten.
+
+\image{images/img_mon-scaling-problem.eps}{Auslastungsproblem bei der Skalierung von Monolithen}
+
+Microservices lassen sich leichter skalieren. Während monolithische Architekturen immer im ganzen skaliert werden, kann man in einer Microservice-Architektur nach genau die Services skalieren, die in diesem Moment mehr Leistung benötigen.
+
+%todo skalierungsbild microservices
+
+Ein weiterer Punkt ist ein schnelleres Deployment. Insbesondere kleinen Änderungen führen bei monolithischen Systemen zu einem großen Overhead, während man in einer Microservice Architektur nur den Service neu deployen muss, der auch die implementierte Änderung enthält.
+
+Ebenfalls lässt sich die Team-Organisation vereinfachen. Ein Team arbeitet an einem Service, dessen Funktionalität klar definiert ist, anstatt ein großes Team zu haben, wessen Teilteams an teilen eines Monolithen arbeiten.
+
+Auch optimieren Microservices die Austauschbarkeit. Die kleinen abgegrenzten Systeme lassen sich mit viel weniger aufwand gegen neuere oder bessere Implementierungen austauschen, ohne andere Komponenten zu Gefährden. Während dies bei Monolithischen Anwendungen zu unvorhersehbaren Problemen kommen kann, weshalb in solchen Architekturen auch häufig kaum Änderungen durchgeführt werden.
+
+Bei Monolithen  nehmen die Probleme ab einem gewissen Entwicklungsstand überhand. Viele Leute arbeiten an einer Code-Basis die stetig wächst. Wenn über den Projektzeitraum neue Entwickler am Projekt teilnehmen können diese zunächst leicht überfordert sein, da die anfängliche Modularität dadurch, dass sie nicht hart vorgeschrieben ist, stetig abnimmt. Dies führt auch dazu, dass bei Änderungen an großen Systemen nicht mehr direkt klar ist, welche Auswirkungen es auf andere Teilkomponenten und somit das Gesamtsystem gibt. Die Entwicklungsgeschwindigkeit verringert sich.
 
 Auch die IDE trägt dazu bei. Je größer, das Projekt, umso höher die Belastung für den Entwicklungsrechner. IDEs indizieren Source-Files um die Navigation zu vereinfachen. Je nach Projektgröße kann so der Arbeitsspeicher schnell ausgelastet sein.
 
@@ -247,43 +260,26 @@ Eine größer werdende Anwendung leidet auch unter dem zunächst einfachen Deplo
 
 Kleine Änderungen in Produktion zu geben ist eine große Aufgabe. Immer muss das Gesamtsystem neu gestartet werden, auch wenn nur ein prozentual kleiner Anteil der Anwendung umgeschrieben wird. Release-Zyklen verlangsamen sich auf das nötigste. Fehler bleiben eventuell länger im System.
 
-Auch wenn die Skalierung in der Theorie sehr einfach funktionieren sollte, tut sie das in der Praxis meist nicht. Das Problem: Monolithen lassen sich nur eindimensional Skalieren. Auf eine höhere Anzahl von Anfragen kann also durch das starten einer weiteren Instanz reagiert werden. Doch wenn Teilkomponenten von Überlast betroffen sind wird es ineffizient. Beispielsweise gibt es eine Teilkomponente die sehr CPU-Intensive Berechnungen durchführt. Es müssen weitere Instanzen gestartet und dadurch Ressourcen belastet werden, die von der CPU-Intensiven Komponente besser verwendet werden könnten.
-
-\image{images/img_mon-scaling-problem.eps}{Auslastungsproblem bei der Skalierung von Monolithen}
-
 Der letzte große Nachteil tritt häufig erst lange nach Entwicklungsbeginn auf. Die Anwendung ist gewachsen und neue Features werden verlangt, doch die zu Beginn eingesetzte Sprache ist für bestimmte Einsatzzwecke nur schlecht zu gebrauchen. Doch man ist durch den monolithischen Ansatz gebunden. Auch kann es passieren, dass die Aktualisierung auf neuere Sprachversionen nicht mehr, oder nur schwer möglich wird. Alles durch die größe der Applikation. Im schlimmsten Fall wird der Support für die aktuell verwendete Sprache eingestellt.\cite{richardson}
 
-\subsection{Vorteile von Microservices gegenüber Monolithen}\label{ch:ms-mon-pro}
-
-Als Vorteile der Microservice-Architektur lassen sich nun folgende Punkte, die Newman in seinem Buch nahelegt bestätigen\cite{buildingms}:
-
-Die Heterogenität, welche es erlaubt, für verschiedene Einsatzzwecke verschiedene Sprachen und Technologien zu verwenden, ohne das ganze System damit implementieren zu müssen.
-
-Die erhöhte Widerstandsfähigkeit gegenüber Fehlern im System, da die Grenzen von Microservices eine Kaskadierung von Fehlern verhindern können.
-
-Microservices lassen sich leichter skalieren. Während monolithische Architekturen immer im ganzen skaliert werden, kann man in einer Microservice-Architektur nach genau die Services skalieren, die in diesem Moment mehr Leistung benötigen.
-
-Ein weiterer Punkt ist ein einfacheres Deployment. Insbesondere kleinen Änderungen führen bei monolithischen Systemen zu einem großen Overhead, während man in einer Microservice Architektur nur den Service neu deployen muss, der auch die implementierte Änderung enthält.
-
-Ebenfalls lässt sich die Team-Organisation vereinfachen. Ein Team arbeitet an einem Service, dessen Funktionalität klar definiert ist, anstatt ein großes Team zu haben, wessen Teilteams an teilen eines Monolithen arbeiten.
-
-Auch optimieren Microservices die Austauschbarkeit. Die kleinen abgegrenzten Systeme lassen sich mit viel weniger aufwand gegen neuere oder bessere Implementierungen austauschen, ohne andere Komponenten zu Gefährden. Während dies bei Monolithischen Anwendungen zu unvorhersehbaren Problemen kommen kann, weshalb in solchen Architekturen auch häufig kaum Änderungen durchgeführt werden.
-
-Dies sind einige der Gründe, warum it@M nun mehr auf die Microservice Architektur setzen möchte. Sie behandelt einen Großteil der Probleme, die bei bestehenden Systemen der Landeshauptstadt in der Vergangenheit aufgetreten sind.
+Dies sind einige der Gründe, warum über Microservices so viel diskutiert wird und weshalb sich diese Arbeit insbesondere auf die Testerstellung von Anwendungen in dieser Architektur konzentriert. Besonders die genannten Vorteile der Skalierung, des schnellen Deployments und die erhöhte Fehlertoleranz sind Hauptbeweggründe, warum auch it@M nun mehr auf die Microservice Architektur setzen möchte. Sie behandelt einen Großteil der Probleme, die bei bestehenden Systemen der Landeshauptstadt in der Vergangenheit aufgetreten sind.
 
 \subsection{Nachteile von Microservices gegenüber Monolithen}\label{ch:ms-mon-cons}
+%todo durchlesen, überarbeiten und Punkte nach Gewichtung sortieren sowie bullet points
 
 Doch gibt es wie bei jeder Architektur nicht nur Vorteile. Ansonsten würde es auch keine Diskussionen und Neuerungen auf diesem Gebiet geben.
 
 Eine der deutlichsten Probleme ist die der Verteilung. Verteilte Systeme sind durch die Art der Kommunikation, also über das Netzwerk, einer weiteren Fehlerquelle ausgesetzt und vor allem eins: langsamer als Kommunikation innerhalb eines geschlossenen Systems\cite{tradeoffs}. 
 
-Die Komplexität der laufenden Services auf der Infrastruktur ist ein weiterer negativer Aspekt. Auch wenn die Komponenten einzeln ausgetauscht und aktualisiert werden könnnen, muss häufig das Gesamtsystem in einer bestimmten Abfolge gestartet werden um eine reibungslose Kommunikation zu ermöglichen. Und durch die Möglichkeit schnell Neuerungen in die Produktion zu bringen, werden die das Deployment steuernden Teams viel Arbeit haben.\cite{tradeoffs}
+Die Komplexität der laufenden Services auf der Infrastruktur ist ein weiterer negativer Aspekt. Auch wenn die Komponenten einzeln ausgetauscht und aktualisiert werden könnnen, muss häufig das Gesamtsystem in einer bestimmten Abfolge gestartet werden um eine reibungslose Kommunikation zu ermöglichen. Und durch die Möglichkeit schnell Neuerungen in die Produktion zu bringen, werden die das Deployment steuernden Teams viel Arbeit haben.\cite{tradeoffs} Dies ist bei Monolithen einfacher, wenn auch nicht schneller.
 
 Als letzter Punkt ist die \textit{Eventual Consistency} anzusprechen. Ein weiteres Problem von verteilten Systemen. Daten über mehrere Instanzen eines Services Konsistent zu halten ist nahezu unmöglich. Es gibt keine hundert prozentige Sicherheit, dass alle Daten einer Anwendung überall aktuell verfügbar sind.
 
+\subsection{Resümee des Vergleichs}
+
 An dieser Stelle sollte noch erwähnt werden, dass die Idee hinter Microservices nichts neues ist. Bereits auf der Schicht des Betriebssystems wird dies deutlich. Auf UNIX-Systemen laufen lauter keine Prozesse und Dienste die Unabhängig voneinander existieren und entwickelt wurden, aber dennoch miteinander kommunizieren um gemeinsam das Produkt des Betriebssystems zu bilden.\cite{hoff}
 
-Auch sind Monolithische Architekturen nicht gleich schlechter oder unnutzbar. Bestes aktuelles Beispiel dafür ist die Firma etsy\footnote{\url{https://www.etsy.com/about/?ref=ftr}}, die ihren Online-Flohmarkt in Form einer Monolithischen Anwendung entwickeln und erfolgreich betreiben.
+Auch sind Monolithische Architekturen nicht gleich schlechter oder unnutzbar. Bestes Beispiel einer aktuellen \textit{Start-Up} Firma ist etsy\footnote{\url{https://www.etsy.com/about/?ref=ftr}}, die ihren Online-Flohmarkt in Form einer Monolithischen Anwendung entwickeln und erfolgreich betreiben. Nicht zu vergessen sind auch etablierte Softwaresysteme, die \textit{trotz} der monolithischen Architektur sehr erfolgreich sind. Dazu zählt als bekanntestes Beispiel SAP\footnote{\url{http://www.sap.com/germany/index.html}}.
 
 Ebenfalls zu ergänzen ist, dass auch wenn Microservices zunächst klein und kompakt wirken, auch diese eine hohe Komplexität beinhalten können. Nur ist diese Komplexität versteckt vor den Entwicklern die nicht daran arbeiten. Das aufteilen von Logik und Kernkompetenzen ist auch auf reiner Code-Basis möglich und wird auch so umgesetzt, solange sich an Interface-Definitionen und eine Strenge Trennung von verschiedenen Komponenten eines Monolithen gehalten wird.\cite{hoff}
 
