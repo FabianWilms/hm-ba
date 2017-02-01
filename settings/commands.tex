@@ -3,15 +3,23 @@
 % ----------------------------------------------------------------------------------------------------------
 
 % Image Command
-% #1 IMAGE File
-% #2 Caption
-\newcommand{\image}[2]{
+% #3 (optional) Size
+% #2 IMAGE File
+% #3 Caption
+\newcommand{\image}[3][]{
 	\vspace{1em}
 	\begin{minipage}{\linewidth}
 		\centering
-		\includegraphics[width=0.9\linewidth]{#1}
-		\captionof{figure}{#2}
-		\label{fig:#1}
+		
+		\ifthenelse{\equal{#1}{}}
+		{
+			\includegraphics[width=0.9\linewidth]{#2}
+		}
+		{
+			\includegraphics[width=#1\linewidth]{#2}
+		}%
+		\captionof{figure}{#3}
+		\label{fig:#2}
 	\end{minipage}
 }
 

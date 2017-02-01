@@ -62,7 +62,7 @@ Sowohl im privaten als auch geschäftlichen Alltag nimmt IT eine immer größere
 
 Mit steigender Komplexität und höherer Nachfrage am Markt, sowie engen Zeitplänen für Projekte wird leider häufig aus Zeit- und Kostengründen auf Qualität nur geringfügig Rücksicht genommen. Zunächst verursacht eine gute Software-Qualität nämlich Mehrkosten. Personelle wie zeitliche. Dies zeigt das Magische Dreieck, oder im englischen das Project Management Triangle.
 
-\image{images/img_magisches_dreieck.eps}{Magisches Dreieck des Projektmanagements\cite{hagen}}
+\image[0.4]{images/img_magisches_dreieck.eps}{Magisches Dreieck des Projektmanagements\cite{hagen}}
 
 Dieses besagt, dass die Qualität eines Projekts durch die drei Faktoren der Leistung, Kosten und Zeit beeinflusst wird. Diese Faktoren müssen vom Management eines Projekts möglichst ausbalanciert gehalten werden. Beispiel anhand des Hausbaus: Vom Bauherren ist ein fester Termin für die Fertigstellung des Hauses angedacht (Faktor Zeit), doch lässt der aktuelle Baufortschritt eine Fertigstellung zum festgelegten Termin nicht mehr zu. Die Lösung wäre, mehr Arbeiter einzustellen und somit den Fortschritt zu beschleunigen. Somit werden zum Ausgleich die Kosten erhöht.
 
@@ -97,7 +97,7 @@ Schließlich sollen Anforderungen, die an die zu generierenden Tests gestellt we
 
 Eine der momentan am meisten diskutierten Architekturen ist die \enquote{Microservice} Architektur\footnote{\url{https://www.google.de/trends/explore?q=microservices}}\footnote{\url{https://jaxenter.de/ausgaben/java-magazin-5-16}}\footnote{\url{https://www.heise.de/developer/artikel/Microservices-im-Zusammenspiel-mit-Continuous-Delivery-Teil-1-die-Theorie-2376386.html?artikelseite=2}}: Viele kleine Services die im Konglomerat für ein gemeinsames Ziel zusammenarbeiten. 
 
-\image{images/img_monolith-vs-ms.eps}{Logische Unterscheidung zwischen monolithischer und Microservice Architektur}
+\image[0.8]{images/img_monolith-vs-ms.eps}{Logische Unterscheidung zwischen monolithischer und Microservice Architektur}
 
 Sam Newman stellt in seinem Buch \textit{Building Microservices}\cite{buildingms} einige Vorteile dar, die Microservices gegenüber monolithischen Architekturen bieten. Doch um diese Vorteile besser zu verstehen muss man zunächst die Unterschiede der zwei Architekturstile im Detail betrachten.
 
@@ -120,9 +120,9 @@ Zum Planen einer Software mit Mircoservice Architektur ist es von großer Bedeut
 
 \paragraph{Bounded Context} Kontextgrenzen sind eine Definition aus dem Buch \textit{Domain Driven Design} von Eric Evans \cite{dddesign} und bieten eine Möglichkeit in der Planungsphase eines Projekts diese Grenzen zu definieren.
 
-Dies lässt sich gut am Beispiel eines Online-Shops zeigen. Wenn ein Online-Shop geplant wird ist einer der zentralen Bestandteile die Lagerverwaltung. Die Daten der Lagerverwaltung werden herangezogen um dem potentiellen Kunden des Shops anzuzeigen welche und wie viele Produkte verfügbar sind. Doch möchte ein Kunde nun ein Produkt bestellen hat dies nichts mehr mit einer Lagerverwaltung, sondern mit einem Bestellsystem zu tun. Man verlässt also den ursprünglichen Kontext der Lagerverwaltung. Somit entsteht in der Planung eine neue Kontextgrenze: Die des Bestellsystems. Es verwaltet Bestellungen von Kunden. Doch woher kommen die Kundendaten? Kundendaten haben zwar einen Verwendungszweck im Bestellsystem, doch die Verwaltung der Daten hat mit der eigentlichen Kompetenz dieses Systems nichts mehr zu tun. Somit wird eine weitere Kontextgrenze erstellt, nämlich die der Kundenverwaltung.
+Dies lässt sich gut am Beispiel eines Online-Shops zeigen. Wenn ein Online-Shop geplant wird ist einer der zentralen Bestandteile die Lagerverwaltung. Die Daten der Lagerverwaltung werden herangezogen um dem potentiellen Kunden des Shops anzuzeigen welche und wie viele Produkte verfügbar sind. Doch möchte ein Kunde nun ein Produkt bestellen hat dies nichts mehr mit einer Lagerverwaltung, sondern mit einem Bestellsystem zu tun. Man verlässt also den ursprünglichen Kontext der Lagerverwaltung. Somit entsteht in der Planung eine neue Kontextgrenze: Die des Bestellsystems. Es verwaltet Bestellungen von Kunden. Doch woher kommen die Kundendaten? Kundendaten haben zwar einen Verwendungszweck im Bestellsystem, doch die Verwaltung der Daten hat mit der eigentlichen Kompetenz dieses Systems nichts mehr zu tun. Somit wird eine weitere Kontextgrenze erstellt, nämlich die der Kundenverwaltung(siehe Fig.~\ref{fig:images/img_online-shop-example.eps}).
 
-%todo online shop bild
+\image[]{images/img_online-shop-example.eps}{Beispiel der Kontexgrenzen des Online-Shops}
 
 Eine Kontextgrenze soll also eine logische Grenze darstellen, welche eventuell über eine oder mehrere Schnittstellen verfügt, die festlegen, welche Informationen mit anderen Kontexten geteilt werden.\cite[S.65]{buildingms}. Damit einher geht die Unterscheidung zwischen geteilten und versteckten Modellen. Versteckte Modelle werden innerhalb einer Kontextgrenze benötigt, sind aber für andere Kontexte uninteressant. Geteilte Modelle hingegen werden über die Grenzen hinweg freigegeben. Sind solche Kontextgrenzen für eine Software modelliert, lassen sich aus diesen sehr leicht Microservices ableiten, da bereits einige Grundvoraussetzungen getroffen sind: Lose Kopplung und Starker Zusammenhalt.\cite[S.68]{buildingms}
 
@@ -138,7 +138,7 @@ Als Beispiel dient hier ein Tisch der im Baumarkt gekauft wurde. Dieser Tisch be
 
 Wenn man dieses Konzept nun auf das vorhergehende Online-Shop Beispiel überträgt ergibt sich folgendes Bild:
 
-%todo Bild Aggregates des Online-Shops
+\image[]{images/img_online-shop-example-aggregate.eps}{Aggregates im Online-Shop Beispiel}
 
 Wie zu sehen ist, decken sich die gefundenen Aggregates mit dem im vorherigen Abschnitt gefundenen Kontextgrenzen. Somit ist das Ergebnis der Aufteilung auch mit dieser Methode das gleiche. Aggregates machen insbesondere dann Sinn, wenn mit Event-basierter Kommunikation gearbeitet wird, da die Zustandsänderungen, die durch Events beschrieben werden, der Darstellung von Bearbeitungsregeln von Aggregates sehr nahe kommen.
 
@@ -431,7 +431,7 @@ End-to-end tests haben einen großen Nachteil: Sie sind die Tests mit den meiste
 	\item[Tests Datenunabhängig gestalten] Anstatt auf bereits existente Datensätze zu Vertrauen, sollten die end-to-end tests selbst die Möglichkeit zur Erzeugung von Daten über die öffentlichen Schnittstellen der Anwendung nutzen, um bei den Tests ständig mit den gleichen Daten zu arbeiten. Wird dies nicht so umgesetzt, kann es zu fehlerhaften Testergebnissen kommen, die jedoch nicht Fehler in der eigentlichen Anwendung als Ursache haben.\cite{clemson}
 \end{description}
 
-Doch kann man end-to-end testing auch weitaus weniger strukturiert gestalten. An dieser Stelle kommt monkey testing ins Spiel. Anstatt Geschäftsanforderungen in end-to-end Tests zu modellieren verfolgt dieser Ansatz die Idee, eine Anwendung durch lauter zufällige Anfragen zu testen, die keiner menschlichen Logik entsprechen.%todo quelle und weiter beschreiben
+Doch kann man end-to-end testing auch weitaus weniger strukturiert gestalten. An dieser Stelle kommt monkey testing ins Spiel. Anstatt Geschäftsanforderungen in end-to-end Tests zu modellieren verfolgt dieser Ansatz die Idee, eine Anwendung durch lauter zufällige Anfragen zu testen, die keiner menschlichen Logik entsprechen. Dabei wird das System für längere Zeit den zufälligen Anfragen ausgesetzt und es werden auftretende Fehler dokumentiert. Der Vorteil dieses Vorgehens liegt natürlich darin, dass sich keine Gedanken über die Testfälle selber gemacht werden müssen, allerdings sollte man diese Art der end-to-end Tests bestenfalls in Kombination mit dem abbilden von Geschäftslogiken verwenden.
 
 Durch das aufbrechen einer Anwendung in mehrere sauber getrennte Services treten zu teilen neue Grenzen auf, die zuvor wahrscheinlich unentdeckt geblieben werden. Diese neuen Grenzen erlauben es auch, Tests weitaus flexibler zu gestalten, als es bei Monolithen möglich wäre.
 
