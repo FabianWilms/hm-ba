@@ -242,15 +242,15 @@ Auch wenn die Skalierung in der Theorie sehr einfach funktionieren sollte, tut s
 
 \image{images/img_mon-scaling-problem.eps}{Auslastungsproblem bei der Skalierung von Monolithen}
 
-Microservices lassen sich leichter skalieren. Während monolithische Architekturen immer im ganzen skaliert werden, kann man in einer Microservice-Architektur nach genau die Services skalieren, die in diesem Moment mehr Leistung benötigen.
+Microservices lassen sich dagegen effizienter skalieren. Während monolithische Architekturen immer im ganzen skaliert werden, kann man in einer Microservice-Architektur nach genau die Services skalieren, die in diesem Moment mehr Leistung benötigen.
 
 %todo skalierungsbild microservices
 
-Ein weiterer Punkt ist ein schnelleres Deployment. Insbesondere kleinen Änderungen führen bei monolithischen Systemen zu einem großen Overhead, während man in einer Microservice Architektur nur den Service neu deployen muss, der auch die implementierte Änderung enthält.
+Ein weiterer Punkt ist ein schnelleres Deployment. Insbesondere kleinen Änderungen führen bei monolithischen Systemen zu einem großen Overhead, während man in einer Microservice Architektur nur den Service neu deployen muss, der auch die implementierte Änderung enthält. Ein weiterer Vorteil vom schnelleren Deployment ist die Möglichkeit, durch Continous Delivery die Abdeckung von Tests zu verringern. Da Fehler im Produktivsystem schnell behoben werden können, und keine Tagelangen Ausfälle durch einen komplizierten und Langwierigen Bereitstellungsprozess entstehen, ist dies möglich.
 
 Ebenfalls lässt sich die Team-Organisation vereinfachen. Ein Team arbeitet an einem Service, dessen Funktionalität klar definiert ist, anstatt ein großes Team zu haben, wessen Teilteams an teilen eines Monolithen arbeiten.
 
-Auch optimieren Microservices die Austauschbarkeit. Die kleinen abgegrenzten Systeme lassen sich mit viel weniger aufwand gegen neuere oder bessere Implementierungen austauschen, ohne andere Komponenten zu Gefährden. Während dies bei Monolithischen Anwendungen zu unvorhersehbaren Problemen kommen kann, weshalb in solchen Architekturen auch häufig kaum Änderungen durchgeführt werden.
+Auch optimieren Microservices die Austauschbarkeit. Die kleinen abgegrenzten Systeme lassen sich mit viel weniger aufwand gegen neuere oder bessere Implementierungen austauschen, ohne andere Komponenten zu Gefährden. Während dies bei Monolithischen Anwendungen zu unvorhersehbaren Problemen kommen kann, weshalb in solchen Architekturen auch häufig kaum Änderungen durchgeführt werden. Dazu zählt auch die Eigenschaft, dass die Aktualisierung von Frameworks wesentlich einfacher von statten gehen kann. Während dies bei einem monolithisches System fast ein eigenständiges Projekt mit mehreren Tagen Arbeit verursacht, ist es möglich solche Updates bei Microservice-Architekturen Schrittweise in kleineren Aufgabenpaketen zu erledigen, die auch zwischen größeren Aufgaben bearbeitet werden können.
 
 Bei Monolithen  nehmen die Probleme ab einem gewissen Entwicklungsstand überhand. Viele Leute arbeiten an einer Code-Basis die stetig wächst. Wenn über den Projektzeitraum neue Entwickler am Projekt teilnehmen können diese zunächst leicht überfordert sein, da die anfängliche Modularität dadurch, dass sie nicht hart vorgeschrieben ist, stetig abnimmt. Dies führt auch dazu, dass bei Änderungen an großen Systemen nicht mehr direkt klar ist, welche Auswirkungen es auf andere Teilkomponenten und somit das Gesamtsystem gibt. Die Entwicklungsgeschwindigkeit verringert sich.
 
@@ -271,7 +271,7 @@ Doch gibt es wie bei jeder Architektur nicht nur Vorteile. Ansonsten würde es a
 
 Eine der deutlichsten Probleme ist die der Verteilung. Verteilte Systeme sind durch die Art der Kommunikation, also über das Netzwerk, einer weiteren Fehlerquelle ausgesetzt und vor allem eins: langsamer als Kommunikation innerhalb eines geschlossenen Systems\cite{tradeoffs}. 
 
-Die Komplexität der laufenden Services auf der Infrastruktur ist ein weiterer negativer Aspekt. Auch wenn die Komponenten einzeln ausgetauscht und aktualisiert werden könnnen, muss häufig das Gesamtsystem in einer bestimmten Abfolge gestartet werden um eine reibungslose Kommunikation zu ermöglichen. Und durch die Möglichkeit schnell Neuerungen in die Produktion zu bringen, werden die das Deployment steuernden Teams viel Arbeit haben.\cite{tradeoffs} Dies ist bei Monolithen einfacher, wenn auch nicht schneller.
+Die Komplexität der laufenden Services auf der Infrastruktur ist ein weiterer negativer Aspekt, den man jedoch auch positiv auffassen kann. Es wird durch die Modularität und lose Kopplung der Komponenten eine hohe Fehlertoleranz von den einzelnen Teilen des Systems abverlangt. Es muss mit vielen Fehlerquellen mehr umgegangen werden, als es bei einem Monolithen der Fall ist. So zum Beispiel der Ausfall oder die nicht-erreichbarkeit von anderen Services. Dies führt allerdings auch dazu, dass viel Zeit in die Ausfallsicherheit der einzelnen Komponenten gesteckt werden muss, was eine höhere Qualität zur Folge hat. Netflix nutzt, um diese Ausfallsicherheit sicherzustellen und zu testen, ein eigens Entwickeltes Tool namens \enquote{Chaos Monkey}\footnote{\url{https://github.com/Netflix/SimianArmy}}. Dieses Werkzeug sorgt für zufällige Ausfälle von Komponenten in der produktiven Infrastruktur.
 
 Als letzter Punkt ist die \textit{Eventual Consistency} anzusprechen. Ein weiteres Problem von verteilten Systemen. Daten über mehrere Instanzen eines Services Konsistent zu halten ist nahezu unmöglich. Es gibt keine hundert prozentige Sicherheit, dass alle Daten einer Anwendung überall aktuell verfügbar sind.
 
@@ -287,11 +287,15 @@ Ebenfalls zu ergänzen ist, dass auch wenn Microservices zunächst klein und kom
 
 \subsection{Backing Services der Architektur}
 
-Von it@M sind bereits Entscheidungen zum Aussehen einer Anwendung in Microservice-Architektur getroffen worden. Als Infrastrukturelle Unterstützung gibt es innerhalb der Anwendung einen Authentifizierungs-Service, der sowohl eine Authentifizierung über die städtische Infrastruktur bietet, als auch über eine eigene Nutzerverwaltung. Sowie einen Discovery-Service, der allen beteiligten Services einen Anlaufpunkt zur Service-Discovery bietet. Zusätzlich existiert ein Configuration Service der die zentrale Steuerung von gemeinsamen Einstellungen erlaubt.
+Von it@M sind bereits Entscheidungen zum Aussehen einer Anwendung in Microservice-Architektur getroffen worden. Als Infrastrukturelle Unterstützung gibt es innerhalb der Anwendung einen Authentifizierungs-Service, der sowohl eine Authentifizierung über die städtische Infrastruktur bietet, als auch über eine eigene Nutzerverwaltung.
 
-Des weiteren gibt es einen Edge Server. Dieser funktioniert als eine Art Gateway. Er bietet eine Schnittstelle für die Gesamtanwendung und verhindet somit, dass die Komplexität der vielen kleinen Services für weitere Anwendungen und Nutzer nach außen getragen wird.
+Des weiteren existiert ein Discovery-Service, der im System wie eine Art \acs{DNS} agiert. Dieser Service erlaubt es allen im System beteiligten Services eine lokales Abbild seines Registers aller verfügbaren Services abzurufen, und über dieses Register Services anzusprechen. Im Gegensatz zu einem normalen \ac{DNS} muss der Discovery-Service allerdings nicht manuell mit Daten gespeist werden, sondern verlangt es, dass Services sich eigenständig dort registrieren. Sobald also ein neuer Service innerhalb des Systems startet, meldet dieser sich mit seinem Namen und Netzwerkadresse an und ist ab sofort für die anderen Services \enquote{entdeckbar}.
 
-Zusätzlich zur Grundstruktur kann es in einer Anwendung mehrere Services geben, die alle innerhalb ihrer Kontextgrenzen Aufgaben erfüllen. 
+Zusätzlich existiert ein Configuration Service der die zentrale Steuerung von gemeinsamen Einstellungen erlaubt. Die größte Varianz bei Vergleich von Enwicklungs-, Test- und Produktionsumgebungen existiert in den Konfigurationen der Services. Dazu zählen u.a. Anbindungen an Datenbanken oder auch die IP-Adressen der zuvor genannten Backing Services. Ein Configuration Service lagert diese Konfigurationen aus dem Source Code der Services selber aus, um Konfigurationsänderungen an diesen Parametern auch zur Laufzeit des Systems ohne ein neues deployment zu ermöglichen.
+
+Des weiteren gibt es einen Edge Server. Dieser fungiert als eine Art Gateway. Er bietet eine Schnittstelle für die Gesamtanwendung und verhindert somit, dass die Komplexität der vielen kleinen Services für weitere Anwendungen und Nutzer nach außen getragen wird. Dies ist auch insbesondere dann wichtig, wenn das Frontend über Javascript mit den Services des Systems kommunizieren soll, da somit keine \acs{CORS}-Anfragen mehr benötigt werden, weil auch das Frontend über diesen Edge Server bereitgestellt werden kann.
+
+Neben zur Grundstruktur kann es in einer Anwendung mehrere Services geben, die alle innerhalb ihrer Kontextgrenzen Aufgaben erfüllen. 
 
 \image{images/img_arch-stadt-gesamt.eps}{Architekturvorgabe it@M}
 
@@ -299,15 +303,20 @@ Zusätzlich zur Grundstruktur kann es in einer Anwendung mehrere Services geben,
 
 Zum Start der Anwendung registrieren sich alle Komponenten beim Discovery Service um für Anfragen erreichbar zu sein.
 
-Der Konsument der Anwendung, sei es ein Nutzer oder eine weitere Software, kommuniziert ausschließlich über das Gateway mit den internen Komponenten. Wird eine Anfrage gestellt muss zunächst die Authentifizierung sichergestellt sein. Anschließend wird über den Discovery Service der zur Bearbeitung der Anfrage benötigte Service gesucht und die Anfrage an diesen gestellt. Bei allen gesicherten Endpunkten innerhalb der Anwendung findet immer eine Absprache mit dem Authentifizierungsservice statt, um auf eine Änderung der Rechte eines Nutzers sofort reagieren zu können.
+Der Konsument der Anwendung, sei es ein Nutzer oder eine weitere Software, kommuniziert ausschließlich über den Edge Server mit den internen Komponenten. Zunächst besteht für den Konsumenten die Möglichkeit, sich beim Authentication Service zu Authentifizieren und mithilfe eines OAuth2 tokens für spätere Anfragen zu Autorisieren. Wird eine Anfrage gestellt wird über den Discovery Service der zur Bearbeitung der Anfrage benötigte Service gesucht und die Anfrage an diesen gestellt. Bei allen gesicherten Endpunkten innerhalb der Anwendung findet immer eine Absprache mit dem Authentifizierungsservice statt, um auf eine Änderung der Rechte eines Nutzers sofort reagieren zu können. Bei ungesicherten Ressourcen ist diese Abstimmung natürlich nicht nötig(Abb.~\ref{fig:images/img_arch-stadt-gesamt-full.eps}).
 
-Der Configuration Service aktualisiert bei Bedarf die Einstellungen aller beteiligten Services innerhalb der Anwendung.
+Der Configuration Service aktualisiert bei Bedarf die Konfigurationen aller beteiligten Services innerhalb der Anwendung.
 
 \image{images/img_arch-stadt-gesamt-full.eps}{Kommunikation innerhalb der Architektur}
 
 \subsection{Interne Struktur der Services}
 
-Jeder Service der Anwendung hat intern eine gleiche Aufteilung. Nach außen werden, REST-konform, nur die Ressourcen über \acp{URI} angeboten. Diese Ressourcen bestehen entweder aus Entitäten oder Geschäftsanwendungen. Entitäten werden über sogenannte Repositories als Ressource bereitgestellt und über eine \ac{ORM}-Bibliothek in einer Datenbank persistiert. Zum zusätzlichen Eingriff durch Entwickler können, kann auf verschiedene Events mithilfe von Listenern reagiert werden. Zur Kommunikation mit anderen Services existiert ein \textit{Security REST Client}, der die Kommunikation mit anderen Services durch Verwendung des Discovery und Authentication Service so einfach wie möglich machen soll. 
+Jeder Service der Anwendung hat intern eine gleiche Aufteilung. Ziel ist es, für eine Standardisierung innerhalb der Services zu sorgen, um Entwicklern den Einstieg zu erleichtern, egal an welchem Projekt aktuell Microservices entwickelt werden. Nach außen werden, REST-konform, nur die Ressourcen über \acp{URI} angeboten. Diese Ressourcen bestehen entweder aus Entitäten oder Geschäftsanwendungen. Entitäten werden über sogenannte Repositories als Ressource bereitgestellt und über eine \ac{ORM}-Bibliothek in einer Datenbank persistiert. Der Begriff des Repositories stammt ebenfalls aus der Welt des \ac{DDD} und lässt sich anhand einer Definition von Edward Hieatt and Rob Mee gut erläutern\cite{hieatt}:
+
+\myquote{Mediates between the domain and data mapping layers using a collection-like interface for accessing domain objects.}
+
+Ein Repository stellt also eine Verhandlungsebene zwischen den Schichten der Domäne und der Datenpersistierung.
+Zum zusätzlichen Eingriff durch Entwickler können, kann auf verschiedene Events mithilfe von Listenern reagiert werden. Zur Kommunikation mit anderen Services existiert ein \textit{Security REST Client}, der die Kommunikation mit anderen Services durch Verwendung des Discovery und Authentication Service so einfach wie möglich machen soll. 
 
 \image{images/img_architecture_testing.eps}{Aufbau eines Service innerhalb der it@M-Architektur}
 
@@ -317,9 +326,9 @@ Jeder Service der Anwendung hat intern eine gleiche Aufteilung. Nach außen werd
 
 \section{Software Testen}
 
-\subsection{Bekannte Testmethoden}\label{ch:soft-test}
-
 Das Testen von Software ist der Prozess, ein Programm auszuführen mit dem Ziel Fehler zu finden und zu beheben. Im Gegensatz zu physikalischen Systemen kann Software auf unterschiedliche und unvorhersehbare Weisen defekte aufweisen. Dies liegt unter anderem daran, dass die vielen Fehler in Anwendungen nicht durch Fehler in Produktionsabläufen, sondern durch falsche oder schlechte Design-Entscheidungen entstehen.\cite{pantesting}
+
+\subsection{Bekannte Testmethoden}\label{ch:soft-test}
 
 Zunächst kann das Testen von Software in Funktionale und nicht-funktionale Tests getrennt werden. Zur weiteren Erklärung müssen zunächst die Begriffe der funktionalen und nicht-funktionalen Anforderungen beschrieben werden. Einfach gesagt beschreiben funktionale Anforderungen \textit{was} das System tun sollte (Kundenanforderungen) und nicht-funktionale Anforderungen \textit{wie} das System funktioniert(Technische Anforderungen).\cite{erikssonreq}
 
@@ -336,19 +345,21 @@ Funktionale Tests beschäftigen sich nur mit den funktionalen Anforderungen eine
 
 \image{images/img_testmethods-functional.pdf}{Umfang der verschiedenen Testmethoden}
 
-Nicht-funktionales Testen evaluiert die \textit{Bereitschaft} des Systems.\cite{erikssontesting} Beispielsweise wird durch Performance-Tests festgestellt, wie gut eine Anwendung mit vielen Anfragen umgehen kann.\cite{inflectra}
-Das Security Testing konzentriert sich auf das prüfen der Anwendung in Hinblick auf Vertraulichkeit von Informationen, Integrität, Erreichbarkeit und die Authentifizierung.\cite{inflectra}
-Usability Tests sind eine eher objektive Testmethode mit deren Hilfe die Benutzerfreundlichkeit einer Anwendung sichergestellt werden soll. Es wird besonders auf die Erlernbarkeit der Anwendung, Effizienz bei der Nutzung, Zufriedenstellung des Nutzers und Einprägsamkeit Wert gelegt.
-Zu guter Letzt findet im Compatibility Test die Prüfung statt, ob die Anwendung auf allen geforderten Betriebssystemen, Browsern und/oder Hardware-Plattformen lauffähig ist und alle Funktionen sich kongruent verhalten.
+Nicht-funktionales Testen evaluiert die \textit{Bereitschaft} des Systems.\cite{erikssontesting} Zu nicht-funktionalen Testmethoden zählen unter anderem die folgenden\cite{inflectra}:
 
-\subsection{Testen von Microservices}\label{ch:ms-test}
+\begin{description}
+	\item[Performance-Tests] Mit diesen wird festgestellt, wie gut eine Anwendung mit vielen Anfragen umgehen kann.
+	\item[Security Testing] konzentriert sich auf das prüfen der Anwendung in Hinblick auf Vertraulichkeit von Informationen, Integrität, Erreichbarkeit und die Authentifizierung.
+	\item[Usability Tests] sind eine eher objektive Testmethode mit deren Hilfe die Benutzerfreundlichkeit einer Anwendung sichergestellt werden soll. Es wird besonders auf die Erlernbarkeit der Anwendung, Effizienz bei der Nutzung, Zufriedenstellung des Nutzers und Einprägsamkeit Wert gelegt.
+	\item[Compatibility Tests] Tests, die Prüfen, ob die Anwendung auf allen geforderten Betriebssystemen, Browsern und/oder Hardware-Plattformen lauffähig ist und alle Funktionen sich kongruent verhalten.
+\end{description} 
+
+\section{Konzeption: Testen von Microservices und generative Testerstellung}\label{ch:ms-test}
 \label{sec:testingms}
 
 Durch einige spezielle Eigenschaften von Microservices ergeben sich teilweise auch spezielle Testanforderungen die in der Entwicklung von Tests Beachtung finden müssen. 
 
-%todo mehr schreiben...
-
-Toby Clemson hat im Jahr 2014 einen Vortrag über Test-Strategien in einer Microservice-Architektur gehalten.\cite{clemson} In dieser Präsentation geht er insbesondere auf die möglichen Herangehensweisen ein, die notwendig sind um die zusätzliche Komplexität beim Testen solcher Anwendungen zu regeln.
+%todo was führt zu speziellen testmethoden und welche methoden bleiben gleich? hinweis darauf, dass Frameworks und umsetzung später beachtung finden
 
 \paragraph{Unit Testing}
 
@@ -367,12 +378,12 @@ An dieser Stelle ist die Kernfunktionalitäten der Services, also die Stellen, a
 Unit- und Integrationstests sorgen dafür, dass an dieser Stelle bereits Sichergestellt ist, dass die Logik in den einzelnen Komponenten garantiert so funktioniert wie sie beabsichtigt ist. Doch ist dies der Punkt, an dem sich das Testen von Microservices vom Testen von Monolithen unterscheidet. Nur, weil der getestete Service alle Anforderungen erfüllt, gilt dies noch nicht für die Services zu denen Abhängigkeiten bestehen.
 Das Problem an dieser Stelle: End-to-End-Tests, also Tests bei denen die gesamte Domäne gestartet und getestet wird sind sehr aufwändig und bieten nur sehr lange Feedback-Zyklen, im Gegensatz zu automatisierten Testmethoden.\cite{clemson}
 
-Component testing tritt an dieser Stelle ein. Es eignet sich besonders gut für Microservice Architekturen, da die sich diese leicht in die getrennt zu testenden Komponenten aufteilen lassen: Jeder Service entspricht einer Komponente. Externe Kommunikationspartner können durch \textit{test doubles} ersetzt werden, dadurch wird eine Isolierung des Service für den Test sichergestellt.\cite{clemson}
+Component testing tritt an dieser Stelle ein. Es eignet sich besonders gut für Microservice Architekturen, da die sich diese leicht in die getrennt zu testenden Komponenten aufteilen lassen: Jeder Service entspricht einer Komponente. Externe Kommunikationspartner können durch \textit{test doubles} ersetzt werden, dadurch wird eine Isolierung des Service für den Test sichergestellt.\cite{clemson} Ein \textit{test double} ist eine generische Umschreibung für ein Objekt welches man zu Testzwecken gegen ein produktive Komponente austauscht. Dazu zählen u.a. \textit{dummys}, die zwar weitergereicht, aber nie verwendet werden, oder auch \textit{stubs}, die für bestimmte vorderfinierte Anfragen vordefinierte Antworten liefern.\cite{fowlertestdouble}
 
 %todo bild überarbeiten
 %\image{images/img_component-testing.eps}{Component Testing Scope \cite{clemson}}
 
-Bei Services die komplexere Integrations- oder Bootlogik besitzen kann es auch sinnvoll sein die test doubles durch externe stubs von den benötigten Services zu ersetzen. Dadurch wird die Testlogik zwar zu teilen in den Test-Harnisch, der für die korrekte Ausführung der Tests verantwortlich ist, geschoben, doch können zusätzliche Fehlerquellen durch die Verwendung von echten Netzwerkanfragen erkannt werden. Zu beachten ist jedoch, dass sich dadurch auch die Zeit der Testausführung erhöhen kann.\cite{clemson}
+Bei Services die komplexere Integrations- oder Bootlogik besitzen kann es auch sinnvoll sein die test doubles durch externe stubs von den benötigten Services zu ersetzen. Dadurch wird die Testlogik zwar zu teilen in den Test-Harnisch, der für die korrekte Ausführung der Tests verantwortlich ist, geschoben, doch können zusätzliche Fehlerquellen durch die Verwendung von echten Netzwerkanfragen erkannt werden. Zu beachten ist jedoch, dass sich dadurch auch die Zeit der Testausführung erhöhen kann.\cite{clemson} Ein Test-Harnisch ist die Zusammenstellung aller für die Ausführung von Tests nötigen Informationen. Dazu zählen auch Konfigurationen die beispielsweise stubs und andere Komponenten für die Tests starten.
 
 \paragraph{Contract Testing}
 
@@ -420,6 +431,8 @@ End-to-end tests haben einen großen Nachteil: Sie sind die Tests mit den meiste
 	\item[Tests Datenunabhängig gestalten] Anstatt auf bereits existente Datensätze zu Vertrauen, sollten die end-to-end tests selbst die Möglichkeit zur Erzeugung von Daten über die öffentlichen Schnittstellen der Anwendung nutzen, um bei den Tests ständig mit den gleichen Daten zu arbeiten. Wird dies nicht so umgesetzt, kann es zu fehlerhaften Testergebnissen kommen, die jedoch nicht Fehler in der eigentlichen Anwendung als Ursache haben.\cite{clemson}
 \end{description}
 
+Doch kann man end-to-end testing auch weitaus weniger strukturiert gestalten. An dieser Stelle kommt monkey testing ins Spiel. Anstatt Geschäftsanforderungen in end-to-end Tests zu modellieren verfolgt dieser Ansatz die Idee, eine Anwendung durch lauter zufällige Anfragen zu testen, die keiner menschlichen Logik entsprechen.%todo quelle und weiter beschreiben
+
 Durch das aufbrechen einer Anwendung in mehrere sauber getrennte Services treten zu teilen neue Grenzen auf, die zuvor wahrscheinlich unentdeckt geblieben werden. Diese neuen Grenzen erlauben es auch, Tests weitaus flexibler zu gestalten, als es bei Monolithen möglich wäre.
 
 Hat ein Service eine immens wichtige Aufgabe im Sinne der Geschäftsanforderungen, ist es sinnvoll die volle Bandbreite an möglichen Testmethoden im höchsten Detailgrad auf diesen Service anzusetzen um sein korrektes Verhalten zu garantieren. Wird allerdings ein weiterer Service betrachtet, der weniger wichtige Aufgaben, oder gar experimentelle Funktionen bereitstellt, kann es Sinn machen, die Entwicklungszeit auf andere Gebiete zu fokussieren und nur ein paar der hier vorgestellten Herangehensweisen zu implementieren.\cite{clemson}
@@ -429,18 +442,9 @@ Hat ein Service eine immens wichtige Aufgabe im Sinne der Geschäftsanforderunge
 \subsubsection{Frameworks zum Umsetzen von Test-Strategien}\label{ch:ms-test-frw}
 
 % ----------------------------------------------------------------------------------------------------------
-% Anforderungen an generierte Tests
-% ----------------------------------------------------------------------------------------------------------
-\section{Anforderungen an generierte Tests}\label{ch:anforderungen-tests}
-
-\subsection{Benötigte Daten}
-
-\subsection{Notwendige Änderungen/Erweiterungen von Barrakuda}
-
-% ----------------------------------------------------------------------------------------------------------
 % Implementierung in Barrakuda
 % ----------------------------------------------------------------------------------------------------------
-\section{Implementierung in Barrakuda}\label{ch:implementierung}
+\section{Implementierung}\label{ch:implementierung}
 
 \subsection{Referenz-System}
 
