@@ -201,9 +201,24 @@ Ein weiterer interessanter Anwendungsfall für \ac{HATEOAS} ist die Nutzung der 
 
 Theoretisch bilden also die von der \ac{API} gesendeten Daten schon den Ablauf der späteren Endanwendung dar. Ein Nutzer könnte bereits durch dem einfachen folgen der mitgelieferten Links einen Ablauf entsprechend der Geschäftslogik abarbeiten.
 
-\paragraph{Event-basierte Kommunikation}
 
-%todo event-basierte Kommunikation erläutern
+\paragraph{Message-Driven Communication}
+
+Neben den oben genannten Möglichkeiten der synchronen Kommunikation gibt es auch in der Welt der Microservices asynchrone Ansätze. Einer davon ist die der Messages. Anstelle des typischen Frage-Antwort-Ablaufs einer gängigen Client-Server-Kommunikation wird bei der Verwendung von Nachrichten auf Buffer gesetzt. Ein Service, der einen Auftrag an einen anderen Service senden möchte, schickt eine Nachricht an einen Message-Buffer. Der angesprochene Service bearbeitet die Nachrichten dann nach eigenem Gusto(siehe Fig.~\ref{fig:images/img_message-driven.eps}). Zu den Vorteilen dieser Art der Kommunikation zählt unter anderem\cite{messagingwolff}:
+
+\begin{description}
+	\item[Keine Service-Discovery mehr benötigt] da nur der Standort des Message-Buffers bekannt sein muss.
+	\item[Skalierung stark vereinfacht] da einfach weitere Konsumenten gestartet werden können, die Nachrichten aus dem Buffer abarbeiten
+\end{description}
+
+\image[]{images/img_message-driven.eps}{Message Driven Communication}
+
+\paragraph{Event-Driven Communication}
+
+ist die zweite Art der asynchronen Kommunikation. Der größte Unterschied zum Ansatz der Messages liegt darin, dass bei der Verwendung von Events kein expliziter Empfänger genannt wird, sondern alle Services ein Event empfangen, und eigenständig entscheiden, ob sie dieses Event verarbeiten wollen, oder nicht(siehe Fig.~\ref{fig:images/img_event-driven.eps}).
+Eines der größten Probleme dieses Ansatzes ist, dass der Empfang eines Events nicht sichergestellt werden kann, dafür ist es aber um einiges Einfacher use-cases Abzudecken, in denen Änderungen an einem Service an viele weitere propagiert werden müssen.\cite{messagingwolff}
+
+\image[0.4]{images/img_event-driven.eps}{Event-Driven Communication}
 
 \subsubsection{Datenformat - JSON oder XML?} 
 
@@ -230,50 +245,57 @@ Das Deployment ist sehr einfach. Beispielsweise reicht es bereits, ein einfaches
 Auch die Skalierung ist einfach möglich, durch die Verwendung eines Load-Balancers und das starten von mehreren Instanzen der Anwendung.\cite{richardson}
 
 \subsection{Vorteile von Microservices gegenüber Monolithen}\label{ch:ms-mon-pro}
-%todo durchlesen, überarbeiten und Punkte nach Gewichtung sortieren sowie bullet points
 
-Als Vorteile der Microservice-Architektur lassen sich nun folgende Punkte, die Newman in seinem Buch nahelegt vorstellen\cite{buildingms}:
+Als Vorteile der Microservice-Architektur lassen sich nun folgende Punkte, die unter anderem auch von Newman in seinem Buch nahelegt werden, festhalten\cite{buildingms}:
 
-Die Heterogenität, welche es erlaubt, für verschiedene Einsatzzwecke verschiedene Sprachen und Technologien zu verwenden, ohne das ganze System damit implementieren zu müssen. Dieser Punkt ist insbesondere Interessant, wenn Firmen zusammengeführt werden, deren Anwendungen auf verschiedenen Sprachen basieren.
+\begin{description}
+	
+	%--------------
+	\item[Klare Team-Organisation] Ein Team arbeitet an einem Service, dessen Funktionalität klar definiert ist, anstatt ein großes Team zu haben, wessen Teilteams an teilen eines Monolithen arbeiten.
+	
+	%--------------
+	\item[Heterogentität] welche es erlaubt, für verschiedene Einsatzzwecke verschiedene Sprachen und Technologien zu verwenden, ohne das ganze System damit implementieren zu müssen. Dieser Punkt ist insbesondere Interessant, wenn Firmen zusammengeführt werden, deren Anwendungen auf verschiedenen Sprachen basieren.
+	
+	%--------------
+	\item[Austauschbarkeit] Die kleinen abgegrenzten Systeme lassen sich mit viel weniger aufwand gegen neuere oder bessere Implementierungen austauschen, ohne andere Komponenten zu Gefährden. Während dies bei Monolithischen Anwendungen zu unvorhersehbaren Problemen kommen kann, weshalb in solchen Architekturen auch häufig kaum Änderungen durchgeführt werden. Dazu zählt auch die Eigenschaft, dass die Aktualisierung von Frameworks wesentlich einfacher von statten gehen kann. Während dies bei einem monolithisches System fast ein eigenständiges Projekt mit mehreren Tagen Arbeit verursacht, ist es möglich solche Updates bei Microservice-Architekturen Schrittweise in kleineren Aufgabenpaketen zu erledigen, die auch zwischen größeren Aufgaben bearbeitet werden können.
+	
+	%--------------
+	\item[Schnelleres Deployment] Insbesondere kleinen Änderungen führen bei monolithischen Systemen zu einem großen Overhead, während man in einer Microservice Architektur nur den Service neu deployen muss, der auch die implementierte Änderung enthält. Ein weiterer Vorteil vom schnelleren Deployment ist die Möglichkeit, durch Continous Delivery die Abdeckung von Tests zu verringern. Da Fehler im Produktivsystem schnell behoben werden können, und keine Tagelangen Ausfälle durch einen komplizierten und Langwierigen Bereitstellungsprozess entstehen, ist dies möglich.
+	
+	%--------------
+	\item[Erhöhte Widerstandsfähigkeit gegenüber Fehlern im System], da die Grenzen von Microservices eine Kaskadierung von Fehlern verhindern können.
+	
+	%--------------
+	\item[Bessere Skalierung] Auch wenn die Skalierung von Monolithen in der Theorie sehr einfach funktionieren sollte, tut sie das in der Praxis meist nicht. Das Problem: Monolithen lassen sich nur eindimensional Skalieren. Auf eine höhere Anzahl von Anfragen kann also durch das starten einer weiteren Instanz reagiert werden. Doch wenn Teilkomponenten von Überlast betroffen sind wird es ineffizient. Beispielsweise gibt es eine Teilkomponente die sehr CPU-Intensive Berechnungen durchführt. Es müssen weitere Instanzen gestartet und dadurch Ressourcen belastet werden, die von der CPU-Intensiven Komponente besser verwendet werden könnten.
+	
+	\image{images/img_mon-scaling-problem.eps}{Auslastungsproblem bei der Skalierung von Monolithen}
+	
+	Microservices lassen sich dagegen effizienter skalieren. Während monolithische Architekturen immer im ganzen skaliert werden, kann man in einer Microservice-Architektur genau die Services skalieren, die in diesem Moment mehr Leistung benötigen(vgl. Fig.~\ref{fig:images/img_mon-scaling-problem.eps} und Fig.~\ref{fig:images/img_ms-scaling.eps}).
+	
+	\image[]{images/img_ms-scaling.eps}{Scaling der gleichen Komponenten in einer Microservice-Architektur}
+	
+	
+\end{description}
 
-Die erhöhte Widerstandsfähigkeit gegenüber Fehlern im System, da die Grenzen von Microservices eine Kaskadierung von Fehlern verhindern können.
-
-Auch wenn die Skalierung in der Theorie sehr einfach funktionieren sollte, tut sie das in der Praxis meist nicht. Das Problem: Monolithen lassen sich nur eindimensional Skalieren. Auf eine höhere Anzahl von Anfragen kann also durch das starten einer weiteren Instanz reagiert werden. Doch wenn Teilkomponenten von Überlast betroffen sind wird es ineffizient. Beispielsweise gibt es eine Teilkomponente die sehr CPU-Intensive Berechnungen durchführt. Es müssen weitere Instanzen gestartet und dadurch Ressourcen belastet werden, die von der CPU-Intensiven Komponente besser verwendet werden könnten.
-
-\image{images/img_mon-scaling-problem.eps}{Auslastungsproblem bei der Skalierung von Monolithen}
-
-Microservices lassen sich dagegen effizienter skalieren. Während monolithische Architekturen immer im ganzen skaliert werden, kann man in einer Microservice-Architektur nach genau die Services skalieren, die in diesem Moment mehr Leistung benötigen.
-
-%todo skalierungsbild microservices
-
-Ein weiterer Punkt ist ein schnelleres Deployment. Insbesondere kleinen Änderungen führen bei monolithischen Systemen zu einem großen Overhead, während man in einer Microservice Architektur nur den Service neu deployen muss, der auch die implementierte Änderung enthält. Ein weiterer Vorteil vom schnelleren Deployment ist die Möglichkeit, durch Continous Delivery die Abdeckung von Tests zu verringern. Da Fehler im Produktivsystem schnell behoben werden können, und keine Tagelangen Ausfälle durch einen komplizierten und Langwierigen Bereitstellungsprozess entstehen, ist dies möglich.
-
-Ebenfalls lässt sich die Team-Organisation vereinfachen. Ein Team arbeitet an einem Service, dessen Funktionalität klar definiert ist, anstatt ein großes Team zu haben, wessen Teilteams an teilen eines Monolithen arbeiten.
-
-Auch optimieren Microservices die Austauschbarkeit. Die kleinen abgegrenzten Systeme lassen sich mit viel weniger aufwand gegen neuere oder bessere Implementierungen austauschen, ohne andere Komponenten zu Gefährden. Während dies bei Monolithischen Anwendungen zu unvorhersehbaren Problemen kommen kann, weshalb in solchen Architekturen auch häufig kaum Änderungen durchgeführt werden. Dazu zählt auch die Eigenschaft, dass die Aktualisierung von Frameworks wesentlich einfacher von statten gehen kann. Während dies bei einem monolithisches System fast ein eigenständiges Projekt mit mehreren Tagen Arbeit verursacht, ist es möglich solche Updates bei Microservice-Architekturen Schrittweise in kleineren Aufgabenpaketen zu erledigen, die auch zwischen größeren Aufgaben bearbeitet werden können.
-
-Bei Monolithen  nehmen die Probleme ab einem gewissen Entwicklungsstand überhand. Viele Leute arbeiten an einer Code-Basis die stetig wächst. Wenn über den Projektzeitraum neue Entwickler am Projekt teilnehmen können diese zunächst leicht überfordert sein, da die anfängliche Modularität dadurch, dass sie nicht hart vorgeschrieben ist, stetig abnimmt. Dies führt auch dazu, dass bei Änderungen an großen Systemen nicht mehr direkt klar ist, welche Auswirkungen es auf andere Teilkomponenten und somit das Gesamtsystem gibt. Die Entwicklungsgeschwindigkeit verringert sich.
+Zusätzliche Probleme bei Monolithen nehmen, ab einem gewissen Entwicklungsstand dieser, überhand. Viele Leute arbeiten an einer Code-Basis die stetig wächst. Wenn über den Projektzeitraum neue Entwickler am Projekt teilnehmen können diese zunächst leicht überfordert sein, da die anfängliche Modularität dadurch, dass sie nicht hart vorgeschrieben ist, stetig abnimmt. Dies führt auch dazu, dass bei Änderungen an großen Systemen nicht mehr direkt klar ist, welche Auswirkungen es auf andere Teilkomponenten und somit das Gesamtsystem gibt. Die Entwicklungsgeschwindigkeit verringert sich.
 
 Auch die IDE trägt dazu bei. Je größer, das Projekt, umso höher die Belastung für den Entwicklungsrechner. IDEs indizieren Source-Files um die Navigation zu vereinfachen. Je nach Projektgröße kann so der Arbeitsspeicher schnell ausgelastet sein.
-
-Eine größer werdende Anwendung leidet auch unter dem zunächst einfachen Deployment-Prozess. Riesige Java-Anwendungen brauchen lange Zeit zum starten, was auch für Integrationstests zu hohen Zeiteinbußen führt.
-
-Kleine Änderungen in Produktion zu geben ist eine große Aufgabe. Immer muss das Gesamtsystem neu gestartet werden, auch wenn nur ein prozentual kleiner Anteil der Anwendung umgeschrieben wird. Release-Zyklen verlangsamen sich auf das nötigste. Fehler bleiben eventuell länger im System.
 
 Der letzte große Nachteil tritt häufig erst lange nach Entwicklungsbeginn auf. Die Anwendung ist gewachsen und neue Features werden verlangt, doch die zu Beginn eingesetzte Sprache ist für bestimmte Einsatzzwecke nur schlecht zu gebrauchen. Doch man ist durch den monolithischen Ansatz gebunden. Auch kann es passieren, dass die Aktualisierung auf neuere Sprachversionen nicht mehr, oder nur schwer möglich wird. Alles durch die größe der Applikation. Im schlimmsten Fall wird der Support für die aktuell verwendete Sprache eingestellt.\cite{richardson}
 
 Dies sind einige der Gründe, warum über Microservices so viel diskutiert wird und weshalb sich diese Arbeit insbesondere auf die Testerstellung von Anwendungen in dieser Architektur konzentriert. Besonders die genannten Vorteile der Skalierung, des schnellen Deployments und die erhöhte Fehlertoleranz sind Hauptbeweggründe, warum auch it@M nun mehr auf die Microservice Architektur setzen möchte. Sie behandelt einen Großteil der Probleme, die bei bestehenden Systemen der Landeshauptstadt in der Vergangenheit aufgetreten sind.
 
 \subsection{Nachteile von Microservices gegenüber Monolithen}\label{ch:ms-mon-cons}
-%todo durchlesen, überarbeiten und Punkte nach Gewichtung sortieren sowie bullet points
 
 Doch gibt es wie bei jeder Architektur nicht nur Vorteile. Ansonsten würde es auch keine Diskussionen und Neuerungen auf diesem Gebiet geben.
 
-Eine der deutlichsten Probleme ist die der Verteilung. Verteilte Systeme sind durch die Art der Kommunikation, also über das Netzwerk, einer weiteren Fehlerquelle ausgesetzt und vor allem eins: langsamer als Kommunikation innerhalb eines geschlossenen Systems\cite{tradeoffs}. 
-
-Die Komplexität der laufenden Services auf der Infrastruktur ist ein weiterer negativer Aspekt, den man jedoch auch positiv auffassen kann. Es wird durch die Modularität und lose Kopplung der Komponenten eine hohe Fehlertoleranz von den einzelnen Teilen des Systems abverlangt. Es muss mit vielen Fehlerquellen mehr umgegangen werden, als es bei einem Monolithen der Fall ist. So zum Beispiel der Ausfall oder die nicht-erreichbarkeit von anderen Services. Dies führt allerdings auch dazu, dass viel Zeit in die Ausfallsicherheit der einzelnen Komponenten gesteckt werden muss, was eine höhere Qualität zur Folge hat. Netflix nutzt, um diese Ausfallsicherheit sicherzustellen und zu testen, ein eigens Entwickeltes Tool namens \enquote{Chaos Monkey}\footnote{\url{https://github.com/Netflix/SimianArmy}}. Dieses Werkzeug sorgt für zufällige Ausfälle von Komponenten in der produktiven Infrastruktur.
-
-Als letzter Punkt ist die \textit{Eventual Consistency} anzusprechen. Ein weiteres Problem von verteilten Systemen. Daten über mehrere Instanzen eines Services Konsistent zu halten ist nahezu unmöglich. Es gibt keine hundert prozentige Sicherheit, dass alle Daten einer Anwendung überall aktuell verfügbar sind.
+\begin{description}
+	\item[Verteilung] Verteilte Systeme sind durch die Art der Kommunikation, also über das Netzwerk, einer weiteren Fehlerquelle ausgesetzt und vor allem eins: langsamer als Kommunikation innerhalb eines geschlossenen Systems\cite{tradeoffs}. 
+	
+	\item[Hohe Fehlertoleranz benötigt] Die Komplexität der laufenden Services auf der Infrastruktur ist ein weiterer negativer Aspekt, den man jedoch auch positiv auffassen kann. Es wird durch die Modularität und lose Kopplung der Komponenten eine hohe Fehlertoleranz von den einzelnen Teilen des Systems abverlangt. Es muss mit vielen Fehlerquellen mehr umgegangen werden, als es bei einem Monolithen der Fall ist. So zum Beispiel der Ausfall oder die nicht-erreichbarkeit von anderen Services. Dies führt allerdings auch dazu, dass viel Zeit in die Ausfallsicherheit der einzelnen Komponenten gesteckt werden muss, was eine höhere Qualität zur Folge hat. Netflix nutzt, um diese Ausfallsicherheit sicherzustellen und zu testen, ein eigens Entwickeltes Tool namens \enquote{Chaos Monkey}\footnote{\url{https://github.com/Netflix/SimianArmy}}. Dieses Werkzeug sorgt für zufällige Ausfälle von Komponenten in der produktiven Infrastruktur.
+	
+	\item[Eventual Consistency] ist ein weiteres Problem von verteilten Systemen. Daten über mehrere Instanzen eines Services Konsistent zu halten ist nahezu unmöglich. Es gibt keine hundert prozentige Sicherheit, dass alle Daten einer Anwendung überall aktuell verfügbar sind.
+\end{description}
 
 \subsection{Resümee des Vergleichs}
 
@@ -357,39 +379,38 @@ Nicht-funktionales Testen evaluiert die \textit{Bereitschaft} des Systems.\cite{
 \section{Konzeption: Testen von Microservices und generative Testerstellung}\label{ch:ms-test}
 \label{sec:testingms}
 
-Durch einige spezielle Eigenschaften von Microservices ergeben sich teilweise auch spezielle Testanforderungen die in der Entwicklung von Tests Beachtung finden müssen. 
-
-%todo was führt zu speziellen testmethoden und welche methoden bleiben gleich? hinweis darauf, dass Frameworks und umsetzung später beachtung finden
+Durch einige spezielle Eigenschaften von Microservices ergeben sich teilweise auch spezielle Testanforderungen die in der Entwicklung von Tests Beachtung finden müssen. Allerdings wird sich auch bei Microservices auf altbekannte Methodiken gestützt, insbesondere in den Grundlegenden Bereichen der Unit- und Integrationstests.
 
 \paragraph{Unit Testing}
 
-Auch bei Microservices beginnt das Testen eines Gesamtsystems auf der niedrigsten Schicht. Auch hier gilt es, dass Unit Tests generell auf Klassen-Level geschrieben werden.\cite{clemson} Im Falle des Architekturmodells von it@M beschränken sich Unit Tests auf das Testen der Geschäftslogik, sowie der verschiedenen Listenern. Die Repositories und Entitäten sind durch das verwendete Framework nicht mit reinen Unit Tests testbar, sondern werden in den folgenden Integrationstests durch Mocking getestet.
+Auch bei Microservices beginnt das Testen eines Gesamtsystems auf der niedrigsten Schicht. Auch hier gilt es, dass Unit Tests generell auf Klassen-Level geschrieben werden.\cite{clemson} Im Falle des Architekturmodells von it@M beschränken sich Unit Tests auf das Testen der Geschäftslogik, sowie der verschiedenen Listenern. Die Repositories und Entitäten sind durch das verwendete Framework nicht mit reinen Unit Tests testbar, sondern werden erst in den folgenden Integrationstests getestet.
 
 \image{images/img_unit-testing.eps}{Unit Testing Scope \cite{clemson}}
 
 \paragraph{Integration Testing}
 
-An dieser Stelle ist die Kernfunktionalitäten der Services, also die Stellen, an denen nicht reiner Code zur Persistierung und Bereitstellung von Schnittstellen, sichergestellt. Doch die korrekte Zusammenarbeit der getesteten Komponenten ist noch nicht gewährleistet. Bei den Integrationstests werden nun mehrere Module zusammengefasst um das Zusammenspiel dieser Komponenten zu testen.\cite{clemson} Auch hier wird also nicht vom Regelfall aus Kapitel \ref{ch:soft-test} abgewichen. Auch wird in diesem Stadium das Zusammenspiel des Data Mappers und der angebundenen Datenbank, sowie die daraus resultierenden Ressourcen auf Korrektheit geprüft. Wichtig an dieser Stelle ist es, aufgrund der fortschrittlichen implementierung von modernen \acp{ORM}, sicherzustellen dass die Testdaten nicht nur temporär vorgehalten wurden, sondern tatsächlich in die Datenbank geschrieben und von dort herausgelesen wurden, um etwaige Fehler auf diesen Schichten auszuschließen.\cite{clemson}
+An dieser Stelle ist die Kernfunktionalitäten der Services, also die Stellen, an denen nicht reiner Code zur Persistierung und Bereitstellung von Schnittstellen, sichergestellt. Doch die korrekte Zusammenarbeit der getesteten Komponenten ist noch nicht gewährleistet. Bei den Integrationstests werden nun mehrere Module zusammengefasst um das Zusammenspiel dieser Komponenten zu testen.\cite{clemson} Auch hier wird also nicht vom Regelfall aus Kapitel \ref{ch:soft-test} abgewichen. Auch wird in diesem Stadium das Zusammenspiel des Data Mappers und der angebundenen Datenbank, sowie die daraus resultierenden Ressourcen auf Korrektheit geprüft. Wichtig an dieser Stelle ist es, aufgrund der fortschrittlichen Implementierung von modernen \acp{ORM}, sicherzustellen, dass die Testdaten nicht nur temporär vorgehalten wurden, sondern tatsächlich in die Datenbank geschrieben und von dort herausgelesen wurden, um etwaige Fehler auf diesen Schichten auszuschließen.\cite{clemson}
 
 \image{images/img_integration-testing.eps}{Integration Testing Scope \cite{clemson}}
 
 \paragraph{Component Testing}
 
-Unit- und Integrationstests sorgen dafür, dass an dieser Stelle bereits Sichergestellt ist, dass die Logik in den einzelnen Komponenten garantiert so funktioniert wie sie beabsichtigt ist. Doch ist dies der Punkt, an dem sich das Testen von Microservices vom Testen von Monolithen unterscheidet. Nur, weil der getestete Service alle Anforderungen erfüllt, gilt dies noch nicht für die Services zu denen Abhängigkeiten bestehen.
-Das Problem an dieser Stelle: End-to-End-Tests, also Tests bei denen die gesamte Domäne gestartet und getestet wird sind sehr aufwändig und bieten nur sehr lange Feedback-Zyklen, im Gegensatz zu automatisierten Testmethoden.\cite{clemson}
+Unit- und Integrationstests sorgen dafür, dass an dieser Stelle bereits Sichergestellt ist, dass die Logik in den einzelnen Komponenten garantiert so funktioniert wie sie beabsichtigt ist. Doch ist dies der Punkt, an dem sich das Testen von Microservices vom Testen von monolithischen Anwendungen in Details unterscheidet. Da der nächste Schritt nach dem testen der einzelnen Teilkomponenten eines Service darin besteht, den gesamten Service zu testen, treten Probleme auf, sobald dieser zur korrekten Funktionalität externe Abhängigkeiten besitzt.
 
-Component testing tritt an dieser Stelle ein. Es eignet sich besonders gut für Microservice Architekturen, da die sich diese leicht in die getrennt zu testenden Komponenten aufteilen lassen: Jeder Service entspricht einer Komponente. Externe Kommunikationspartner können durch \textit{test doubles} ersetzt werden, dadurch wird eine Isolierung des Service für den Test sichergestellt.\cite{clemson} Ein \textit{test double} ist eine generische Umschreibung für ein Objekt welches man zu Testzwecken gegen ein produktive Komponente austauscht. Dazu zählen u.a. \textit{dummys}, die zwar weitergereicht, aber nie verwendet werden, oder auch \textit{stubs}, die für bestimmte vorderfinierte Anfragen vordefinierte Antworten liefern.\cite{fowlertestdouble}
+Component testing tritt an dieser Stelle ein. Es eignet sich besonders gut für Microservice Architekturen, da die sich diese leicht in die getrennt zu testenden Komponenten aufteilen lassen: Jeder Service entspricht einer Komponente. Externe Kommunikationspartner werden durch \textit{test doubles} ersetzt, dadurch wird eine Isolierung des Service für den Test sichergestellt.\cite{clemson} Ein \textit{test double} ist eine generische Umschreibung für ein Objekt welches man zu Testzwecken gegen ein produktive Komponente austauscht. Dazu zählen u.a. \textit{dummys}, die zwar weitergereicht, aber nie verwendet werden, oder auch \textit{stubs}, die für bestimmte vordefinierte Anfragen vordefinierte Antworten liefern.\cite{fowlertestdouble}
 
 %todo bild überarbeiten
 %\image{images/img_component-testing.eps}{Component Testing Scope \cite{clemson}}
 
-Bei Services die komplexere Integrations- oder Bootlogik besitzen kann es auch sinnvoll sein die test doubles durch externe stubs von den benötigten Services zu ersetzen. Dadurch wird die Testlogik zwar zu teilen in den Test-Harnisch, der für die korrekte Ausführung der Tests verantwortlich ist, geschoben, doch können zusätzliche Fehlerquellen durch die Verwendung von echten Netzwerkanfragen erkannt werden. Zu beachten ist jedoch, dass sich dadurch auch die Zeit der Testausführung erhöhen kann.\cite{clemson} Ein Test-Harnisch ist die Zusammenstellung aller für die Ausführung von Tests nötigen Informationen. Dazu zählen auch Konfigurationen die beispielsweise stubs und andere Komponenten für die Tests starten.
+Bei Services die komplexere Integrations- oder Bootlogik besitzen kann es auch sinnvoll sein, gemockte Services durch externe stubs von den benötigten Services zu ersetzen. Dadurch wird die Testlogik zwar zu teilen in den Test-Harnisch, der für die korrekte Ausführung der Tests verantwortlich ist, geschoben, doch können zusätzliche Fehlerquellen durch die Verwendung von echten Netzwerkanfragen bereits jetzt erkannt werden. Zu beachten ist jedoch, dass sich dadurch auch die Zeit der Testausführung erhöhen kann.\cite{clemson} Ein Test-Harnisch ist die Zusammenstellung aller für die Ausführung von Tests nötigen Informationen. Dazu zählen auch Konfigurationen, die beispielsweise stubs und andere Komponenten für die Tests starten.
 
-\paragraph{Contract Testing}
+\paragraph{Consumer Driven Contract Testing}
 
-Durch die Kombination von unit-, integration- und component testing ist bereits eine hohe Abdeckung der Module eines Microservice erreicht und es ist sichergestellt, dass der Service die Geschäftslogik korrekt implementiert hat. Doch für das Gesamtsystem reicht dies nicht aus. Der wahre Wert der Anwendung entsteht erst durch das Zusammenspiel der verschiedenen Services und in dem Gesamtbild, welches diese Formen. Momentan ist nicht durch Tests sichergestellt, dass externe Komponenten die eigenen Anforderungen so erfüllen wie diese gewünscht sind, oder dass alle Services der Domäne einwandfrei zusammenspielen.\cite{clemson} Um diese Lücken zu schließen bieten contract testing und end-to-end testing abhilfe.
+Durch die Kombination von unit-, integration- und component testing ist bereits eine hohe Abdeckung eines Microservice erreicht und es ist sichergestellt, dass der Service die Geschäftslogik korrekt implementiert hat. Doch für das Gesamtsystem reicht dies nicht aus. Der wahre Wert der Anwendung entsteht erst durch das Zusammenspiel der verschiedenen Services und in dem Gesamtbild, welches diese Formen. Momentan ist nicht durch Tests sichergestellt, dass externe Komponenten die eigenen Anforderungen so erfüllen wie diese gewünscht sind, oder dass alle Services der Domäne einwandfrei zusammenspielen.\cite{clemson} Um diese Lücken zu schließen bieten contract testing und end-to-end testing abhilfe.
 
-Contract testing basiert auf der Annahme, dass zwischen einem Konsumenten und einem Produzenten eine Art Vertrag besteht, den der Produzent einzuhalten hat. Dieser Vertrag besteht beispielsweise aus Erwartungen bezüglich In- und Outputs eines Interface. Jeder Konsument hält mit dem Produzenten einen Vertrag der für seinen Anwendungsfall einzuhalten ist. Wenn am Produzenten Änderungen vorgenommen werden, muss sichergestellt sein, dass alle Verträge ihre Gültigkeit behalten, sodass die abhängigen Konsumenten keine Funktionalität einbüßen müssen.\cite{clemson}
+Da End-to-End-Tests, also Tests bei denen die gesamte Domäne gestartet und getestet wird sind sehr aufwändig sind und nur sehr lange Feedback-Zyklen bieten, steht das contract testing als Schicht davor.\cite{clemson}
+
+Contract testing basiert auf der Forderung, dass zwischen einem Konsumenten und einem Produzenten ein Vertrag besteht, den der Produzent einzuhalten hat. Dieser Vertrag besteht beispielsweise aus Erwartungen bezüglich In- und Outputs eines Interface. Jeder Konsument hält mit dem Produzenten einen Vertrag der für seinen Anwendungsfall einzuhalten ist. Wenn am Produzenten Änderungen vorgenommen werden, muss sichergestellt sein, dass alle Verträge ihre Gültigkeit behalten, sodass die abhängigen Konsumenten keine Funktionalität einbüßen müssen.\cite{clemson}
 
 Bei Microservices besteht das im Vertrag festgehaltene Interface aus der öffentlichen \ac{API} dieses Service. Jeder Betreiber eines Konsumierenden Service schreibt eine Testsuite, die unabhängig voneinander nur die verwendeten Schnittstellen des Produzenten prüft. Im Idealfall werden diese Testsuites dann in der build pipeline des produzierenden Service eingebunden, sodass die Entwickler des Produzenten Auswirkungen auf die Konsumenten sofort erkennen können.\cite{clemson}
 
@@ -397,9 +418,9 @@ Diese Art von Test ist nicht gleichzusetzen mit component testing. Es wird nicht
 
 \image{images/img_contract-testing.eps}{Contract Testing \cite{clemson}}
 
-Ein großer Vorteil von dieser Vorgehensweise ist der, dass der Produzierende Service viel leichte Änderungen durchführen kann, da er weiß, welche Schnittstellen und Felder von seinen Konsumenten wirklich benötigt werden. So könnte der Produzent aus \ref{fig:images/img_contract-testing.eps} eine Ressource anbieten die die Felder \textit{id}, \textit{name} und \textit{age} anbietet. Konsument A benötigt nur die \textit{id} und \textit{name}-Felder, somit wird in den contract tests zu Vertrag A auch nur die existenz dieser beiden Felder geprüft. Konsument B benötigt nur das \textit{id} und \textit{age}-Feld, während Konsument C alle Felder benötigt, um korrekt zu funktioniere.\cite{clemson}
+Ein großer Vorteil von dieser Vorgehensweise ist der, dass der Produzierende Service viel leichter Änderungen durchführen kann, da er weiß, welche Schnittstellen und Felder von seinen Konsumenten wirklich benötigt werden. So könnte der Produzent aus \ref{fig:images/img_contract-testing.eps} eine Ressource anbieten die die Felder \textit{id}, \textit{name} und \textit{age} anbietet. Konsument A benötigt nur die \textit{id} und \textit{name}-Felder, somit wird in den contract tests zu Vertrag A auch nur die existenz dieser beiden Felder geprüft. Konsument B benötigt nur das \textit{id} und \textit{age}-Feld, während Konsument C alle Felder benötigt, um korrekt zu funktioniere.\cite{clemson}
 
-Sollte nun ein weiterer Konsument zur Anwendung hinzukommen, der neben dem Vornamen auch einen Nachnamen benötigt, können die Betreiber des Produzenten sich dazu entscheiden, dass alte \textit{name}-Feld als veraltet markieren und ein neues Zusammengesetztes Objekt aus Vor- und Nachname anbieten. Durch die Durchführung aller component tests wird schnell deutlich, dass die Konsumenten A und C von dieser Änderung betroffen und somit informiert werden müssen. Sobald die beiden Konsumenten an die neue Schnittstelle angepasst sind, kann das alte Feld \textit{name} aus der Ressource entfernt werden. Laufen dann alle contract tests ohne Fehler ist die Migration auf die neue Schnittstelle erfolgreich.\cite{clemson}
+Sollte nun ein weiterer Konsument zur Anwendung hinzukommen, der neben dem Vornamen auch einen Nachnamen benötigt, können die Betreiber des Produzenten sich dazu entscheiden, dass alte \textit{name}-Feld als veraltet zu markieren und ein neues Zusammengesetztes Objekt aus Vor- und Nachname anbieten. Durch die Durchführung aller component tests wird schnell deutlich, dass die Konsumenten A und C von dieser Änderung betroffen und somit informiert werden müssen. Sobald die beiden Konsumenten an die neue Schnittstelle angepasst sind, kann das alte Feld \textit{name} aus der Ressource entfernt werden. Laufen dann alle contract tests ohne Fehler, ist die Migration auf die neue Schnittstelle erfolgreich.\cite{clemson}
 
 \paragraph{End-To-End Testing}
 
