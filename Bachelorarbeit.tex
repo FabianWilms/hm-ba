@@ -60,7 +60,7 @@ Ziel dieser Arbeit ist es, mithilfe von generativer Testerstellung die Qualität
 
 Sowohl im privaten als auch geschäftlichen Alltag nimmt IT eine immer größere Rolle ein. Die Übernahme von Bereichen, die ehemals als nicht durch Computer austauschbar erachtet wurden, schreitet immer weiter fort. Doch dadurch steigen nicht nur bestehende Anforderungen an Software, sondern es entstehen auch neue Kriterien an die Qualität. Sobald Türklingeln, Alarmanlagen und Schließanlagen \textit{smart} werden, ist die Fehlertoleranz gleich null. Auch Autos und medizinische Geräte sind nicht ausgenommen. In diesen Bereichen kann es sogar um Menschenleben gehen. Ganz abgesehen davon steigt auch die Komplexität von modernen Software-Systemen immens an, auch weil dies von den Nutzern der Anwendungen durch den Wunsch an neuen Features gefordert wird.\cite{pantesting}.
 
-Mit steigender Komplexität und höherer Nachfrage am Markt, sowie engen Zeitplänen für Projekte wird leider häufig aus Zeit- und Kostengründen auf Qualität nur geringfügig Rücksicht genommen. Zunächst verursacht eine gute Software-Qualität nämlich Mehrkosten. Personelle wie zeitliche. Dies zeigt das Magische Dreieck, oder im englischen das Project Management Triangle.
+Mit steigender Komplexität und höherer Nachfrage am Markt, sowie engen Zeitplänen für Projekte wird leider häufig aus Zeit- und Kostengründen auf Qualität nur geringfügig Rücksicht genommen. Zunächst verursacht eine gute Software-Qualität nämlich Mehrkosten. Personelle wie zeitliche. Dies zeigt das Magische Dreieck, oder im englischen das Project Management Triangle(siehe Abb.~\ref{fig:images/img_magisches_dreieck.eps}).
 
 \image[0.4]{images/img_magisches_dreieck.eps}{Magisches Dreieck des Projektmanagements\cite{hagen}}
 
@@ -70,7 +70,7 @@ Ein Bericht der Kölner Beratungsfirma SQS zeigt anhand von gesammelten Zahlen a
 
 \image{images/img_sqs-defect-correction.PNG}{SQS Report Costs of Defect Correction \cite{sqsdefect}}
 
-Umso früher Fehler entdeckt und bemerkt werden, umso weniger kostet es auch diese zu beheben. Wenn bereits vor dem Start der Implementierungsphase auf eine hohe Testabdeckung, beispielsweise durch den Einsatz von test-driven development, wert gelegt wird, können, je auftretendem Fehler, um die 7800\euro\ \cite{sqsdefect} eingespart werden. Mit diesen Zahlen sind die Mehrkosten, die für ein solches vorgehen entstehen um ein vielfaches leichter zu rechtfertigen.
+Umso früher Fehler entdeckt und bemerkt werden, umso weniger kostet es auch diese zu beheben. Wenn bereits vor dem Start der Implementierungsphase auf eine hohe Testabdeckung, beispielsweise durch den Einsatz von test-driven development, wert gelegt wird, können, je auftretendem Fehler, um die 7800\euro\ (siehe Abb.~\ref{fig:images/img_sqs-defect-correction.PNG}) eingespart werden. Mit diesen Zahlen sind die Mehrkosten, die für ein solches vorgehen entstehen um ein vielfaches leichter zu rechtfertigen.
 
 Somit sorgt das Bug-Fixing in Produktivsystemen, also das Beheben sogenannter \textit{field defects}, für einen der größten Kostenfaktoren. Wurde in den ersten Phasen eines Projekts nicht viel, oder kein Wert auf eine ausreichende Test-Abdeckung gelegt schaffen es viele Fehler in die Produktivsysteme der Hersteller. Doch werden diese Fehler erst im laufenden Betrieb beim Kunden festgestellt, ist es bereits zu spät. Robert N. Charette kritisiert eben dies in seinem Artikel \textit{Why Software Fails}\cite{charette}.
 
@@ -95,7 +95,7 @@ Schließlich sollen Anforderungen, die an die zu generierenden Tests gestellt we
 % ----------------------------------------------------------------------------------------------------------
 \section{Architekturvergleich Microservice und Monolith}
 
-Eine der momentan am meisten diskutierten Architekturen ist die \enquote{Microservice} Architektur\footnote{\url{https://www.google.de/trends/explore?q=microservices}}\footnote{\url{https://jaxenter.de/ausgaben/java-magazin-5-16}}\footnote{\url{https://www.heise.de/developer/artikel/Microservices-im-Zusammenspiel-mit-Continuous-Delivery-Teil-1-die-Theorie-2376386.html?artikelseite=2}}: Viele kleine Services die im Konglomerat für ein gemeinsames Ziel zusammenarbeiten. 
+Eine der momentan am meisten diskutierten Architekturen ist die \enquote{Microservice} Architektur\footnote{\url{https://www.google.de/trends/explore?q=microservices}}\footnote{\url{https://jaxenter.de/ausgaben/java-magazin-5-16}}\footnote{\url{https://www.heise.de/developer/artikel/Microservices-im-Zusammenspiel-mit-Continuous-Delivery-Teil-1-die-Theorie-2376386.html?artikelseite=2}}: Viele kleine Services die im Konglomerat für ein gemeinsames Ziel zusammenarbeiten. Dabei gibt es insbesondere in der Kommunikation zwischen den Komponenten Unterschiede zwischen monolithischen und Microservice Architekturen. Während diese Komponenten in Monolithen gebündelt in einem Anwendungskontext agieren, passiert dies in Microservice-Systemen verteilt (vgl. Abb.~\ref{fig:images/img_monolith-vs-ms.eps}).
 
 \image[0.8]{images/img_monolith-vs-ms.eps}{Logische Unterscheidung zwischen monolithischer und Microservice Architektur}
 
@@ -120,7 +120,7 @@ Zum Planen einer Software mit Mircoservice Architektur ist es von großer Bedeut
 
 \paragraph{Bounded Context} Kontextgrenzen sind eine Definition aus dem Buch \textit{Domain Driven Design} von Eric Evans \cite{dddesign} und bieten eine Möglichkeit in der Planungsphase eines Projekts diese Grenzen zu definieren.
 
-Dies lässt sich gut am Beispiel eines Online-Shops zeigen. Wenn ein Online-Shop geplant wird ist einer der zentralen Bestandteile die Lagerverwaltung. Die Daten der Lagerverwaltung werden herangezogen um dem potentiellen Kunden des Shops anzuzeigen welche und wie viele Produkte verfügbar sind. Doch möchte ein Kunde nun ein Produkt bestellen hat dies nichts mehr mit einer Lagerverwaltung, sondern mit einem Bestellsystem zu tun. Man verlässt also den ursprünglichen Kontext der Lagerverwaltung. Somit entsteht in der Planung eine neue Kontextgrenze: Die des Bestellsystems. Es verwaltet Bestellungen von Kunden. Doch woher kommen die Kundendaten? Kundendaten haben zwar einen Verwendungszweck im Bestellsystem, doch die Verwaltung der Daten hat mit der eigentlichen Kompetenz dieses Systems nichts mehr zu tun. Somit wird eine weitere Kontextgrenze erstellt, nämlich die der Kundenverwaltung(siehe Fig.~\ref{fig:images/img_online-shop-example.eps}).
+Dies lässt sich gut am Beispiel eines Online-Shops zeigen. Wenn ein Online-Shop geplant wird ist einer der zentralen Bestandteile die Lagerverwaltung. Die Daten der Lagerverwaltung werden herangezogen um dem potentiellen Kunden des Shops anzuzeigen welche und wie viele Produkte verfügbar sind. Doch möchte ein Kunde nun ein Produkt bestellen hat dies nichts mehr mit einer Lagerverwaltung, sondern mit einem Bestellsystem zu tun. Man verlässt also den ursprünglichen Kontext der Lagerverwaltung. Somit entsteht in der Planung eine neue Kontextgrenze: Die des Bestellsystems. Es verwaltet Bestellungen von Kunden. Doch woher kommen die Kundendaten? Kundendaten haben zwar einen Verwendungszweck im Bestellsystem, doch die Verwaltung der Daten hat mit der eigentlichen Kompetenz dieses Systems nichts mehr zu tun. Somit wird eine weitere Kontextgrenze erstellt, nämlich die der Kundenverwaltung(siehe Abb.~\ref{fig:images/img_online-shop-example.eps}).
 
 \image[]{images/img_online-shop-example.eps}{Beispiel der Kontexgrenzen des Online-Shops}
 
@@ -132,11 +132,11 @@ Eine Kontextgrenze soll also eine logische Grenze darstellen, welche eventuell �
 
 \paragraph{Aggregates}
 
-Sind der zweite Mögliche Ansatz zur Planung von sinnvollen Service-Grenzen. Aggregates sind ein weiteres Konzept des \ac{DDD} und stellen eine Zusammensetzung aus Regeln und Objekten dar, die durch ein Aggregate Root zusammengehalten werden.
+Sind der zweite Mögliche Ansatz zur Planung von sinnvollen Service-Grenzen. Aggregates sind ein weiteres Konzept des \ac{DDD} und stellen eine Zusammensetzung aus Events und Objekten dar, die durch ein Aggregate Root zusammengehalten werden.
 
-Als Beispiel dient hier ein Tisch der im Baumarkt gekauft wurde. Dieser Tisch besteht aus einer Sammlung von Holzstücken und Schrauben. Wenn diese auf einem Haufen liegen stellt dies noch lange keinen Tisch dar. Um den Tisch zu erhalten benötigt man Regeln (die Anleitung) die besagen, wie mit den Materialien umgegangen werden soll, um diesen Tisch zu erhalten. Diese Konstellation, von Materialien und der Anleitung zum Aufbau des Tisches, stellt ein Aggregate dar. Die Regeln alleine erfüllen keinen tieferen Zweck, auch die Materialien nicht. Aber vereint in einem Aggregate bilden sie den gewünschten Tisch.\cite{mogosanu}
+Als Beispiel dient hier ein Tisch der im Baumarkt gekauft wurde. Dieser Tisch besteht aus einer Sammlung von Holzstücken und Schrauben. Wenn diese auf einem Haufen liegen stellt dies noch lange keinen Tisch dar. Um den Tisch zu erhalten benötigt man eine Anleitung (die Events) die besagen, wie mit den Materialien umgegangen werden soll, um diesen Tisch zu erhalten. Diese Konstellation, von Materialien und der Anleitung zum Aufbau des Tisches, stellt ein Aggregate dar. Die Events alleine erfüllen keinen tieferen Zweck, auch die Materialien nicht. Aber vereint in einem Aggregate bilden sie den gewünschten Tisch.\cite{mogosanu}
 
-Wenn man dieses Konzept nun auf das vorhergehende Online-Shop Beispiel überträgt ergibt sich folgendes Bild:
+Wenn man dieses Konzept nun auf das vorhergehende Online-Shop Beispiel überträgt, ergibt sich ein Bild wie in Abb.~\ref{fig:images/img_online-shop-example-aggregate.eps}.
 
 \image[]{images/img_online-shop-example-aggregate.eps}{Aggregates im Online-Shop Beispiel}
 
@@ -162,7 +162,7 @@ Des Weiteren ist die technologische Einschränkung ein großer Nachteil. Wenn es
 \paragraph{\acfp{RPC}}\label{rpcpara} sind eine weitere bekannte Kommunikationsmöglichkeit. Die Übersetzung ins deutsche erklärt schon einen Großteil der Idee hinter \acp{RPC}: "Aufruf einer fernen Prozedur". \acp{RPC} sind eine weitere Möglichkeit eine Client-Server-Modell umzusetzen. Die erste Idee dazu kam im Jahre 1976 von James White in seinem RFC \#707 \enquote{A High-Level Framework for Network-Based Resource Sharing}\cite{white707}. Ein \ac{RPC} funktioniert, indem der Client einer Anwendung eine Anfrage an einen Server sendet. In dieser Anfrage ist der Name oder die ID einer Methode, sowie die zugehörigen Parameter enthalten. Der empfangende Server führt die gewünschte Methode bei sich aus und liefert dem Client als Antwort den Rückgabewert der Methode.
 Ein Vorteil von RPC ist, dass es sehr einfach und schnell möglich ist Methoden der Services für Clients und andere Services Verfügbar zu machen. Über die Kommunikation muss man sich nahezu keine Gedanken machen\cite[S.91]{buildingms}.
 
-Bei Verwendung von RPC werden in der Implementierung stubs und skeletons verwendet. Die stubs sind dabei client-seitige Schnittstellen, die es ermöglichen Prozeduren die auf einer anderen Maschine zur Verfügung stehen aufzurufen wie eine lokale Prozedur. Der stub sorgt dann für das marshalling (umwandeln) der Daten und den transfer über das Netzwerk. Auf der Server-Seite empfängt das skeleton, welches die gleichen Methodensignaturen wie der stub bereithält, die Anfrage, sorgt für die Ausführung und liefert die Ergebnisse, ebenfalls über das Netzwerk, zurück (vgl. Fig.~\ref{fig:images/img_rpc-call_alternative.eps}).\cite{krzyzanowski}
+Bei Verwendung von RPC werden in der Implementierung stubs und skeletons verwendet. Die stubs sind dabei client-seitige Schnittstellen, die es ermöglichen Prozeduren die auf einer anderen Maschine zur Verfügung stehen aufzurufen wie eine lokale Prozedur. Der stub sorgt dann für das marshalling (umwandeln) der Daten und den transfer über das Netzwerk. Auf der Server-Seite empfängt das skeleton, welches die gleichen Methodensignaturen wie der stub bereithält, die Anfrage, sorgt für die Ausführung und liefert die Ergebnisse, ebenfalls über das Netzwerk, zurück (siehe Abb.~\ref{fig:images/img_rpc-call_alternative.eps}).\cite{krzyzanowski}
 
 \image[1]{images/img_rpc-call_alternative.eps}{Ablauf eines RPC}
 
@@ -170,7 +170,7 @@ Doch die Nachteile überwiegen schnell und deutlich. Je nach Implementierung fü
 
 Die Verwendung von RPC macht die Weiterentwicklung von Systemen nicht einfacher: Ein Beispiel anhand einer Schnittstelle zur Instanziierung eines Kunden. Zusätzlich zur Erstellung eines Kunden mithilfe seines Namen und einer E-Mail Adresse soll es nun eine Möglichkeit geben diesen nur mithilfe seiner Mail-Adresse zu erstellen. Das reine hinzufügen einer neuen Methode in einem Interface löst das Problem in diesem Fall nicht. Im schlimmsten Fall benötigen alle Clients die diesen Service ansprechen die neuen Stubs und müssen allesamt neu Bereitgestellt werden\cite[S.94]{buildingms}. Und das bereits bei einer so kleinen Änderung.
 
-\paragraph{\acf{REST}} ist eine der meistgenutzten Programmierparadigmen für \acp{API} \cite{duvander}. Entworfen wurde \ac{REST} von Roy Fielding, der die Idee und Spezifikationen in seiner Dissertation \enquote{Architectural Styles and the Design of Network-based Software Architectures} veröffentlichte.\cite{fielding}. Insgesamt besteht Fielding auf 6 Eigenschaften, die erfüllt sein müssen um eine REST-Konforme Anwendung zu schreiben.
+\paragraph{\acf{REST}} ist eine der meistgenutzten Programmierparadigmen für \acp{API} \cite{duvander}. Entworfen wurde \ac{REST} von Roy Fielding, der die Idee und Spezifikationen in seiner Dissertation \enquote{Architectural Styles and the Design of Network-based Software Architectures} veröffentlichte.\cite{fielding}. Insgesamt besteht Fielding auf 6 Eigenschaften, die erfüllt sein müssen um eine REST-Konforme Anwendung zu schreiben (ein Beispiel dazu in Abb.~\ref{fig:images/img_rest-call.eps}).
 
 Die erste dieser Eigenschaften (\enquote{Client-Server}) verlangt schlichtweg, dass eine Client-Server Architektur vorliegt, bei der ein Server Funktionalität bereitstellt, die der Client nutzen kann.
 \enquote{Stateless} ist die zweite Eigenschaft, die von Fielding gefordert wird. Sie besagt, dass alle Informationen, die zum Verständnis einer Nachricht nötig sind auch mitgeliefert werden müssen, da weder der Client, noch der Server, Zustandsinformationen zwischen Anfragen speichern sollen.
@@ -197,7 +197,7 @@ Die Verwendung von REST bietet viele Möglichkeiten die lose Kopplung zwischen S
 
 Mit der Verwendung von \ac{HATEOAS} reicht es, wenn alle Clients die Kundendaten und deren Bestellungen verarbeiten wissen, dass Kunden einen Link-Feld mit dem Typ \textit{orders} besitzen. Wenn also später Services unter anderen Adressen erreichbar sind, oder sich interne Datenstrukturen ändern müssen diese Clients nicht neu angepasst werden.
 
-Ein weiterer interessanter Anwendungsfall für \ac{HATEOAS} ist die Nutzung der weiterführenden Links zur Bildung eines Zustandsautomaten. Die mitgelieferten Informationen zu weiteren \textit{Ressourcen} helfen dabei dem Client einer Anwendung Manipulationsmöglichkeiten des empfangenen Objekts zu prüfen.
+Ein weiterer interessanter Anwendungsfall für \ac{HATEOAS} ist die Nutzung der weiterführenden Links zur Bildung eines Zustandsautomaten (siehe Abb.~\ref{fig:images/img_hateoas-state-machine.eps}). Die mitgelieferten Informationen zu weiteren \textit{Ressourcen} helfen dabei dem Client einer Anwendung Manipulationsmöglichkeiten des empfangenen Objekts zu prüfen.
 
 \image{images/img_hateoas-state-machine.eps}{Beispiel einer State-Machine mit HATEOAS\cite{hatsm}}
 
@@ -206,18 +206,13 @@ Theoretisch bilden also die von der \ac{API} gesendeten Daten schon den Ablauf d
 
 \paragraph{Message-Driven Communication}
 
-Neben den oben genannten Möglichkeiten der synchronen Kommunikation gibt es auch in der Welt der Microservices asynchrone Ansätze. Einer davon ist die der Messages. Anstelle des typischen Frage-Antwort-Ablaufs einer gängigen Client-Server-Kommunikation wird bei der Verwendung von Nachrichten auf Buffer gesetzt. Ein Service, der einen Auftrag an einen anderen Service senden möchte, schickt eine Nachricht an einen Message-Buffer. Der angesprochene Service bearbeitet die Nachrichten dann nach eigenem Gusto(siehe Fig.~\ref{fig:images/img_message-driven.eps}). Zu den Vorteilen dieser Art der Kommunikation zählt unter anderem\cite{messagingwolff}:
-
-\begin{description}
-	\item[Keine Service-Discovery mehr benötigt] da nur der Standort des Message-Buffers bekannt sein muss.
-	\item[Skalierung stark vereinfacht] da einfach weitere Konsumenten gestartet werden können, die Nachrichten aus dem Buffer abarbeiten
-\end{description}
+Neben den oben genannten Möglichkeiten der synchronen Kommunikation gibt es auch in der Welt der Microservices asynchrone Ansätze. Einer davon ist die der Messages. Anstelle des typischen Frage-Antwort-Ablaufs einer gängigen Client-Server-Kommunikation wird bei der Verwendung von Nachrichten auf Buffer gesetzt. Ein Service, der einen Auftrag an einen anderen Service senden möchte, schickt eine Nachricht an einen Message-Buffer. Der angesprochene Service bearbeitet die Nachrichten dann nach eigenem Gusto(siehe Abb.~\ref{fig:images/img_message-driven.eps}). Zu den Vorteilen dieser Art der Kommunikation zählt unter anderem, dass die Skalierung stark vereinfacht wird, da einfach weitere Konsumenten gestartet werden können, die Nachrichten aus dem Buffer abarbeiten\cite{messagingwolff}:
 
 \image[]{images/img_message-driven.eps}{Message Driven Communication}
 
 \paragraph{Event-Driven Communication}
 
-ist die zweite Art der asynchronen Kommunikation. Der größte Unterschied zum Ansatz der Messages liegt darin, dass bei der Verwendung von Events kein expliziter Empfänger genannt wird, sondern alle Services ein Event empfangen, und eigenständig entscheiden, ob sie dieses Event verarbeiten wollen, oder nicht(siehe Fig.~\ref{fig:images/img_event-driven.eps}).
+ist die zweite Art der asynchronen Kommunikation. Der größte Unterschied zum Ansatz der Messages liegt darin, dass bei der Verwendung von Events kein expliziter Empfänger genannt wird, sondern alle Services ein Event empfangen, und eigenständig entscheiden, ob sie dieses Event verarbeiten wollen, oder nicht(siehe Abb.~\ref{fig:images/img_event-driven.eps}).
 Eines der größten Probleme dieses Ansatzes ist, dass der Empfang eines Events nicht sichergestellt werden kann, dafür ist es aber um einiges Einfacher use-cases Abzudecken, in denen Änderungen an einem Service an viele weitere propagiert werden müssen.\cite{messagingwolff}
 
 \image[0.4]{images/img_event-driven.eps}{Event-Driven Communication}
@@ -232,10 +227,15 @@ Beim Thema der Clientautorisierung von Web-\acp{API} ist OAuth2 weit verbreitet,
 
 Wichtig ist hierbei die Unterscheidung zwischen Autorisierung und Authentifizierung. OAuth2 bietet keine Möglichkeit der Authentifizierung, also beispielsweise der Frage nach einem Nutzernamen und Passwort, sondern kümmert sich Ausschließlich darum festzustellen, ob ein Nutzer die nötigen Rechte zum durchführen einer bestimmten Operation besitzt.\cite{degges}
 
+\begin{sloppypar}
 Allerdings ist es für die Verwendung von OAuth2 innerhalb eines Unternehmenskontext zusammen mit der Autorisierung auch eine Authentifizierungsmöglichkeit am Authentifizierungs-Service zu implementieren. Dieser Service kann dann die bestehende Infrastruktur des Unternehmens zur Authentifizierung von Nutzern verwenden. Zusätzlicher Vorteil dieses Vorgehens ist, dass jeder Service der zusätzliche Informationen eines Nutzers erfragen möchte, dies an einer zentralen Stelle mithilfe des vom Nutzer propagierten Tokens einfach tun kann.
+\end{sloppypar}
+
+Ein Nutzer kann dann an einem Endpunkt des Authentifizierungsservice den OAuth2-Token erhalten, mit dem er sich an anderen Services autorisieren kann. Diese Services können einen weiteren Endpunkt nutzen, um etwa Nutzerinformationen anhand des tokens abzurufen, die für eventuelle Identitätsanforderungen benötigt werden (siehe Abb.~\ref{fig:images/img_oauth2-user-service.eps}).
+
+\image[1]{images/img_oauth2-user-service.eps}{Mögliche Verwendung eines Service der sowohl authentifiziert, als auch autorisiert.}
 
 \subsubsection{Deployment}
-
 
 %todo deployment erläutern
 
@@ -266,14 +266,14 @@ Als Vorteile der Microservice-Architektur lassen sich nun folgende Punkte, die u
 	\item[Schnelleres Deployment] Insbesondere kleinen Änderungen führen bei monolithischen Systemen zu einem großen Overhead, während man in einer Microservice Architektur nur den Service neu deployen muss, der auch die implementierte Änderung enthält. Ein weiterer Vorteil vom schnelleren Deployment ist die Möglichkeit, durch Continous Delivery die Abdeckung von Tests zu verringern. Da Fehler im Produktivsystem schnell behoben werden können, und keine Tagelangen Ausfälle durch einen komplizierten und Langwierigen Bereitstellungsprozess entstehen, ist dies möglich.
 	
 	%--------------
-	\item[Erhöhte Widerstandsfähigkeit gegenüber Fehlern im System], da die Grenzen von Microservices eine Kaskadierung von Fehlern verhindern können.
+	\item[Erhöhte Widerstandsfähigkeit gegenüber Fehlern im System] Die harten Grenzen von Microservices können eine Kaskadierung von Fehlern verhindern und somit entsteht bei korrekter angewendeter Architektur kein Gesamtausfall des Systems. Diese wird allerdings auch benötigt, wie in \ref{high-tolerance} nachzulesen ist. 
 	
 	%--------------
 	\item[Bessere Skalierung] Auch wenn die Skalierung von Monolithen in der Theorie sehr einfach funktionieren sollte, tut sie das in der Praxis meist nicht. Das Problem: Monolithen lassen sich nur eindimensional Skalieren. Auf eine höhere Anzahl von Anfragen kann also durch das starten einer weiteren Instanz reagiert werden. Doch wenn Teilkomponenten von Überlast betroffen sind wird es ineffizient. Beispielsweise gibt es eine Teilkomponente die sehr CPU-Intensive Berechnungen durchführt. Es müssen weitere Instanzen gestartet und dadurch Ressourcen belastet werden, die von der CPU-Intensiven Komponente besser verwendet werden könnten.
 	
 	\image{images/img_mon-scaling-problem.eps}{Auslastungsproblem bei der Skalierung von Monolithen}
 	
-	Microservices lassen sich dagegen effizienter skalieren. Während monolithische Architekturen immer im ganzen skaliert werden, kann man in einer Microservice-Architektur genau die Services skalieren, die in diesem Moment mehr Leistung benötigen(vgl. Fig.~\ref{fig:images/img_mon-scaling-problem.eps} und Fig.~\ref{fig:images/img_ms-scaling.eps}).
+	Microservices lassen sich dagegen effizienter skalieren. Während monolithische Architekturen immer im ganzen skaliert werden, kann man in einer Microservice-Architektur genau die Services skalieren, die in diesem Moment mehr Leistung benötigen(vgl. Abb.~\ref{fig:images/img_mon-scaling-problem.eps} und Abb.~\ref{fig:images/img_ms-scaling.eps}).
 	
 	\image[]{images/img_ms-scaling.eps}{Scaling der gleichen Komponenten in einer Microservice-Architektur}
 	
@@ -295,9 +295,9 @@ Doch gibt es wie bei jeder Architektur nicht nur Vorteile. Ansonsten würde es a
 \begin{description}
 	\item[Verteilung] Verteilte Systeme sind durch die Art der Kommunikation, also über das Netzwerk, einer weiteren Fehlerquelle ausgesetzt und vor allem eins: langsamer als Kommunikation innerhalb eines geschlossenen Systems\cite{tradeoffs}. 
 	
-	\item[Hohe Fehlertoleranz benötigt] Die Komplexität der laufenden Services auf der Infrastruktur ist ein weiterer negativer Aspekt, den man jedoch auch positiv auffassen kann. Es wird durch die Modularität und lose Kopplung der Komponenten eine hohe Fehlertoleranz von den einzelnen Teilen des Systems abverlangt. Es muss mit vielen Fehlerquellen mehr umgegangen werden, als es bei einem Monolithen der Fall ist. So zum Beispiel der Ausfall oder die nicht-erreichbarkeit von anderen Services. Dies führt allerdings auch dazu, dass viel Zeit in die Ausfallsicherheit der einzelnen Komponenten gesteckt werden muss, was eine höhere Qualität zur Folge hat. Netflix nutzt, um diese Ausfallsicherheit sicherzustellen und zu testen, ein eigens Entwickeltes Tool namens \enquote{Chaos Monkey}\footnote{\url{https://github.com/Netflix/SimianArmy}}. Dieses Werkzeug sorgt für zufällige Ausfälle von Komponenten in der produktiven Infrastruktur.
+	\item[Hohe Fehlertoleranz benötigt\label{high-tolerance}] Die Komplexität der laufenden Services auf der Infrastruktur ist ein weiterer negativer Aspekt, den man jedoch auch positiv auffassen kann. Es wird durch die Modularität und lose Kopplung der Komponenten eine hohe Fehlertoleranz von den einzelnen Teilen des Systems abverlangt. Es muss mit vielen Fehlerquellen mehr umgegangen werden, als es bei einem Monolithen der Fall ist. So zum Beispiel der Ausfall oder die nicht-erreichbarkeit von anderen Services. Dies führt allerdings auch dazu, dass viel Zeit in die Ausfallsicherheit der einzelnen Komponenten gesteckt werden muss, was eine höhere Qualität zur Folge hat. Netflix nutzt, um diese Ausfallsicherheit sicherzustellen und zu testen, ein eigens Entwickeltes Tool namens \enquote{Chaos Monkey}\footnote{\url{https://github.com/Netflix/SimianArmy}}. Dieses Werkzeug sorgt für zufällige Ausfälle von Komponenten in der produktiven Infrastruktur.
 	
-	\item[Eventual Consistency] ist ein weiteres Problem von verteilten Systemen. Daten über mehrere Instanzen eines Services Konsistent zu halten ist nahezu unmöglich. Es gibt keine hundert prozentige Sicherheit, dass alle Daten einer Anwendung überall aktuell verfügbar sind.
+	\item[Eventual Consistency] Dabei handelt es sich um ein weiteres Problem von verteilten Systemen. Daten über mehrere Instanzen eines Services Konsistent zu halten ist nahezu unmöglich. Es gibt keine hundert prozentige Sicherheit, dass alle Daten einer Anwendung überall aktuell verfügbar sind.
 \end{description}
 
 \subsection{Resümee des Vergleichs}
@@ -306,19 +306,19 @@ An dieser Stelle sollte noch erwähnt werden, dass die Idee hinter Microservices
 
 Auch sind Monolithische Architekturen nicht gleich schlechter oder unnutzbar. Bestes Beispiel einer aktuellen \textit{Start-Up} Firma ist etsy\footnote{\url{https://www.etsy.com/about/?ref=ftr}}, die ihren Online-Flohmarkt in Form einer Monolithischen Anwendung entwickeln und erfolgreich betreiben. Nicht zu vergessen sind auch etablierte Softwaresysteme, die \textit{trotz} der monolithischen Architektur sehr erfolgreich sind. Dazu zählt als bekanntestes Beispiel SAP\footnote{\url{http://www.sap.com/germany/index.html}}.
 
-Ebenfalls zu ergänzen ist, dass auch wenn Microservices zunächst klein und kompakt wirken, auch diese eine hohe Komplexität beinhalten können. Nur ist diese Komplexität versteckt vor den Entwicklern die nicht daran arbeiten. Das aufteilen von Logik und Kernkompetenzen ist auch auf reiner Code-Basis möglich und wird auch so umgesetzt, solange sich an Interface-Definitionen und eine Strenge Trennung von verschiedenen Komponenten eines Monolithen gehalten wird.\cite{hoff}
+Ebenfalls zu ergänzen ist, dass, auch wenn Microservices zunächst klein und kompakt wirken, auch diese eine hohe Komplexität beinhalten können. Nur ist diese Komplexität versteckt vor den Entwicklern die nicht daran arbeiten und es handelt sich meist um fachliche Komplexität, während Monolithen meist eine strukturelle Komplexität vorliegt. Das aufteilen von Logik und Kernkompetenzen ist auch auf reiner Code-Basis möglich und wird auch so umgesetzt, solange sich an Interface-Definitionen und eine Strenge Trennung von verschiedenen Komponenten eines Monolithen gehalten wird.\cite{hoff}
 
 \section{Vorgegebene Architektur der \acf{LHM}}\label{ch:arch-itm}
 
 \subsection{Backing Services der Architektur}
 
-Von it@M sind bereits Entscheidungen zum Aussehen einer Anwendung in Microservice-Architektur getroffen worden. Als Infrastrukturelle Unterstützung gibt es innerhalb der Anwendung einen Authentifizierungs-Service, der sowohl eine Authentifizierung über die städtische Infrastruktur bietet, als auch über eine eigene Nutzerverwaltung.
+Von it@M sind bereits Entscheidungen zum Aussehen einer Anwendung in Microservice-Architektur getroffen worden. Als Infrastrukturelle Unterstützung gibt es innerhalb der Anwendung einen Authentifizierungs-Service, der sowohl eine Authentifizierung über die städtische Infrastruktur bietet, als auch über eine eigene Nutzerverwaltung (siehe Abb.~\ref{fig:images/img_arch-stadt-gesamt.eps}).
 
-Des weiteren existiert ein Discovery-Service, der im System wie eine Art \acs{DNS} agiert. Dieser Service erlaubt es allen im System beteiligten Services eine lokales Abbild seines Registers aller verfügbaren Services abzurufen, und über dieses Register Services anzusprechen. Im Gegensatz zu einem normalen \ac{DNS} muss der Discovery-Service allerdings nicht manuell mit Daten gespeist werden, sondern verlangt es, dass Services sich eigenständig dort registrieren. Sobald also ein neuer Service innerhalb des Systems startet, meldet dieser sich mit seinem Namen und Netzwerkadresse an und ist ab sofort für die anderen Services \enquote{entdeckbar}.
+Des weiteren existiert ein Discovery-Service, der im System wie eine Art \acs{DNS} agiert\footnote{Wird für die Orchestrierung der Services in Produktion Kubernetes (\url{https://kubernetes.io/}) verwendet, wird tatsächlich ein DNS-Service zur Service-Discovery verwendet. Jede Instanz eines Service erhält einen DNS-Namen und die Adresse ist darüber auflösbar.(siehe dazu \url{https://kubernetes.io/docs/admin/dns/})}. Dieser Service erlaubt es allen im System beteiligten Services eine lokales Abbild seines Registers aller verfügbaren Services abzurufen, und über dieses Register Services anzusprechen. Im Gegensatz zu einem normalen \ac{DNS} muss der Discovery-Service allerdings nicht manuell mit Daten gespeist werden, sondern verlangt es, dass Services sich eigenständig dort registrieren. Sobald also ein neuer Service innerhalb des Systems startet, meldet dieser sich mit seinem Namen und Netzwerkadresse an und ist ab sofort für die anderen Services \enquote{entdeckbar}.
 
-Zusätzlich existiert ein Configuration Service der die zentrale Steuerung von gemeinsamen Einstellungen erlaubt. Die größte Varianz bei Vergleich von Enwicklungs-, Test- und Produktionsumgebungen existiert in den Konfigurationen der Services. Dazu zählen u.a. Anbindungen an Datenbanken oder auch die IP-Adressen der zuvor genannten Backing Services. Ein Configuration Service lagert diese Konfigurationen aus dem Source Code der Services selber aus, um Konfigurationsänderungen an diesen Parametern auch zur Laufzeit des Systems ohne ein neues deployment zu ermöglichen.
+Zusätzlich existiert ein Configuration Service der die zentrale Steuerung von gemeinsamen Einstellungen erlaubt. Die größte Varianz bei Vergleich von Enwicklungs-, Test- und Produktionsumgebungen existiert in den Konfigurationen der Services. Dazu zählen u.a. Anbindungen an Datenbanken oder auch die IP-Adressen der zuvor genannten Backing Services\cite{wiggins}. Ein Configuration Service lagert diese Konfigurationen aus dem Source Code der Services selber aus, um Konfigurationsänderungen an diesen Parametern auch zur Laufzeit des Systems ohne ein neues deployment zu ermöglichen.
 
-Des weiteren gibt es einen Edge Server. Dieser fungiert als eine Art Gateway. Er bietet eine Schnittstelle für die Gesamtanwendung und verhindert somit, dass die Komplexität der vielen kleinen Services für weitere Anwendungen und Nutzer nach außen getragen wird. Dies ist auch insbesondere dann wichtig, wenn das Frontend über Javascript mit den Services des Systems kommunizieren soll, da somit keine \acs{CORS}-Anfragen mehr benötigt werden, weil auch das Frontend über diesen Edge Server bereitgestellt werden kann.
+Des weiteren gibt es einen Edge Server. Dieser fungiert als eine Art Gateway. Er bietet eine Schnittstelle für die Gesamtanwendung und verhindert somit, dass die Komplexität der vielen kleinen Services für weitere Anwendungen und Nutzer nach außen getragen wird. Dies ist auch insbesondere dann wichtig, wenn das Frontend über Javascript mit den Services des Systems kommunizieren soll, da somit keine \ac{CORS}-Anfragen mehr benötigt werden, weil auch das Frontend über diesen Edge Server bereitgestellt werden kann.
 
 Neben zur Grundstruktur kann es in einer Anwendung mehrere Services geben, die alle innerhalb ihrer Kontextgrenzen Aufgaben erfüllen. 
 
@@ -328,7 +328,7 @@ Neben zur Grundstruktur kann es in einer Anwendung mehrere Services geben, die a
 
 Zum Start der Anwendung registrieren sich alle Komponenten beim Discovery Service um für Anfragen erreichbar zu sein.
 
-Der Konsument der Anwendung, sei es ein Nutzer oder eine weitere Software, kommuniziert ausschließlich über den Edge Server mit den internen Komponenten. Zunächst besteht für den Konsumenten die Möglichkeit, sich beim Authentication Service zu Authentifizieren und mithilfe eines OAuth2 tokens für spätere Anfragen zu Autorisieren. Wird eine Anfrage gestellt wird über den Discovery Service der zur Bearbeitung der Anfrage benötigte Service gesucht und die Anfrage an diesen gestellt. Bei allen gesicherten Endpunkten innerhalb der Anwendung findet immer eine Absprache mit dem Authentifizierungsservice statt, um auf eine Änderung der Rechte eines Nutzers sofort reagieren zu können. Bei ungesicherten Ressourcen ist diese Abstimmung natürlich nicht nötig(Abb.~\ref{fig:images/img_arch-stadt-gesamt-full.eps}).
+Der Konsument der Anwendung, sei es ein Nutzer oder eine weitere Software, kommuniziert ausschließlich über den Edge Server mit den internen Komponenten. Zunächst besteht für den Konsumenten die Möglichkeit, sich beim Authentication Service zu Authentifizieren und mithilfe eines OAuth2 tokens für spätere Anfragen zu Autorisieren. Wird eine Anfrage gestellt wird über den Discovery Service der zur Bearbeitung der Anfrage benötigte Service gesucht und die Anfrage an diesen gestellt. Bei allen gesicherten Endpunkten innerhalb der Anwendung findet immer eine Absprache mit dem Authentifizierungsservice statt, um auf eine Änderung der Rechte eines Nutzers sofort reagieren zu können. Bei ungesicherten Ressourcen ist diese Abstimmung natürlich nicht nötig (siehe Abb.~\ref{fig:images/img_arch-stadt-gesamt-full.eps}).
 
 Der Configuration Service aktualisiert bei Bedarf die Konfigurationen aller beteiligten Services innerhalb der Anwendung.
 
@@ -336,7 +336,7 @@ Der Configuration Service aktualisiert bei Bedarf die Konfigurationen aller bete
 
 \subsection{Interne Struktur der Services}
 
-Jeder Service der Anwendung hat intern eine gleiche Aufteilung. Ziel ist es, für eine Standardisierung innerhalb der Services zu sorgen, um Entwicklern den Einstieg zu erleichtern, egal an welchem Projekt aktuell Microservices entwickelt werden. Nach außen werden, REST-konform, nur die Ressourcen über \acp{URI} angeboten. Diese Ressourcen bestehen entweder aus Entitäten oder Geschäftsanwendungen. Entitäten werden über sogenannte Repositories als Ressource bereitgestellt und über eine \ac{ORM}-Bibliothek in einer Datenbank persistiert. Der Begriff des Repositories stammt ebenfalls aus der Welt des \ac{DDD} und lässt sich anhand einer Definition von Edward Hieatt and Rob Mee gut erläutern\cite{hieatt}:
+Jeder Service der Anwendung hat intern eine gleiche Aufteilung. In Abbildung~\ref{fig:images/img_architecture_testing.eps} ist eine graphische Darstellung zu finden. Ziel ist es, für eine Standardisierung innerhalb der Services zu sorgen, um Entwicklern den Einstieg zu erleichtern, egal an welchem Projekt aktuell Microservices entwickelt werden. Nach außen werden, REST-konform, nur die Ressourcen über \acp{URI} angeboten. Diese Ressourcen bestehen entweder aus Entitäten oder Geschäftsanwendungen. Entitäten werden über sogenannte Repositories als Ressource bereitgestellt und über eine \ac{ORM}-Bibliothek in einer Datenbank persistiert. Der Begriff des Repositories stammt ebenfalls aus der Welt des \ac{DDD} und lässt sich anhand einer Definition von Edward Hieatt and Rob Mee gut erläutern\cite{hieatt}:
 
 \myquote{Mediates between the domain and data mapping layers using a collection-like interface for accessing domain objects.}
 
@@ -355,11 +355,11 @@ Das Testen von Software ist der Prozess, ein Programm auszuführen mit dem Ziel 
 
 \subsection{Bekannte Testmethoden}\label{ch:soft-test}
 
-Zunächst kann das Testen von Software in Funktionale und nicht-funktionale Tests getrennt werden. Zur weiteren Erklärung müssen zunächst die Begriffe der funktionalen und nicht-funktionalen Anforderungen beschrieben werden. Einfach gesagt beschreiben funktionale Anforderungen \textit{was} das System tun sollte (Kundenanforderungen) und nicht-funktionale Anforderungen \textit{wie} das System funktioniert(Technische Anforderungen).\cite{erikssonreq}
+Zunächst kann das Testen von Software in Funktionale und nicht-funktionale Tests getrennt werden (siehe Abb.~\ref{fig:images/img_testmethods.eps}). Zur weiteren Erklärung müssen zunächst die Begriffe der funktionalen und nicht-funktionalen Anforderungen beschrieben werden. Einfach gesagt beschreiben funktionale Anforderungen \textit{was} das System tun sollte (Kundenanforderungen) und nicht-funktionale Anforderungen \textit{wie} das System funktioniert(Technische Anforderungen).\cite{erikssonreq}
 
 \image{images/img_testmethods.eps}{Funktionale und nicht-funktionale Testmethoden}
 
-Funktionale Tests beschäftigen sich nur mit den funktionalen Anforderungen einer Anwendung und stellen fest, ob, und wie gut diese Anforderungen erfüllt werden.\cite{erikssontesting}. Funktionales Testen wird häufig in vier Komponenten aufgeteilt, die auch meist in Reihenfolge abgearbeitet werden.\cite{inflectra}
+Funktionale Tests beschäftigen sich nur mit den funktionalen Anforderungen einer Anwendung und stellen fest, ob, und wie gut diese Anforderungen erfüllt werden.\cite{erikssontesting}. Funktionales Testen wird häufig in vier Komponenten aufgeteilt, die auch meist in Reihenfolge abgearbeitet werden (siehe Abb.~\ref{fig:images/img_testmethods-functional.pdf}).\cite{inflectra}
 
 \begin{description}
 	\item[Unit Tests] testen einzelne Module einer Software und werden meist direkt vom Entwickler dieses Teilmoduls implementiert. Sie bewegen sich meist auf Klassenebene um die Komponenten so klein  wie möglich zu halten. In testgeleiteten Programmierparadigmen werden diese Tests bereits vor der Implementierung der eigentlichen Komponente umgesetzt.\cite{inflectra}
@@ -386,13 +386,13 @@ Durch einige spezielle Eigenschaften von Microservices ergeben sich teilweise au
 
 \paragraph{Unit Testing}
 
-Auch bei Microservices beginnt das Testen eines Gesamtsystems auf der niedrigsten Schicht. Auch hier gilt es, dass Unit Tests generell auf Klassen-Level geschrieben werden.\cite{clemson} Im Falle des Architekturmodells von it@M beschränken sich Unit Tests auf das Testen der Geschäftslogik, sowie der verschiedenen Listenern. Die Repositories und Entitäten sind durch das verwendete Framework nicht mit reinen Unit Tests testbar, sondern werden erst in den folgenden Integrationstests getestet.
+Auch bei Microservices beginnt das Testen eines Gesamtsystems auf der niedrigsten Schicht. Auch hier gilt es, dass Unit Tests generell auf Klassen-Level geschrieben werden.\cite{clemson} Im Falle des Architekturmodells von it@M beschränken sich Unit Tests auf das Testen der Geschäftslogik, sowie der verschiedenen Listenern (siehe Abb.~\ref{fig:images/img_unit-testing.eps}). Die Repositories und Entitäten sind durch das verwendete Framework nicht mit reinen Unit Tests testbar, sondern werden erst in den folgenden Integrationstests getestet.
 
 \image{images/img_unit-testing.eps}{Unit Testing Scope \cite{clemson}}
 
 \paragraph{Integration Testing}
 
-An dieser Stelle ist die Kernfunktionalitäten der Services, also die Stellen, an denen nicht reiner Code zur Persistierung und Bereitstellung von Schnittstellen, sichergestellt. Doch die korrekte Zusammenarbeit der getesteten Komponenten ist noch nicht gewährleistet. Bei den Integrationstests werden nun mehrere Module zusammengefasst um das Zusammenspiel dieser Komponenten zu testen.\cite{clemson} Auch hier wird also nicht vom Regelfall aus Kapitel \ref{ch:soft-test} abgewichen. Auch wird in diesem Stadium das Zusammenspiel des Data Mappers und der angebundenen Datenbank, sowie die daraus resultierenden Ressourcen auf Korrektheit geprüft. Wichtig an dieser Stelle ist es, aufgrund der fortschrittlichen Implementierung von modernen \acp{ORM}, sicherzustellen, dass die Testdaten nicht nur temporär vorgehalten wurden, sondern tatsächlich in die Datenbank geschrieben und von dort herausgelesen wurden, um etwaige Fehler auf diesen Schichten auszuschließen.\cite{clemson}
+An dieser Stelle ist die Kernfunktionalitäten der Services, also die Stellen, an denen nicht reiner Code zur Persistierung und Bereitstellung von Schnittstellen, sichergestellt. Doch die korrekte Zusammenarbeit der getesteten Komponenten ist noch nicht gewährleistet. Bei den Integrationstests werden nun mehrere Module zusammengefasst um das Zusammenspiel dieser Komponenten zu testen.\cite{clemson} Auch hier wird also nicht vom Regelfall aus Kapitel \ref{ch:soft-test} abgewichen. Auch wird in diesem Stadium das Zusammenspiel des Data Mappers und der angebundenen Datenbank, sowie die daraus resultierenden Ressourcen auf Korrektheit geprüft (siehe Abb.~\ref{fig:images/img_integration-testing.eps}). Wichtig an dieser Stelle ist es, aufgrund der fortschrittlichen Implementierung von modernen \acp{ORM}, sicherzustellen, dass die Testdaten nicht nur temporär vorgehalten wurden, sondern tatsächlich in die Datenbank geschrieben und von dort herausgelesen wurden, um etwaige Fehler auf diesen Schichten auszuschließen.\cite{clemson}
 
 \image{images/img_integration-testing.eps}{Integration Testing Scope \cite{clemson}}
 
@@ -400,7 +400,7 @@ An dieser Stelle ist die Kernfunktionalitäten der Services, also die Stellen, a
 
 Unit- und Integrationstests sorgen dafür, dass an dieser Stelle bereits Sichergestellt ist, dass die Logik in den einzelnen Komponenten garantiert so funktioniert wie sie beabsichtigt ist. Doch ist dies der Punkt, an dem sich das Testen von Microservices vom Testen von monolithischen Anwendungen in Details unterscheidet. Da der nächste Schritt nach dem testen der einzelnen Teilkomponenten eines Service darin besteht, den gesamten Service zu testen, treten Probleme auf, sobald dieser zur korrekten Funktionalität externe Abhängigkeiten besitzt.
 
-Component testing tritt an dieser Stelle ein. Es eignet sich besonders gut für Microservice Architekturen, da die sich diese leicht in die getrennt zu testenden Komponenten aufteilen lassen: Jeder Service entspricht einer Komponente. Externe Kommunikationspartner werden durch \textit{test doubles} ersetzt, dadurch wird eine Isolierung des Service für den Test sichergestellt.\cite{clemson} Ein \textit{test double} ist eine generische Umschreibung für ein Objekt welches man zu Testzwecken gegen ein produktive Komponente austauscht. Dazu zählen u.a. \textit{dummys}, die zwar weitergereicht, aber nie verwendet werden, oder auch \textit{stubs}, die für bestimmte vordefinierte Anfragen vordefinierte Antworten liefern.\cite{fowlertestdouble}
+Component testing tritt an dieser Stelle ein. Es eignet sich besonders gut für Microservice Architekturen, da die sich diese leicht in die getrennt zu testenden Komponenten aufteilen lassen: Jeder Service entspricht einer Komponente. Externe Kommunikationspartner werden durch \textit{test doubles} ersetzt, dadurch wird eine Isolierung des Service für den Test sichergestellt (siehe Abb.~\ref{fig:images/img_component-testing.eps}).\cite{clemson} Ein \textit{test double} ist eine generische Umschreibung für ein Objekt welches man zu Testzwecken gegen ein produktive Komponente austauscht. Dazu zählen u.a. \textit{dummys}, die zwar weitergereicht, aber nie verwendet werden, oder auch \textit{stubs}, die für bestimmte vordefinierte Anfragen vordefinierte Antworten liefern.\cite{fowlertestdouble}
 
 \image{images/img_component-testing.eps}{Component Testing Scope \cite{clemson}}
 
@@ -420,7 +420,7 @@ Diese Art von Test ist nicht gleichzusetzen mit component testing. Es wird nicht
 
 \image{images/img_contract-testing.eps}{Contract Testing \cite{clemson}}
 
-Ein großer Vorteil von dieser Vorgehensweise ist der, dass der Produzierende Service viel leichter Änderungen durchführen kann, da er weiß, welche Schnittstellen und Felder von seinen Konsumenten wirklich benötigt werden. So könnte der Produzent aus \ref{fig:images/img_contract-testing.eps} eine Ressource anbieten die die Felder \textit{id}, \textit{name} und \textit{age} anbietet. Konsument A benötigt nur die \textit{id} und \textit{name}-Felder, somit wird in den contract tests zu Vertrag A auch nur die existenz dieser beiden Felder geprüft. Konsument B benötigt nur das \textit{id} und \textit{age}-Feld, während Konsument C alle Felder benötigt, um korrekt zu funktioniere.\cite{clemson}
+Ein großer Vorteil von dieser Vorgehensweise ist der, dass der Produzierende Service viel leichter Änderungen durchführen kann, da er weiß, welche Schnittstellen und Felder von seinen Konsumenten wirklich benötigt werden. So könnte der Produzent aus Abbildung~\ref{fig:images/img_contract-testing.eps} eine Ressource anbieten die die Felder \textit{id}, \textit{name} und \textit{age} anbietet. Konsument A benötigt nur die \textit{id} und \textit{name}-Felder, somit wird in den contract tests zu Vertrag A auch nur die existenz dieser beiden Felder geprüft. Konsument B benötigt nur das \textit{id} und \textit{age}-Feld, während Konsument C alle Felder benötigt, um korrekt zu funktioniere.\cite{clemson}
 
 Sollte nun ein weiterer Konsument zur Anwendung hinzukommen, der neben dem Vornamen auch einen Nachnamen benötigt, können die Betreiber des Produzenten sich dazu entscheiden, dass alte \textit{name}-Feld als veraltet zu markieren und ein neues Zusammengesetztes Objekt aus Vor- und Nachname anbieten. Durch die Durchführung aller component tests wird schnell deutlich, dass die Konsumenten A und C von dieser Änderung betroffen und somit informiert werden müssen. Sobald die beiden Konsumenten an die neue Schnittstelle angepasst sind, kann das alte Feld \textit{name} aus der Ressource entfernt werden. Laufen dann alle contract tests ohne Fehler, ist die Migration auf die neue Schnittstelle erfolgreich.\cite{clemson}
 
@@ -436,7 +436,7 @@ Für Systeme die keine Nutzeroberfläche bieten werden direkt die öffentlichen 
 
 \image{images/img_end-to-end-testing.eps}{End-To-End Testing Scope mit externen Abhängigkeiten \cite{clemson}}
 
-Sollte nicht ein Team Komponentenverantwortlich für die Gesamtanwendung sein,  werden bei end-to-end tests auch externe Services mit eingesetzt. Es gibt allerdings Fälle in denen es sinnvoll sein kann diese aus dem scope zu exkludieren. Bei Abhängigkeiten die nicht einmal mehr in den Händen der Firma selbst, sondern bei Drittanbietern liegen gibt es viele Faktoren, wie etwa die Stabilität der Systeme des Drittanbieters selbst, die die Testergebnisse für das eigene System verfälschen können. In solchen Situationen ist es Sinnvoll, auch in end-to-end tests noch stubs dieser externen Systeme zu verwenden, um sinnvolle Resultate für die eigene Anwendung zu erhalten. Dadurch verliert zwar die Testmethode selbst ein wenig an Vertraulichkeit in Bezug auf die Resultate, jedoch bleiben diese Resultate wenigstens stabil.\cite{clemson}
+Sollte nicht ein Team Komponentenverantwortlich für die Gesamtanwendung sein,  werden bei end-to-end tests auch externe Services mit eingesetzt (siehe Abb.~\ref{fig:images/img_end-to-end-testing.eps}). Es gibt allerdings Fälle in denen es sinnvoll sein kann diese aus dem scope zu exkludieren. Bei Abhängigkeiten die nicht einmal mehr in den Händen der Firma selbst, sondern bei Drittanbietern liegen gibt es viele Faktoren, wie etwa die Stabilität der Systeme des Drittanbieters selbst, die die Testergebnisse für das eigene System verfälschen können. In solchen Situationen ist es Sinnvoll, auch in end-to-end tests noch stubs dieser externen Systeme zu verwenden, um sinnvolle Resultate für die eigene Anwendung zu erhalten. Dadurch verliert zwar die Testmethode selbst ein wenig an Vertraulichkeit in Bezug auf die Resultate, jedoch bleiben diese Resultate wenigstens stabil.\cite{clemson}
 
 End-to-end tests haben einen großen Nachteil: Sie sind die Tests mit den meisten Faktoren und Komponenten und haben dadurch auch die größte Spanne an möglichen Schwachstellen die zu einem Fehlschlagen der Tests führen können. Dies führt dazu, dass die Laufzeit dieser Tests extrem hoch sein kann und auch das pflegen der Test suites ist mit einem großen Arbeitsaufwand verbunden.\cite{clemson} Daher ist es wichtig beim schreiben eben dieser auf einige Punkte acht zu geben.
 
@@ -493,9 +493,9 @@ Es wird ein vereinfachtes Modell eines Online-Shops, beispielhaft \textit{Kongo}
 
 \lstinputlisting{../ReferenceSystem/.mdsd/referencesystem.barrakuda}
 
-Das Referenz-System besteht aus 3 Services, dem \textit{shoppingcart}-Service, dem \textit{ordering}-Service und dem \textit{warehouse}-Service. Im \textit{warehouse} werden alle verfügbaren Produkte des Online-Shops verwaltet. Wenn ein Kunde nun eines der Produkte bestellen möchte, wird eine Anfrage an den \textins{shoppingcart}-Service gesendet, die die OID des Produktes, sowie die gewünschte Anzahl enthält.
+Das Referenz-System besteht, wie in Abbildung~\ref{fig:images/img_referenz-system-arch.eps} zu sehen, aus 3 Services. Dem \textit{shoppingcart}-Service, dem \textit{ordering}-Service und dem \textit{warehouse}-Service. Im \textit{warehouse} werden alle verfügbaren Produkte des Online-Shops verwaltet. Wenn ein Kunde nun eines der Produkte bestellen möchte, wird eine Anfrage an den \textins{shoppingcart}-Service gesendet, die die OID des Produktes, sowie die gewünschte Anzahl enthält.
 
-Wenn ein Kunde dann eine Bestellung aufgeben möchte, geht eine Anfrage mit der OID des virtuellen Einkaufswagens an den \textit{ordering}-Service, der zusätzlich Schnittstellen zum erstellen einer Rechnung, sowie zum stornieren einer Bestellung bietet.
+Möchte ein Kunde dann eine Bestellung aufgeben, geht eine Anfrage mit der OID des virtuellen Einkaufswagens an den \textit{ordering}-Service, der zusätzlich Schnittstellen zum erstellen einer Rechnung, sowie zum stornieren einer Bestellung bietet.
 
 Der mit generierte Authentifizierungsservice dient als Kundenverwaltung.
 

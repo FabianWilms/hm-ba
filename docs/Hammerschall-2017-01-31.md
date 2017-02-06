@@ -16,7 +16,7 @@ Egal, aber Bild in Beschreibung referenzieren!
 
 * OAuth2 in der Tiefe beschreiben (Grant Types)?
 
-Nicht, wenn nicht sionnvoll für Ergebnisse der Arbeit.
+Nicht, wenn nicht sinnvoll für Ergebnisse der Arbeit.
 
 * Abgabe des Quellcodes auf welchem Medium?
 
