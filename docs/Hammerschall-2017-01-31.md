@@ -25,9 +25,3 @@ USB-Stick mit Quellcode und Arbeit als PDF. Änderungen in Barrakuda auf irgende
 * Bindung der Arbeit, egal?
 
 Völlig egal, Ringbuch und Deckpappe etc.
-
-# Kritik
-
-* Dreieck kleiner 
-* RPC Stubs und skeletons erläutern
-* Verzeichnisstruktur an Konzept "Konzeption: Testen von Microservices"

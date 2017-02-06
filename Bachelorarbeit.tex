@@ -162,7 +162,9 @@ Des Weiteren ist die technologische Einschränkung ein großer Nachteil. Wenn es
 \paragraph{\acfp{RPC}}\label{rpcpara} sind eine weitere bekannte Kommunikationsmöglichkeit. Die Übersetzung ins deutsche erklärt schon einen Großteil der Idee hinter \acp{RPC}: "Aufruf einer fernen Prozedur". \acp{RPC} sind eine weitere Möglichkeit eine Client-Server-Modell umzusetzen. Die erste Idee dazu kam im Jahre 1976 von James White in seinem RFC \#707 \enquote{A High-Level Framework for Network-Based Resource Sharing}\cite{white707}. Ein \ac{RPC} funktioniert, indem der Client einer Anwendung eine Anfrage an einen Server sendet. In dieser Anfrage ist der Name oder die ID einer Methode, sowie die zugehörigen Parameter enthalten. Der empfangende Server führt die gewünschte Methode bei sich aus und liefert dem Client als Antwort den Rückgabewert der Methode.
 Ein Vorteil von RPC ist, dass es sehr einfach und schnell möglich ist Methoden der Services für Clients und andere Services Verfügbar zu machen. Über die Kommunikation muss man sich nahezu keine Gedanken machen\cite[S.91]{buildingms}.
 
-\image{images/img_rpc-call.eps}{Ablauf eines \ac{RPC}}
+Bei Verwendung von RPC werden in der Implementierung stubs und skeletons verwendet. Die stubs sind dabei client-seitige Schnittstellen, die es ermöglichen Prozeduren die auf einer anderen Maschine zur Verfügung stehen aufzurufen wie eine lokale Prozedur. Der stub sorgt dann für das marshalling (umwandeln) der Daten und den transfer über das Netzwerk. Auf der Server-Seite empfängt das skeleton, welches die gleichen Methodensignaturen wie der stub bereithält, die Anfrage, sorgt für die Ausführung und liefert die Ergebnisse, ebenfalls über das Netzwerk, zurück (vgl. Fig.~\ref{fig:images/img_rpc-call_alternative.eps}).\cite{krzyzanowski}
+
+\image[1]{images/img_rpc-call_alternative.eps}{Ablauf eines RPC}
 
 Doch die Nachteile überwiegen schnell und deutlich. Je nach Implementierung führt die Verwendung von RPC zu einer starken Bindung an eine bestimmte Sprache (bekanntestes Beispiel Java RMI). Auch verstecken RPC-Implementierungen die Komplexität der entfernten Aufrufe. Dies kann zu starken Performance-Problemen führen, wenn Entwickler an Interfaces arbeiten, von denen sie denken es seien lokale Methoden\cite[S.93]{buildingms}.
 
@@ -233,6 +235,7 @@ Wichtig ist hierbei die Unterscheidung zwischen Autorisierung und Authentifizier
 Allerdings ist es für die Verwendung von OAuth2 innerhalb eines Unternehmenskontext zusammen mit der Autorisierung auch eine Authentifizierungsmöglichkeit am Authentifizierungs-Service zu implementieren. Dieser Service kann dann die bestehende Infrastruktur des Unternehmens zur Authentifizierung von Nutzern verwenden. Zusätzlicher Vorteil dieses Vorgehens ist, dass jeder Service der zusätzliche Informationen eines Nutzers erfragen möchte, dies an einer zentralen Stelle mithilfe des vom Nutzer propagierten Tokens einfach tun kann.
 
 \subsubsection{Deployment}
+
 
 %todo deployment erläutern
 
@@ -399,8 +402,7 @@ Unit- und Integrationstests sorgen dafür, dass an dieser Stelle bereits Sicherg
 
 Component testing tritt an dieser Stelle ein. Es eignet sich besonders gut für Microservice Architekturen, da die sich diese leicht in die getrennt zu testenden Komponenten aufteilen lassen: Jeder Service entspricht einer Komponente. Externe Kommunikationspartner werden durch \textit{test doubles} ersetzt, dadurch wird eine Isolierung des Service für den Test sichergestellt.\cite{clemson} Ein \textit{test double} ist eine generische Umschreibung für ein Objekt welches man zu Testzwecken gegen ein produktive Komponente austauscht. Dazu zählen u.a. \textit{dummys}, die zwar weitergereicht, aber nie verwendet werden, oder auch \textit{stubs}, die für bestimmte vordefinierte Anfragen vordefinierte Antworten liefern.\cite{fowlertestdouble}
 
-%todo bild überarbeiten
-%\image{images/img_component-testing.eps}{Component Testing Scope \cite{clemson}}
+\image{images/img_component-testing.eps}{Component Testing Scope \cite{clemson}}
 
 Bei Services die komplexere Integrations- oder Bootlogik besitzen kann es auch sinnvoll sein, gemockte Services durch externe stubs von den benötigten Services zu ersetzen. Dadurch wird die Testlogik zwar zu teilen in den Test-Harnisch, der für die korrekte Ausführung der Tests verantwortlich ist, geschoben, doch können zusätzliche Fehlerquellen durch die Verwendung von echten Netzwerkanfragen bereits jetzt erkannt werden. Zu beachten ist jedoch, dass sich dadurch auch die Zeit der Testausführung erhöhen kann.\cite{clemson} Ein Test-Harnisch ist die Zusammenstellung aller für die Ausführung von Tests nötigen Informationen. Dazu zählen auch Konfigurationen, die beispielsweise stubs und andere Komponenten für die Tests starten.
 
@@ -497,7 +499,7 @@ Wenn ein Kunde dann eine Bestellung aufgeben möchte, geht eine Anfrage mit der 
 
 Der mit generierte Authentifizierungsservice dient als Kundenverwaltung.
 
-%todo Klassendiagramm
+\image[]{images/img_referenz-system-arch.eps}{Aufbau des Referenzsystems zur Testimplementierung}
 
 Wichtig ist, dass im Referenz-System keinerlei Logik zu den modellierten Geschäftsanwendungen implementiert wird, sondern lediglich die im Abschnitt~\ref{sec:testingms} angesprochenen Testmethoden.
 
@@ -506,8 +508,6 @@ Wichtig ist, dass im Referenz-System keinerlei Logik zu den modellierten Geschä
 \subsubsection{Implementierung des Systems}
 
 \subsubsection{Implementierung der Tests}
-
-\subsection{Übernahme der Referenz-Implementierung in Barrakuda-Templates}
 
 % ----------------------------------------------------------------------------------------------------------
 % Fazit
