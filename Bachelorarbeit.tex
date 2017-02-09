@@ -82,7 +82,7 @@ Bei it@M, dem IT-Dienstleister der Landeshauptstadt München, ist eine hohe Test
 
 Eine dieser Lösungen wurde im letzten Jahr von Martin Kurz im Rahmen seiner Masterarbeit \cite{mkthesis} geplant und entwickelt. Die Model-driven Software Development Lösung Barrakuda\footnote{Github Repository von Barrakuda (https://github.com/xdoo/mdsd)}. Diese bietet den Entwicklern von it@M die Möglichkeit anhand von einer vorgegebenen Domänen-spezifischen Sprache Microservice-Architekturen zu modellieren und diese zu generieren.
 
-Im Rahmen dieser Arbeit soll eine Erweiterung von Barrakuda geplant und entwickelt werden. Diese Weiterentwicklung soll einen Großteil verschiedener Testmethoden für diese Architektur generieren und die benötigte Entwicklungszeit für eine hohe Testabdeckung möglichst stark reduzieren.
+Im Rahmen dieser Arbeit soll durch die Entwicklung von Testmethoden für Microservice-Architekturen der Grundstein für eine Erweiterung von Barrakuda gelegt werden. Diese Weiterentwicklung soll einen Großteil verschiedener Testmethoden für diese Architektur generieren und die benötigte Entwicklungszeit für eine hohe Testabdeckung möglichst stark reduzieren.
 
 Zunächst werden die Microservice Architektur (Kapitel~\ref{ch:ms-arch}) und der Monolithischen Architekturstil (Kapitel~\ref{ch:mon-arch}) beschrieben und bezüglich ihrer Vor- (Kapitel~\ref{ch:ms-mon-pro}) und Nachteile (Kapitel~\ref{ch:ms-mon-cons}) verglichen. Anschließend wird ein praktisches Beispiel anhand der von it@M Vorgegebene Microservice-Architektur gezeigt und die zu testenden Komponenten identifiziert.
 
@@ -237,7 +237,15 @@ Ein Nutzer kann dann an einem Endpunkt des Authentifizierungsservice den OAuth2-
 
 \subsubsection{Deployment}
 
-%todo deployment erläutern
+Das Deployment ist in Microservice-Architekturen ein wichtiger Punkt, da ein guter Deployment-Prozess auch für den Nutzern einer solchen Architektur entscheidend sein kann. Es gibt verschiedene Ansätze, wie man eine Anwendung zum Einsatz bringen kann\cite{richardson}.
+
+\begin{description}
+	\item[Multiple Service Instances per Host] Bei diesem Ansatz werden ein, oder mehrere physikalische oder virtuelle Hosts genutzt, auf denen mehrere Instanzen von Services laufen.
+	
+	\item[Service Instance per \ac{VM}] Jeder Service wird gebündelt als \ac{VM}-Abbild. Dieses Abbild wird dann zum starten eines Services genutzt. Vorteil davon ist, dass jeder Service komplett isoliert von den anderen Services laufen kann. Ein Nachteil ist der hohe Overhead, der durch die Nutzung einer \ac{VM} anfällt.
+	
+	\item[Service Instance per Container] Container sind ein Virtualisierungsansatz auf Betriebssystem-Ebene. Im Gegensatz zu regulären \acp{VM} sind Container aber weitaus leichtgewichtiger und erzeugen einen weitaus weniger hohen Overhead. Allerdings sind Container-Infrastrukturen noch nicht so ausgereift, wie sie es etwa für die Anwendung von \acp{VM} sind.
+\end{description}
 
 \subsection{Monolithische Architektur}\label{ch:mon-arch}
 
@@ -341,7 +349,7 @@ Jeder Service der Anwendung hat intern eine gleiche Aufteilung. In Abbildung~\re
 \myquote{Mediates between the domain and data mapping layers using a collection-like interface for accessing domain objects.}
 
 Ein Repository stellt also eine Verhandlungsebene zwischen den Schichten der Domäne und der Datenpersistierung.
-Zum zusätzlichen Eingriff durch Entwickler können, kann auf verschiedene Events mithilfe von Listenern reagiert werden. Zur Kommunikation mit anderen Services existiert ein \textit{Security REST Client}, der die Kommunikation mit anderen Services durch Verwendung des Discovery und Authentication Service so einfach wie möglich machen soll. 
+Zum zusätzlichen Eingriff durch Entwickler können, kann auf verschiedene Events mithilfe von Listenern reagiert werden. Zur Kommunikation mit anderen Services existiert ein \textit{Security REST Client}, der diese für den Entwickler, durch automatische Verwendung des Discovery und Authentication Service, so einfach wie möglich machen soll. 
 
 \image{images/img_architecture_testing.eps}{Aufbau eines Service innerhalb der it@M-Architektur}
 
@@ -384,19 +392,19 @@ Nicht-funktionales Testen evaluiert die \textit{Bereitschaft} des Systems.\cite{
 
 Durch einige spezielle Eigenschaften von Microservices ergeben sich teilweise auch spezielle Testanforderungen die in der Entwicklung von Tests Beachtung finden müssen. Allerdings wird sich auch bei Microservices auf altbekannte Methodiken gestützt, insbesondere in den Grundlegenden Bereichen der Unit- und Integrationstests.
 
-\paragraph{Unit Testing}
+\subsection{Unit Testing}
 
 Auch bei Microservices beginnt das Testen eines Gesamtsystems auf der niedrigsten Schicht. Auch hier gilt es, dass Unit Tests generell auf Klassen-Level geschrieben werden.\cite{clemson} Im Falle des Architekturmodells von it@M beschränken sich Unit Tests auf das Testen der Geschäftslogik, sowie der verschiedenen Listenern (siehe Abb.~\ref{fig:images/img_unit-testing.eps}). Die Repositories und Entitäten sind durch das verwendete Framework nicht mit reinen Unit Tests testbar, sondern werden erst in den folgenden Integrationstests getestet.
 
 \image{images/img_unit-testing.eps}{Unit Testing Scope \cite{clemson}}
 
-\paragraph{Integration Testing}
+\subsection{Integration Testing}
 
 An dieser Stelle ist die Kernfunktionalitäten der Services, also die Stellen, an denen nicht reiner Code zur Persistierung und Bereitstellung von Schnittstellen, sichergestellt. Doch die korrekte Zusammenarbeit der getesteten Komponenten ist noch nicht gewährleistet. Bei den Integrationstests werden nun mehrere Module zusammengefasst um das Zusammenspiel dieser Komponenten zu testen.\cite{clemson} Auch hier wird also nicht vom Regelfall aus Kapitel \ref{ch:soft-test} abgewichen. Auch wird in diesem Stadium das Zusammenspiel des Data Mappers und der angebundenen Datenbank, sowie die daraus resultierenden Ressourcen auf Korrektheit geprüft (siehe Abb.~\ref{fig:images/img_integration-testing.eps}). Wichtig an dieser Stelle ist es, aufgrund der fortschrittlichen Implementierung von modernen \acp{ORM}, sicherzustellen, dass die Testdaten nicht nur temporär vorgehalten wurden, sondern tatsächlich in die Datenbank geschrieben und von dort herausgelesen wurden, um etwaige Fehler auf diesen Schichten auszuschließen.\cite{clemson}
 
 \image{images/img_integration-testing.eps}{Integration Testing Scope \cite{clemson}}
 
-\paragraph{Component Testing}
+\subsection{Component Testing}
 
 Unit- und Integrationstests sorgen dafür, dass an dieser Stelle bereits Sichergestellt ist, dass die Logik in den einzelnen Komponenten garantiert so funktioniert wie sie beabsichtigt ist. Doch ist dies der Punkt, an dem sich das Testen von Microservices vom Testen von monolithischen Anwendungen in Details unterscheidet. Da der nächste Schritt nach dem testen der einzelnen Teilkomponenten eines Service darin besteht, den gesamten Service zu testen, treten Probleme auf, sobald dieser zur korrekten Funktionalität externe Abhängigkeiten besitzt.
 
@@ -406,7 +414,7 @@ Component testing tritt an dieser Stelle ein. Es eignet sich besonders gut für 
 
 Bei Services die komplexere Integrations- oder Bootlogik besitzen kann es auch sinnvoll sein, gemockte Services durch externe stubs von den benötigten Services zu ersetzen. Dadurch wird die Testlogik zwar zu teilen in den Test-Harnisch, der für die korrekte Ausführung der Tests verantwortlich ist, geschoben, doch können zusätzliche Fehlerquellen durch die Verwendung von echten Netzwerkanfragen bereits jetzt erkannt werden. Zu beachten ist jedoch, dass sich dadurch auch die Zeit der Testausführung erhöhen kann.\cite{clemson} Ein Test-Harnisch ist die Zusammenstellung aller für die Ausführung von Tests nötigen Informationen. Dazu zählen auch Konfigurationen, die beispielsweise stubs und andere Komponenten für die Tests starten.
 
-\paragraph{Consumer Driven Contract Testing}
+\subsection{\ac{CDCT}}
 
 Durch die Kombination von unit-, integration- und component testing ist bereits eine hohe Abdeckung eines Microservice erreicht und es ist sichergestellt, dass der Service die Geschäftslogik korrekt implementiert hat. Doch für das Gesamtsystem reicht dies nicht aus. Der wahre Wert der Anwendung entsteht erst durch das Zusammenspiel der verschiedenen Services und in dem Gesamtbild, welches diese Formen. Momentan ist nicht durch Tests sichergestellt, dass externe Komponenten die eigenen Anforderungen so erfüllen wie diese gewünscht sind, oder dass alle Services der Domäne einwandfrei zusammenspielen.\cite{clemson} Um diese Lücken zu schließen bieten contract testing und end-to-end testing abhilfe.
 
@@ -424,7 +432,7 @@ Ein großer Vorteil von dieser Vorgehensweise ist der, dass der Produzierende Se
 
 Sollte nun ein weiterer Konsument zur Anwendung hinzukommen, der neben dem Vornamen auch einen Nachnamen benötigt, können die Betreiber des Produzenten sich dazu entscheiden, dass alte \textit{name}-Feld als veraltet zu markieren und ein neues Zusammengesetztes Objekt aus Vor- und Nachname anbieten. Durch die Durchführung aller component tests wird schnell deutlich, dass die Konsumenten A und C von dieser Änderung betroffen und somit informiert werden müssen. Sobald die beiden Konsumenten an die neue Schnittstelle angepasst sind, kann das alte Feld \textit{name} aus der Ressource entfernt werden. Laufen dann alle contract tests ohne Fehler, ist die Migration auf die neue Schnittstelle erfolgreich.\cite{clemson}
 
-\paragraph{End-To-End Testing}
+\subsection{End-To-End Testing}
 
 Der letzte Schritt zur Sicherstellung, dass alle funktionalen Anforderungen des Systems erfüllt sind ist das end-to-end testing. Im Gegensatz zu den vorherigen Testmethoden soll durch diese Art von Test festgestellt werden, dass sämtliche Geschäftsanforderungen vom System gelöst werden, unabhängig von der Architektur der verwendeten Komponenten.\cite{clemson}
 
@@ -460,12 +468,8 @@ Durch das aufbrechen einer Anwendung in mehrere sauber getrennte Services treten
 
 Hat ein Service eine immens wichtige Aufgabe im Sinne der Geschäftsanforderungen, ist es sinnvoll die volle Bandbreite an möglichen Testmethoden im höchsten Detailgrad auf diesen Service anzusetzen um sein korrektes Verhalten zu garantieren. Wird allerdings ein weiterer Service betrachtet, der weniger wichtige Aufgaben, oder gar experimentelle Funktionen bereitstellt, kann es Sinn machen, die Entwicklungszeit auf andere Gebiete zu fokussieren und nur ein paar der hier vorgestellten Herangehensweisen zu implementieren.\cite{clemson}
 
-\subsubsection{Sinnvolle Teststrategien für den generativen Ansatz}\label{ch:ms-gen-test}
-
-\subsubsection{Frameworks zum Umsetzen von Test-Strategien}\label{ch:ms-test-frw}
-
 % ----------------------------------------------------------------------------------------------------------
-% Implementierung in Barrakuda
+% Implementierung
 % ----------------------------------------------------------------------------------------------------------
 \section{Implementierung}\label{ch:implementierung}
 
@@ -503,16 +507,33 @@ Der mit generierte Authentifizierungsservice dient als Kundenverwaltung.
 
 Wichtig ist, dass im Referenz-System keinerlei Logik zu den modellierten Geschäftsanwendungen implementiert wird, sondern lediglich die im Abschnitt~\ref{sec:testingms} angesprochenen Testmethoden.
 
-\subsubsection{Komponenten und Aufbau}
+\subsection{Frameworks zum Umsetzen von Test-Strategien}\label{ch:ms-test-frw}
 
-\subsubsection{Implementierung des Systems}
+Da die vorgegeben Architektur auf Java und das Spring-Framework setzt, ist die Wahl von sinnvollen Frameworks recht einfach. Für Unit-, Integration- und Component-Testing wird JUnit unter Zuhilfenahme des Spring Testframeworks \textit{spring-boot-test}\footnote{\url{https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-testing.html}} genutzt.
+Auch für das \ac{CDCT} bietet Spring eine eigene Lösung namens \textit{Spring Cloud Contract}\footnote{\url{https://cloud.spring.io/spring-cloud-contract/}}.
+Für end-to-end tests wird Chakram\footnote{\url{https://github.com/dareid/chakram}} genutzt.
+Als Test-Harness wird Maven verwendet, welches für die Ausführung der Tests verantwortlich ist.
 
-\subsubsection{Implementierung der Tests}
+\subsection{Generativer Ansatz - Was zu beachten ist}\label{ch:ms-gen-test}
+
+Die im Referenzsystem implementierten Tests dienen als Basis für die spätere Verwendung in Barrakuda von it@M. Barrakuda verwendet sogenannte Templates, die anhand der gegebenen Informationen aus dem vom Nutzer erstellten Model befüllt werden. Daher muss bei der Implementierung der Testmethoden unbedingt Rücksicht auf die zur Verfügung stehenden Informationen genommen werden. Stehen diese zwar dem Entwickler zur Verfügung, tauchen aber nicht im Model auf, können diese nicht für den generativen Ansatz herangezogen werden.
 
 % ----------------------------------------------------------------------------------------------------------
 % Fazit
 % ----------------------------------------------------------------------------------------------------------
 \section{Fazit}
+
+Insbesondere das component und \ac{CDCT} erweisen sich bei Microservice-Architekturen als sehr sinnvoll. Unit- und Integrationstests unterscheiden sich aufgrund der Größe ihres scopes in Sinn und Zweck nicht von der Verwendung in monolithischen Anwendungen. Aber bereits beim component testing ist es bei der Implementierung von sinnvollen Testfällen möglich bereits Abweichungen in der Definition von nach außen getragenen Schnittstellen zu erkennen. Und das bereits, bevor aufwändige test doubles oder gar ganze Infrastrukturen gestartet werden müssen.
+
+\ac{CDCT} ist ein weiterer sinnvoller Schritt um die Feedback-Zyklen bei der Entwicklung zu minimieren. Insbesondere wenn ein System mit vielen Abhängigkeiten untereinander vorliegt, bringt dieser Testansatz auch in späteren Produktlebensphasen enorme Vorteile mit sich. Anstatt für das prüfen der Einhaltung von Schnittstellendefinitionen end-to-end tests zu implementieren, kann man mit contract testing bei gewissenhafter Implementierung viel Zeit sparen.
+
+Ob jedoch der generative Ansatz für die Test-Entwicklung den gewünschten Nutzen bringt wage ich momentan zu bezweifeln. Während der grobe Rahmen zum testen der Anwendung dem Entwickler gegeben werden kann, fehlt es zur sinnvollen Nutzung schlichtweg an Informationen. Es werden von Barrakuda nur einzelne Beispiele zu Feldern von Entitäten verlangt, eine hohe Testabdeckung kann damit nicht erreicht werden. Auch fehlt es im Model an Informationen zur Kommunikation innerhalb von Services. Es können also beispielsweise nur sehr generische Contracts für \ac{CDCT} generiert werden.
+
+Doch für einen höheren Informationsgehalt das Model von Barrakuda zu verkomplizieren ist eventuell auch keine gute Lösung, da insbesondere die schnelle und einfache Modellierung den Reiz der Anwendung ausmacht. Sich bereits in diesem Schritt mit dem bereitstellen von Testdaten auseinander zu setzen ist nicht wirklich praktikabel.
+
+Denn auch das Grundgerüst, was mit den im Rahmen dieser Arbeit entwickelten Tests bereitgestellt wird, kann die Geschwindigkeit mit der Tests entwickelt werden erhöhen. Bei it@M wird gerade erst mit der Produktiven Verwendung von Microservice-Architekturen begonnen. Ein Großteil der Entwickler muss sich mit teilweise völlig neuen Frameworks auseinandersetzen, neue Denkweisen bei der Lösung von Problemen müssen bedacht werden. Sind in den generierten Systemen nun bereits grundlegende Tests implementiert, und die Strategien hinter diesen erläutert, erlaubt es den Entwicklern sich auf das erschaffen von Testfällen zu konzentrieren, ohne sich dabei zunächst Gedanken um die Verwendungen des Frameworks machen zu müssen. Ein schnellerer Einstieg mit einer niedrigeren ersten Hürde können die Motivation zum schreiben von vielen und guten Tests erhöhen.
+
+Auch sorgt die Generierung für weitere Standardisierung in den Systemen. Wurden bereits vorkehrungen im Generat getroffen, die das automatische Ausführen der Testmethoden ermöglichen, werden diese auch mit hoher Wahrscheinlichkeit genutzt werden, sodass der \acs{CI}-Prozess verbessert wird. Ebenso wie es bereits durch die Generierung von Docker-Files und dem damit entstehenden Interesse an Container-Lösungen der Fall war.
 
 % ----------------------------------------------------------------------------------------------------------
 % Literatur
