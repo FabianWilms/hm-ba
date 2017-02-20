@@ -239,7 +239,7 @@ Ein Nutzer kann dann an einem Endpunkt des Authentifizierungsservice den OAuth2-
 
 \subsubsection{Deployment}
 
-Das Deployment ist in Microservice-Architekturen ein wichtiger Punkt, da ein guter Deployment-Prozess auch für den Nutzern einer solchen Architektur entscheidend sein kann. Es gibt verschiedene Ansätze, wie man eine Anwendung zum Einsatz bringen kann\cite{richardson}.
+Das Deployment ist in Microservice-Architekturen ein wichtiger Punkt, da ein guter Deployment-Prozess auch für den Nutzern einer solchen Architektur entscheidend sein kann. Es gibt verschiedene Ansätze, wie man eine Anwendung zum Einsatz bringen kann\cite{richardsondeploy}.
 
 \begin{description}
 	\item[Multiple Service Instances per Host] Bei diesem Ansatz werden ein, oder mehrere physikalische oder virtuelle Hosts genutzt, auf denen mehrere Instanzen von Services laufen.
@@ -416,7 +416,7 @@ Component testing tritt an dieser Stelle ein. Es eignet sich besonders gut für 
 
 Bei Services die komplexere Integrations- oder Bootlogik besitzen kann es auch sinnvoll sein, gemockte Services durch externe stubs von den benötigten Services zu ersetzen. Dadurch wird die Testlogik zwar zu teilen in den Test-Harnisch, der für die korrekte Ausführung der Tests verantwortlich ist, geschoben, doch können zusätzliche Fehlerquellen durch die Verwendung von echten Netzwerkanfragen bereits jetzt erkannt werden. Zu beachten ist jedoch, dass sich dadurch auch die Zeit der Testausführung erhöhen kann.\cite{clemson} Ein Test-Harnisch ist die Zusammenstellung aller für die Ausführung von Tests nötigen Informationen. Dazu zählen auch Konfigurationen, die beispielsweise stubs und andere Komponenten für die Tests starten.
 
-\subsection{\ac{CDCT}}
+\subsection{\acf{CDCT}}
 
 Durch die Kombination von unit-, integration- und component testing ist bereits eine hohe Abdeckung eines Microservice erreicht und es ist sichergestellt, dass der Service die Geschäftslogik korrekt implementiert hat. Doch für das Gesamtsystem reicht dies nicht aus. Der wahre Wert der Anwendung entsteht erst durch das Zusammenspiel der verschiedenen Services und in dem Gesamtbild, welches diese Formen. Momentan ist nicht durch Tests sichergestellt, dass externe Komponenten die eigenen Anforderungen so erfüllen wie diese gewünscht sind, oder dass alle Services der Domäne einwandfrei zusammenspielen.\cite{clemson} Um diese Lücken zu schließen bieten contract testing und end-to-end testing abhilfe.
 
@@ -525,7 +525,7 @@ Die im Referenzsystem implementierten Tests dienen als Basis für die spätere V
 % ----------------------------------------------------------------------------------------------------------
 \section{Fazit}
 
-Insbesondere das component und \ac{CDCT} erweisen sich bei Microservice-Architekturen als sehr sinnvoll. Unit- und Integrationstests unterscheiden sich aufgrund der Größe ihres scopes in Sinn und Zweck nicht von der Verwendung in monolithischen Anwendungen. Aber bereits beim component testing ist es bei der Implementierung von sinnvollen Testfällen möglich bereits Abweichungen in der Definition von nach außen getragenen Schnittstellen zu erkennen. Und das bereits, bevor aufwändige test doubles oder gar ganze Infrastrukturen gestartet werden müssen.
+Insbesondere das component und \acf{CDCT} erweisen sich bei Microservice-Architekturen als sehr sinnvoll. Unit- und Integrationstests unterscheiden sich aufgrund der Größe ihres scopes in Sinn und Zweck nicht von der Verwendung in monolithischen Anwendungen. Aber bereits beim component testing ist es bei der Implementierung von sinnvollen Testfällen möglich bereits Abweichungen in der Definition von nach außen getragenen Schnittstellen zu erkennen. Und das bereits, bevor aufwändige test doubles oder gar ganze Infrastrukturen gestartet werden müssen.
 
 \ac{CDCT} ist ein weiterer sinnvoller Schritt um die Feedback-Zyklen bei der Entwicklung zu minimieren. Insbesondere wenn ein System mit vielen Abhängigkeiten untereinander vorliegt, bringt dieser Testansatz auch in späteren Produktlebensphasen enorme Vorteile mit sich. Anstatt für das prüfen der Einhaltung von Schnittstellendefinitionen end-to-end tests zu implementieren, kann man mit contract testing bei gewissenhafter Implementierung viel Zeit sparen.
 
