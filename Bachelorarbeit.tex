@@ -16,15 +16,13 @@
 \rhead{KURZFASSUNG}
 \section{Kurzfassung}
 
-Microservice-Architekturen sind in aller Munde. Doch wird die Haltung von Qualitätsversprechen durch die Verwendung neuer Architekturmuster nicht immer vereinfacht. Einarbeitungszeit und die Beachtung von Besonderheiten fallen gerade am Anfang des Entwicklungsprozesses schwer. Auch bei der Landeshauptstadt sollen mehr und mehr Anwendungen in Form von kleineren Services in die Produktion gebracht werden.
-
-Im Rahmen dieser Arbeit soll das Augenmerk auf die Steigerung der Qualität dieser Anwendungen gelegt werden. Dazu werden zunächst spezifische Vorgehensweisen zum testen von Micorservice-Architekturen erläutert. Diese werden dann im nächsten Schritt, mit dem Ansatz zur generativen Testerstellung im Hinterkopf, implementiert um sie anschließend in die bestehende Infrastruktur zur Generierung von Microservice-Architekturen bei der Stadt integrieren und somit die Softwarequalität steigern zu können.
+Im Rahmen dieser Arbeit wird die mögliche Steigerung der Qualität von Microservice Anwendungen ohne die Erhöhung von Zeit und Kosten durch die Generierung von Tests geprüft. Dazu werden zunächst spezifische Vorgehensweisen zum testen von Microservice-Architekturen erläutert. Diese werden dann im nächsten Schritt, mit dem Ansatz zur generativen Testerstellung im Hinterkopf, implementiert um sie anschließend in die bestehende Infrastruktur zur Generierung von Microservice-Architekturen bei der Stadt zu integrieren und somit die Softwarequalität steigern zu können. Der generative Ansatz ermöglicht teilweise die angestrebte Qualitätssteigerung, wenn auch einige Einschränkungen in der Bandbreite der generierten Tests zu erkennen ist.
 
 \vspace{-1,2em}
 \titlespacing{\section}{0pt}{12pt plus 4pt minus 2pt}{-6pt plus 2pt minus 2pt}
 \section*{Abstract}
 
-Das ganze auf Englisch.
+This thesis deals with the possible enhancement of the quality of microservice applications without increasing the time and costs of the porject by generating tests. To validate this claim specific methods are explained which are especially useful for testing microservice architectures. These methods then get implemented while taking into concern that these tests shall be generated at a later point. The generation of these tests partly fulfills the desired rise in quality even though there are recognizable limitations to the spectrum in which the generated tests can operate.
 
 \pagebreak
 
@@ -68,7 +66,7 @@ Mit steigender Komplexität und höherer Nachfrage am Markt, sowie engen Zeitpl�
 
 Dieses besagt, dass die Qualität eines Projekts durch die drei Faktoren der Leistung, Kosten und Zeit beeinflusst wird. Diese Faktoren müssen vom Management eines Projekts möglichst ausbalanciert gehalten werden. Beispiel anhand des Hausbaus: Vom Bauherren ist ein fester Termin für die Fertigstellung des Hauses angedacht (Faktor Zeit), doch lässt der aktuelle Baufortschritt eine Fertigstellung zum festgelegten Termin nicht mehr zu. Die Lösung wäre, mehr Arbeiter einzustellen und somit den Fortschritt zu beschleunigen. Somit werden zum Ausgleich die Kosten erhöht.
 
-Ein Bericht der Kölner Beratungsfirma SQS zeigt anhand von gesammelten Zahlen aus Beratungsaufträgen welche immensen Kosten durch unentdeckte Fehler entstehen \cite{sqsdefect}. Hier wird besonders deutlich wie viel es für ein Projekt bedeutet, frühzeitige Qualitätssicherung durchzusetzen. Und dazu zählt auch das Testen von Software.
+Ein Bericht der Kölner Beratungsfirma SQS zeigt anhand von gesammelten Zahlen aus Beratungsaufträgen welche immensen Kosten durch unentdeckte Fehler entstehen \cite{sqsdefect}. Hier wird besonders deutlich wie wichtig es für ein Projekt ist, frühzeitige Qua\-li\-täts\-si\-che\-rung durchzusetzen. Und dazu zählt auch das Testen von Software.
 
 \image{images/img_sqs-defect-correction.PNG}{SQS Report Costs of Defect Correction \cite{sqsdefect}}
 
@@ -80,17 +78,17 @@ Somit sorgt das Bug-Fixing in Produktivsystemen, also das Beheben sogenannter \t
 
 Die Lösung sollte also sein, viel Zeit und Geld in gute Softwarequalität zu investieren. Jedoch stehen, wie bereits am Anfang der Einleitung erwähnt, Projektleiter und ihre Mitarbeiter unter hohem zeitlichen Druck vom Kunden oder durch andere beteiligte festgelegte Termine einzuhalten. Und gute Tests kosten neben Geld auch Zeit. Es entsteht in dieser Zeit aber kein Fortschritt an der Funktionalität der Software.
 
-Bei it@M, dem IT-Dienstleister der Landeshauptstadt München, ist eine hohe Testabdeckung daher Teil der Definition of Done [citation needed] von Softwareprojekten. Im Kommunalen Umfeld sind die zeitlichen Restriktionen noch einmal stärker zu gewichten als in der freien Wirtschaft. Viele Projekte werden aufgrund von anstehenden Gesetzesänderungen ins Leben gerufen und müssen mit Inkrafttreten der neuen Regelungen in Produktion gehen. it@M ist somit ständig auf der Suche nach Lösungen, die den Entwicklungs- und Testprozess beschleunigen, um die geringe Zeit möglichst effizient nutzen zu können.
+Im Kommunalen Umfeld sind die zeitlichen Restriktionen noch einmal stärker zu gewichten als in der freien Wirtschaft. Viele Projekte werden aufgrund von anstehenden Gesetzesänderungen ins Leben gerufen und müssen mit Inkrafttreten der neuen Regelungen in Produktion gehen. it@M ist somit ständig auf der Suche nach Lösungen, die den Entwicklungs- und Testprozess beschleunigen, um die geringe Zeit möglichst effizient nutzen zu können.
 
 Eine dieser Lösungen wurde im letzten Jahr von Martin Kurz im Rahmen seiner Masterarbeit \cite{mkthesis} geplant und entwickelt. Die Model-driven Software Development Lösung Barrakuda\footnote{Github Repository von Barrakuda (https://github.com/xdoo/mdsd)}. Diese bietet den Entwicklern von it@M die Möglichkeit anhand von einer vorgegebenen Domänen-spezifischen Sprache Microservice-Architekturen zu modellieren und diese zu generieren.
 
 Im Rahmen dieser Arbeit soll durch die Entwicklung von Testmethoden für Microservice-Architekturen der Grundstein für eine Erweiterung von Barrakuda gelegt werden. Diese Weiterentwicklung soll einen Großteil verschiedener Testmethoden für diese Architektur generieren und die benötigte Entwicklungszeit für eine hohe Testabdeckung möglichst stark reduzieren.
 
-Zunächst werden die Microservice Architektur (Kapitel~\ref{ch:ms-arch}) und der Monolithischen Architekturstil (Kapitel~\ref{ch:mon-arch}) beschrieben und bezüglich ihrer Vor- (Kapitel~\ref{ch:ms-mon-pro}) und Nachteile (Kapitel~\ref{ch:ms-mon-cons}) verglichen. Anschließend wird ein praktisches Beispiel anhand der von it@M Vorgegebene Microservice-Architektur gezeigt und die zu testenden Komponenten identifiziert.
+Zunächst werden die Microservice Architektur (Kapitel~\ref{ch:ms-arch}) und der Monolithischen Architekturstil (Kapitel~\ref{ch:mon-arch}) beschrieben und bezüglich ihrer Vor- (Kapitel~\ref{ch:ms-mon-pro}) und Nachteile (Kapitel~\ref{ch:ms-mon-cons}) verglichen. Anschließend wird als Vorbereitung auf die darauf folgenden Kapitel die vorgegebene Architektur von it@M erläutert und auch die interne Struktur der Komponenten dargestellt (Kapitel~\ref{ch:arch-itm}).
 
-Schließlich werden bekannte Methoden zum Testen von Software analysiert (Kapitel~\ref{ch:soft-test}) und es werden alternative Methoden, die besonders im Bereich der Microservices anzutreffen sind, ebenfalls untersucht (Kapitel~\ref{ch:ms-test}). Diese werden dann in Hinblick der Umsetzungsmöglichkeit im generativen Ansatz geprüft (Kapitel~\ref{ch:ms-gen-test})  und es werden Frameworks die zur Implementierung genutzt werden sollen definiert(Kapitel~\ref{ch:ms-test-frw}) .
+Im nächsten Schritt werden bekannte Methoden zum Testen von Software festgestellt und analysiert (Kapitel~\ref{ch:soft-test}). Dann werden, anhand der im vorherigen Kapitel festgestellten Eigenschaften von Microservice Architekturen, Test-Methoden, die besonders im Bereich dieses Architekturmusters sinnvoll zu verwenden sind, weiter ausgeführt und aufgestellt (Kapitel~\ref{ch:ms-test}).
 
-Schließlich sollen Anforderungen, die an die zu generierenden Tests gestellt werden (Kapitel~\ref{ch:anforderungen-tests}), festgehalten werden. Diese finden dann im letzten Abschnitt, der Implementierung, Beachtung (Kapitel~\ref{ch:implementierung}).
+Abschließend werden diese Testmethoden im Kapitel der Implementierung (Kapitel~\ref{ch:implementierung}) in einem Referenz-System, unter ständiger Beachtung der möglichen Generierbarkeit aller Tests, implementiert und deren Effektivität und die mögliche Zeitersparnis analysiert. Am Ende wird im Fazit eine Beurteilung über die Sinnhaftigkeit und den möglichen Mehrwert zur Generierung der Tests aufgestellt (Kapitel~\ref{ch:fazit}).
 
 % ----------------------------------------------------------------------------------------------------------
 % Architektur-Generierung für Software-Projekte
@@ -199,7 +197,7 @@ Die Verwendung von REST bietet viele Möglichkeiten die lose Kopplung zwischen S
 
 Mit der Verwendung von \ac{HATEOAS} reicht es, wenn alle Clients die Kundendaten und deren Bestellungen verarbeiten wissen, dass Kunden einen Link-Feld mit dem Typ \textit{orders} besitzen. Wenn also später Services unter anderen Adressen erreichbar sind, oder sich interne Datenstrukturen ändern müssen diese Clients nicht neu angepasst werden.
 
-Ein weiterer interessanter Anwendungsfall für \ac{HATEOAS} ist die Nutzung der weiterführenden Links zur Bildung eines Zustandsautomaten (siehe Abb.~\ref{fig:images/img_hateoas-state-machine.eps}). Die mitgelieferten Informationen zu weiteren \textit{Ressourcen} helfen dabei dem Client einer Anwendung Manipulationsmöglichkeiten des empfangenen Objekts zu prüfen.
+Ein weiterer Anwendungsfall für \ac{HATEOAS} ist die Nutzung der weiterführenden Links zur Bildung eines Zustandsautomaten (siehe Abb.~\ref{fig:images/img_hateoas-state-machine.eps}). Die mitgelieferten Informationen zu weiteren \textit{Ressourcen} helfen dabei dem Client einer Anwendung Manipulationsmöglichkeiten des empfangenen Objekts zu prüfen.
 
 \image{images/img_hateoas-state-machine.eps}{Beispiel einer State-Machine mit HATEOAS\cite{hatsm}}
 
@@ -235,7 +233,7 @@ Allerdings ist es für die Verwendung von OAuth2 innerhalb eines Unternehmenskon
 
 Ein Nutzer kann dann an einem Endpunkt des Authentifizierungsservice den OAuth2-Token erhalten, mit dem er sich an anderen Services autorisieren kann. Diese Services können einen weiteren Endpunkt nutzen, um etwa Nutzerinformationen anhand des tokens abzurufen, die für eventuelle Identitätsanforderungen benötigt werden (siehe Abb.~\ref{fig:images/img_oauth2-user-service.eps}).
 
-\image[1]{images/img_oauth2-user-service.eps}{Mögliche Verwendung eines Service der sowohl authentifiziert, als auch autorisiert.}
+\image[1]{images/img_oauth2-user-service.eps}{Stark vereinfachte Darstellung der Verwendung eines Service, der sowohl Authentifizierung als auch Autorisierung anbietet.}
 
 \subsubsection{Deployment}
 
@@ -244,9 +242,9 @@ Das Deployment ist in Microservice-Architekturen ein wichtiger Punkt, da ein gut
 \begin{description}
 	\item[Multiple Service Instances per Host] Bei diesem Ansatz werden ein, oder mehrere physikalische oder virtuelle Hosts genutzt, auf denen mehrere Instanzen von Services laufen.
 	
-	\item[Service Instance per \ac{VM}] Jeder Service wird gebündelt als \ac{VM}-Abbild. Dieses Abbild wird dann zum starten eines Services genutzt. Vorteil davon ist, dass jeder Service komplett isoliert von den anderen Services laufen kann. Ein Nachteil ist der hohe Overhead, der durch die Nutzung einer \ac{VM} anfällt.
+	\item[Service Instance per \ac{VM}] Jeder zu deployende Service wird als \ac{VM}-Abbild gebündelt. Dieses Abbild wird dann zum starten eines Services genutzt. Vorteil davon ist, dass jeder Service komplett isoliert von den anderen Services laufen kann. Ein Nachteil ist der hohe Overhead, der durch die Nutzung einer \ac{VM} anfällt.
 	
-	\item[Service Instance per Container] Container sind ein Virtualisierungsansatz auf Betriebssystem-Ebene. Im Gegensatz zu regulären \acp{VM} sind Container aber weitaus leichtgewichtiger und erzeugen einen weitaus weniger hohen Overhead. Allerdings sind Container-Infrastrukturen noch nicht so ausgereift, wie sie es etwa für die Anwendung von \acp{VM} sind.
+	\item[Service Instance per Container] Die sogenannten Container sind ein Virtualisierungsansatz auf Betriebssystem-Ebene. Im Gegensatz zu regulären \acp{VM} sind Container aber weitaus leichtgewichtiger und erzeugen einen weitaus geringeren Overhead.
 \end{description}
 
 \subsection{Monolithische Architektur}\label{ch:mon-arch}
@@ -273,7 +271,7 @@ Als Vorteile der Microservice-Architektur lassen sich nun folgende Punkte, die u
 	\item[Austauschbarkeit] Die kleinen abgegrenzten Systeme lassen sich mit viel weniger aufwand gegen neuere oder bessere Implementierungen austauschen, ohne andere Komponenten zu Gefährden. Während dies bei Monolithischen Anwendungen zu unvorhersehbaren Problemen kommen kann, weshalb in solchen Architekturen auch häufig kaum Änderungen durchgeführt werden. Dazu zählt auch die Eigenschaft, dass die Aktualisierung von Frameworks wesentlich einfacher von statten gehen kann. Während dies bei einem monolithisches System fast ein eigenständiges Projekt mit mehreren Tagen Arbeit verursacht, ist es möglich solche Updates bei Microservice-Architekturen Schrittweise in kleineren Aufgabenpaketen zu erledigen, die auch zwischen größeren Aufgaben bearbeitet werden können.
 	
 	%--------------
-	\item[Schnelleres Deployment] Insbesondere kleinen Änderungen führen bei monolithischen Systemen zu einem großen Overhead, während man in einer Microservice Architektur nur den Service neu deployen muss, der auch die implementierte Änderung enthält. Ein weiterer Vorteil vom schnelleren Deployment ist die Möglichkeit, durch Continous Delivery die Abdeckung von Tests zu verringern. Da Fehler im Produktivsystem schnell behoben werden können, und keine Tagelangen Ausfälle durch einen komplizierten und Langwierigen Bereitstellungsprozess entstehen, ist dies möglich.
+	\item[Schnelleres Deployment] Insbesondere kleine Änderungen führen bei monolithischen Systemen zu einem großen Overhead, während man in einer Microservice Architektur nur den Service neu deployen muss, der auch die implementierte Änderung enthält. Ein weiterer Vorteil vom schnelleren Deployment ist die Möglichkeit, durch Continous Delivery die verlangte code coverage von Tests geringer zu halten. Dies ist möglich, da Fehler im Produktivsystem schnell behoben werden können, und keine Tagelangen Ausfälle durch einen komplizierten und Langwierigen Bereitstellungsprozess entstehen.
 	
 	%--------------
 	\item[Erhöhte Widerstandsfähigkeit gegenüber Fehlern im System] Die harten Grenzen von Microservices können eine Kaskadierung von Fehlern verhindern und somit entsteht bei korrekter angewendeter Architektur kein Gesamtausfall des Systems. Diese wird allerdings auch benötigt, wie in \ref{high-tolerance} nachzulesen ist. 
@@ -380,7 +378,7 @@ Funktionale Tests beschäftigen sich nur mit den funktionalen Anforderungen eine
 
 \image{images/img_testmethods-functional.pdf}{Umfang der verschiedenen Testmethoden}
 
-Nicht-funktionales Testen evaluiert die \textit{Bereitschaft} des Systems.\cite{erikssontesting} Zu nicht-funktionalen Testmethoden zählen unter anderem die folgenden\cite{inflectra}:
+Nicht-funktionales Testen evaluiert die \textit{Bereitschaft} des Systems.\cite{erikssontesting} Zu den nicht-funktionalen Testmethoden zählen unter anderem die folgenden\cite{inflectra}:
 
 \begin{description}
 	\item[Performance-Tests] Mit diesen wird festgestellt, wie gut eine Anwendung mit vielen Anfragen umgehen kann.
@@ -396,7 +394,7 @@ Durch einige spezielle Eigenschaften von Microservices ergeben sich teilweise au
 
 \subsection{Unit Testing}
 
-Auch bei Microservices beginnt das Testen eines Gesamtsystems auf der niedrigsten Schicht. Auch hier gilt es, dass Unit Tests generell auf Klassen-Level geschrieben werden.\cite{clemson} Im Falle des Architekturmodells von it@M beschränken sich Unit Tests auf das Testen der Geschäftslogik, sowie der verschiedenen Listenern (siehe Abb.~\ref{fig:images/img_unit-testing.eps}). Die Repositories und Entitäten sind durch das verwendete Framework nicht mit reinen Unit Tests testbar, sondern werden erst in den folgenden Integrationstests getestet.
+Auch bei Microservices beginnt das Testen eines Gesamtsystems auf der niedrigsten Schicht. Auch hier gilt es, dass Unit Tests generell auf Klassen- oder Methoden-Level geschrieben werden.\cite{clemson} Im Falle des Architekturmodells von it@M beschränken sich Unit Tests auf das Testen der Geschäftslogik, sowie der verschiedenen Listenern (siehe Abb.~\ref{fig:images/img_unit-testing.eps}). Die Repositories und Entitäten sind durch das verwendete Framework nicht mit reinen Unit Tests testbar, sondern werden erst in den folgenden Integrationstests getestet.
 
 \image{images/img_unit-testing.eps}{Unit Testing Scope \cite{clemson}}
 
@@ -436,7 +434,7 @@ Sollte nun ein weiterer Konsument zur Anwendung hinzukommen, der neben dem Vorna
 
 \subsection{End-To-End Testing}
 
-Der letzte Schritt zur Sicherstellung, dass alle funktionalen Anforderungen des Systems erfüllt sind ist das end-to-end testing. Im Gegensatz zu den vorherigen Testmethoden soll durch diese Art von Test festgestellt werden, dass sämtliche Geschäftsanforderungen vom System gelöst werden, unabhängig von der Architektur der verwendeten Komponenten.\cite{clemson}
+Der letzte Schritt zur Sicherstellung, dass alle funktionalen Anforderungen des Systems erfüllt sind ist das end-to-end testing. Im Gegensatz zu den vorherigen Testmethoden soll durch diese Testmethode festgestellt werden, dass sämtliche Geschäftsanforderungen vom System gelöst werden, unabhängig von der Architektur der verwendeten Komponenten.~\cite{clemson}
 
 Das Gesamtsystem wird für end-to-end tests als black box gesehen und es werden möglichst viele der Aufgaben des Systems über öffentliche Schnittstellen getestet. Da in Microservice-Architekturen aufgrund ihrer hohen Modularität viele Lücken zwischen den Komponenten entstehen, helfen diese Tests auch die Konfigurationen von etwa verwendeter Infrastruktur wie Firewalls, Proxis und Load-Balancern zu testen.\cite{clemson}
 
@@ -511,31 +509,39 @@ Wichtig ist, dass im Referenz-System keinerlei Logik zu den modellierten Geschä
 
 \subsection{Frameworks zum Umsetzen von Test-Strategien}\label{ch:ms-test-frw}
 
-Da die vorgegeben Architektur auf Java und das Spring-Framework setzt, ist die Wahl von sinnvollen Frameworks recht einfach. Für Unit-, Integration- und Component-Testing wird JUnit unter Zuhilfenahme des Spring Testframeworks \textit{spring-boot-test}\footnote{\url{https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-testing.html}} genutzt.
-Auch für das \ac{CDCT} bietet Spring eine eigene Lösung namens \textit{Spring Cloud Contract}\footnote{\url{https://cloud.spring.io/spring-cloud-contract/}}.
-Für end-to-end tests wird Chakram\footnote{\url{https://github.com/dareid/chakram}} genutzt.
-Als Test-Harness wird Maven verwendet, welches für die Ausführung der Tests verantwortlich ist.
+Java als Sprache und Spring als Framework schränken die Auswahl von sinnvollen Testframeworks bereits ein und auch die persönliche Erfahrung durch Verwendung eben dieser spielt eine wichtige Rolle. Für Unit-, Integration- und Component-Testing wird JUnit unter Zuhilfenahme des Spring Testframeworks \textit{spring-boot-test}\footnote{\url{https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-testing.html}} genutzt.
+Auch für das \ac{CDCT} bietet Spring eine eigene Lösung namens \textit{Spring Cloud Contract}\footnote{\url{https://cloud.spring.io/spring-cloud-contract/}} die sich leicht und gut in die bestehende Infrastruktur mithilfe von Maven einbinden lässt.
+Für end-to-end tests wird Apache JMeter\footnote{\url{http://jmeter.apache.org/}} genutzt. Die Wahl des richtigen Tools war in diesem Bereich eher schwierig, da es eine sehr große Anzahl an Möglichkeiten gab. JMeter wurde unter anderem daher gewählt, dass Apache-Produkte bereits einen hohen Verbreitungsgrad haben und eine Verwendung in Produktion somit sehr wahrscheinlich ist. Außerdem überzeugt die Kombination aus textueller Beschreibung und ausgesprochen intuitiver grafischer Bedienoberfläche zur Erstellung von Tests. Somit ist nicht nur eine einfache Generierbarkeit gewährleistet, sondern auch eine unkomplizierte Erweiterung dieser durch einen Entwickler.
 
-\subsection{Generativer Ansatz - Was zu beachten ist}\label{ch:ms-gen-test}
+\subsection{Generativer Ansatz - Was zu beachten ist}
 
 Die im Referenzsystem implementierten Tests dienen als Basis für die spätere Verwendung in Barrakuda von it@M. Barrakuda verwendet sogenannte Templates, die anhand der gegebenen Informationen aus dem vom Nutzer erstellten Model befüllt werden. Daher muss bei der Implementierung der Testmethoden unbedingt Rücksicht auf die zur Verfügung stehenden Informationen genommen werden. Stehen diese zwar dem Entwickler zur Verfügung, tauchen aber nicht im Model auf, können diese nicht für den generativen Ansatz herangezogen werden.
+
+Das vorgehen beim implementieren des Referenzsystems erfolgt so, dass zunächst innerhalb eines Services alle benötigten Testmethoden erstellt werden bis zu Fertigstellung. Sind diese Implementierten Tests erfolgreich fertig gestellt, werden diese im nächsten Service implementiert. Sobald an der Implementierung nur noch Namen ausgetauscht werden müssen ist die Grundlage geschaffen, um die vorgenommenen Änderungen am Referenzsystem in Barrakuda übernommen werden können.
 
 % ----------------------------------------------------------------------------------------------------------
 % Fazit
 % ----------------------------------------------------------------------------------------------------------
-\section{Fazit}
+\section{Fazit}\label{ch:fazit}
 
 Insbesondere das component und \acf{CDCT} erweisen sich bei Microservice-Architekturen als sehr sinnvoll. Unit- und Integrationstests unterscheiden sich aufgrund der Größe ihres scopes in Sinn und Zweck nicht von der Verwendung in monolithischen Anwendungen. Aber bereits beim component testing ist es bei der Implementierung von sinnvollen Testfällen möglich bereits Abweichungen in der Definition von nach außen getragenen Schnittstellen zu erkennen. Und das bereits, bevor aufwändige test doubles oder gar ganze Infrastrukturen gestartet werden müssen.
 
-\ac{CDCT} ist ein weiterer sinnvoller Schritt um die Feedback-Zyklen bei der Entwicklung zu minimieren. Insbesondere wenn ein System mit vielen Abhängigkeiten untereinander vorliegt, bringt dieser Testansatz auch in späteren Produktlebensphasen enorme Vorteile mit sich. Anstatt für das prüfen der Einhaltung von Schnittstellendefinitionen end-to-end tests zu implementieren, kann man mit contract testing bei gewissenhafter Implementierung viel Zeit sparen.
+Allerdings erweist sich \ac{CDCT} für den generativen Ansatz als nicht sehr hilfreich. Im Modell fehlen schlichtweg zu viele Informationen über die Kommunikationen die zwischen den Services stattfinden. Somit werden contracts generiert, die Schlichtweg alle möglichen Schnittstellen definieren, auch wenn diese eventuell später gar nicht als Kommunikationsweg genutzt werden. Sinnvoll sind diese allerdings immer noch dafür, die Verwendung von end-to-end tests einzuschränken. Die korrekte Funktionalität von Schnittstellen wird bereits in diesem Testschritt gewährleistet, sodass in den end-to-end tests wirklich nur noch das Zusammenspiel aller Services geprüft werden muss.
 
-Ob jedoch der generative Ansatz für die Test-Entwicklung den gewünschten Nutzen bringt wage ich momentan zu bezweifeln. Während der grobe Rahmen zum testen der Anwendung dem Entwickler gegeben werden kann, fehlt es zur sinnvollen Nutzung schlichtweg an Informationen. Es werden von Barrakuda nur einzelne Beispiele zu Feldern von Entitäten verlangt, eine hohe Testabdeckung kann damit nicht erreicht werden. Auch fehlt es im Model an Informationen zur Kommunikation innerhalb von Services. Es können also beispielsweise nur sehr generische Contracts für \ac{CDCT} generiert werden.
+Der generative Ansatz wird in jedem Fall zu einer Zeitersparnis führen. Wie in den Abbildungen \ref{fig:images/img_coverage_ordering.jpg} und \ref{fig:images/img_coverage_shoppingcart.jpg} zu sehen ist, wird mit den Tests die generierbar sind bereits eine code coverage von 85\%, bzw. 87\% erreicht. Und das mit einer vergleichsweise geringen Menge an input-Daten aus dem Modell.
 
-Doch für einen höheren Informationsgehalt das Model von Barrakuda zu verkomplizieren ist eventuell auch keine gute Lösung, da insbesondere die schnelle und einfache Modellierung den Reiz der Anwendung ausmacht. Sich bereits in diesem Schritt mit dem bereitstellen von Testdaten auseinander zu setzen ist nicht wirklich praktikabel.
+\image[1]{images/img_coverage_ordering.PNG}{Code coverage des Ordering-Service}
+\image[1]{images/img_coverage_shoppingcart.PNG}{Code coverage des Shoppingcart-Service}
 
-Denn auch das Grundgerüst, was mit den im Rahmen dieser Arbeit entwickelten Tests bereitgestellt wird, kann die Geschwindigkeit mit der Tests entwickelt werden erhöhen. Bei it@M wird gerade erst mit der Produktiven Verwendung von Microservice-Architekturen begonnen. Ein Großteil der Entwickler muss sich mit teilweise völlig neuen Frameworks auseinandersetzen, neue Denkweisen bei der Lösung von Problemen müssen bedacht werden. Sind in den generierten Systemen nun bereits grundlegende Tests implementiert, und die Strategien hinter diesen erläutert, erlaubt es den Entwicklern sich auf das erschaffen von Testfällen zu konzentrieren, ohne sich dabei zunächst Gedanken um die Verwendungen des Frameworks machen zu müssen. Ein schnellerer Einstieg mit einer niedrigeren ersten Hürde können die Motivation zum schreiben von vielen und guten Tests erhöhen.
+Als Erweiterung wäre es aber, wie bereits erwähnt, sinnvoll, dass Kommunikationsschnittstellen zwischen modellierten Services in das Modell mit aufzunehmen, um sinnvollere Testfälle insbesondere in den \ac{CDCT} und end-to-end tests generieren zu können.
 
-Auch sorgt die Generierung für weitere Standardisierung in den Systemen. Wurden bereits vorkehrungen im Generat getroffen, die das automatische Ausführen der Testmethoden ermöglichen, werden diese auch mit hoher Wahrscheinlichkeit genutzt werden, sodass der \acs{CI}-Prozess verbessert wird. Ebenso wie es bereits durch die Generierung von Docker-Files und dem damit entstehenden Interesse an Container-Lösungen der Fall war.
+Doch für einen höheren Informationsgehalt das Model von Barrakuda zu verkomplizieren ist eventuell auch keine gute Lösung, da insbesondere die schnelle und einfache Modellierung aktuell den Reiz der Anwendung ausmacht. Und Kommunikationswege anschaulich und überschaubar in Textform zu modellieren ist ebenfalls nicht leicht umzusetzen.
+
+Zu einem Großteil der Zeitersparnis führt auch das Grundgerüst, was mit den im Rahmen dieser Arbeit entwickelten Tests bereitgestellt wird. Bei it@M wird gerade erst mit der Produktiven Verwendung von Microservice-Architekturen begonnen. Ein Großteil der Entwickler muss sich mit teilweise völlig neuen Frameworks auseinandersetzen, neue Denkweisen bei der Lösung von Problemen müssen bedacht werden. Sind in den generierten Systemen nun bereits grundlegende Tests implementiert, und die Strategien hinter diesen erläutert, erlaubt dies den Entwicklern sich auf das erstellen von Testfällen zu konzentrieren, ohne sich dabei zunächst Gedanken um die Verwendungen des Frameworks machen zu müssen oder sich mit Konfigurationen zu beschäftigen. Ein schneller Einstieg mit einer niedrigeren ersten Hürde zum implementieren von Tests kann die Motivation zum schreiben von diesen erhöhen.
+
+Auch sorgt die Generierung für weitere Standardisierung in den Systemen. Wurden bereits Vorkehrungen im Generat getroffen, die das automatische Ausführen der Testmethoden ermöglichen, werden diese auch mit hoher Wahrscheinlichkeit genutzt werden, sodass der \acs{CI}-Prozess verbessert wird. Ebenso wie es bereits durch die Generierung von Docker-Files und dem damit entstehenden Interesse an Container-Lösungen der Fall war.
+
+Abschließend lässt sich sagen, dass der generative Ansatz zur Testerstellung in Microservice-Architekturen in diesem Anwendungsfall sinnvoll ist. Dies liegt aber vor allem darin, dass bereits eine domänenspezifische Sprache, sowie der dazugehörige Generator vorliegt, und die im Rahmen dieser Arbeit erarbeiteten Testmethoden nur eine Erweiterung darstellen. Eine eigenständige Anwendung zu entwickeln, die für die reine Testgenerierung zuständig ist, ist sowohl unmöglich (aufrund der vielen verfügbaren Frameworks und Sprachen zur Umsetzung einer Microservice-Architektur) als auch zu Zeitaufwendig für einen Entwickler zu bediene. Währenddessen ist die Erweiterung von Barrakuda ein zusätzlicher Vorteil der für die Verwendung der Anwendung spricht und den Entwicklern der Anwendungen hoffentlich nicht nur zeitliche Vorteile verschaffen kann.
 
 % ----------------------------------------------------------------------------------------------------------
 % Literatur
@@ -551,16 +557,5 @@ Auch sorgt die Generierung für weitere Standardisierung in den Systemen. Wurden
 \pagenumbering{Roman}
 \setcounter{page}{1}
 \lhead{Anhang \thesection}
-
-\begin{appendix}
-\section*{Anhang}
-\phantomsection
-\addcontentsline{toc}{section}{Anhang}
-\addtocontents{toc}{\vspace{-0.5em}}
-
-\section{Code-Fragmente}
-Viel Beispiel-Code
-
-\end{appendix}
 
 \end{document}
