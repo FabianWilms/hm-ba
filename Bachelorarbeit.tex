@@ -307,12 +307,12 @@ Dies sind einige der Gründe, warum über Microservices so viel diskutiert wird 
 
 \subsection{Nachteile von Microservices gegenüber Monolithen}\label{ch:ms-mon-cons}
 
-Doch gibt es wie bei jeder Architektur nicht nur Vorteile. Ansonsten würde es auch keine Diskussionen und Neuerungen auf diesem Gebiet geben.
+Doch gibt es, wie bei jeder Architektur, nicht nur Vorteile.
 
 \begin{description}
 	\item[Verteilung] Verteilte Systeme sind durch die Art der Kommunikation, also über das Netzwerk, einer weiteren Fehlerquelle ausgesetzt und vor allem eins: langsamer als Kommunikation innerhalb eines geschlossenen Systems\cite{tradeoffs}. 
 	
-	\item[Hohe Fehlertoleranz benötigt\label{high-tolerance}] Die Komplexität der laufenden Services auf der Infrastruktur ist ein weiterer negativer Aspekt, den man jedoch auch positiv auffassen kann. Es wird durch die Modularität und lose Kopplung der Komponenten eine hohe Fehlertoleranz von den einzelnen Teilen des Systems abverlangt. Es muss mit vielen Fehlerquellen mehr umgegangen werden, als es bei einem Monolithen der Fall ist. So zum Beispiel der Ausfall oder die nicht-erreichbarkeit von anderen Services. Dies führt allerdings auch dazu, dass viel Zeit in die Ausfallsicherheit der einzelnen Komponenten gesteckt werden muss, was eine höhere Qualität zur Folge hat. Netflix nutzt, um diese Ausfallsicherheit sicherzustellen und zu testen, ein eigens Entwickeltes Tool namens \enquote{Chaos Monkey}\footnote{\url{https://github.com/Netflix/SimianArmy}}. Dieses Werkzeug sorgt für zufällige Ausfälle von Komponenten in der produktiven Infrastruktur.
+	\item[Hohe Fehlertoleranz benötigt\label{high-tolerance}] Die Komplexität der laufenden Services auf der Infrastruktur ist ein weiterer negativer Aspekt, den man jedoch auch positiv auffassen kann. Es wird durch die Modularität und lose Kopplung der Komponenten eine hohe Fehlertoleranz von den einzelnen Teilen des Systems abverlangt. Es muss mit viel mehr Fehlerquellen umgegangen werden, als es bei einem Monolithen der Fall ist. So zum Beispiel der Ausfall oder die nicht-Erreichbarkeit von anderen Services. Dies führt allerdings auch dazu, dass viel Zeit in die Ausfallsicherheit der einzelnen Komponenten gesteckt werden muss, was eine höhere Qualität zur Folge hat. Netflix nutzt, um diese Ausfallsicherheit sicherzustellen und zu testen, ein eigens Entwickeltes Tool namens \enquote{Chaos Monkey}\footnote{\url{https://github.com/Netflix/SimianArmy}}. Dieses Werkzeug sorgt für zufällige Ausfälle von Komponenten in der produktiven Infrastruktur.
 	
 	\item[Eventual Consistency] Dabei handelt es sich um ein weiteres Problem von verteilten Systemen. Daten über mehrere Instanzen eines Services Konsistent zu halten ist nahezu unmöglich. Es gibt keine hundert prozentige Sicherheit, dass alle Daten einer Anwendung überall aktuell verfügbar sind.
 \end{description}
