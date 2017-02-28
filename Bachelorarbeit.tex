@@ -269,18 +269,18 @@ Auch die Skalierung ist einfach möglich, durch die Verwendung eines Load-Balanc
 
 \subsection{Vorteile von Microservices gegenüber Monolithen}\label{ch:ms-mon-pro}
 
-Als Vorteile der Microservice-Architektur lassen sich nun folgende Punkte, die unter anderem auch von Newman in seinem Buch nahelegt werden, festhalten\cite{buildingms}:
+Als Vorteile der Microservice-Architektur lassen sich nun folgende Punkte, die unter anderem auch von Newman in seinem Buch dargestellt werden, festhalten\cite{buildingms}:
 
 \begin{description}
 	
 	%--------------
-	\item[Klare Team-Organisation] Ein Team arbeitet an einem Service, dessen Funktionalität klar definiert ist, anstatt ein großes Team zu haben, wessen Teilteams an teilen eines Monolithen arbeiten.
+	\item[Klare Team-Organisation] Eine Gruppe von Entwicklern ist für die Entwicklung und Pflege eines jeden Service verantwortlich, anstatt ein großes Team zu einzelnen Teilkomponenten einer monolithischen Anwendung zuzuweisen.
 	
 	%--------------
-	\item[Heterogentität] welche es erlaubt, für verschiedene Einsatzzwecke verschiedene Sprachen und Technologien zu verwenden, ohne das ganze System damit implementieren zu müssen. Dieser Punkt ist insbesondere Interessant, wenn Firmen zusammengeführt werden, deren Anwendungen auf verschiedenen Sprachen basieren.
+	\item[Heterogentität] welche es erlaubt, für verschiedene Einsatzzwecke verschiedene Sprachen, Technologien sowie Sprach- und Technologieversionen zu verwenden, ohne das ganze System damit implementieren zu müssen. Dieser Punkt ist insbesondere Interessant, wenn Firmen zusammengeführt werden, deren Anwendungen auf verschiedenen Sprachen basieren.
 	
 	%--------------
-	\item[Austauschbarkeit] Die kleinen abgegrenzten Systeme lassen sich mit viel weniger aufwand gegen neuere oder bessere Implementierungen austauschen, ohne andere Komponenten zu Gefährden. Während dies bei Monolithischen Anwendungen zu unvorhersehbaren Problemen kommen kann, weshalb in solchen Architekturen auch häufig kaum Änderungen durchgeführt werden. Dazu zählt auch die Eigenschaft, dass die Aktualisierung von Frameworks wesentlich einfacher von statten gehen kann. Während dies bei einem monolithisches System fast ein eigenständiges Projekt mit mehreren Tagen Arbeit verursacht, ist es möglich solche Updates bei Microservice-Architekturen Schrittweise in kleineren Aufgabenpaketen zu erledigen, die auch zwischen größeren Aufgaben bearbeitet werden können.
+	\item[Austauschbarkeit] Die kleinen abgegrenzten Systeme lassen sich mit viel weniger Aufwand gegen neuere oder bessere Implementierungen austauschen, ohne andere Komponenten zu Gefährden. Während dies bei Monolithischen Anwendungen zu unvorhersehbaren Problemen führen kann, weshalb in solchen Architekturen auch häufig kaum Änderungen durchgeführt werden. Dazu zählt auch die Eigenschaft, dass die Aktualisierung von Frameworks wesentlich einfacher von statten gehen kann. Während dies bei einem monolithisches System fast ein eigenständiges Projekt mit mehreren Tagen Arbeit verursacht, ist es möglich solche Updates bei Microservice-Architekturen Schrittweise in kleineren Aufgabenpaketen zu erledigen, die auch zwischen größeren Aufgaben bearbeitet werden können.
 	
 	%--------------
 	\item[Schnelleres Deployment] Insbesondere kleine Änderungen führen bei monolithischen Systemen zu einem großen Overhead, während man in einer Microservice Architektur nur den Service neu deployen muss, der auch die implementierte Änderung enthält. Ein weiterer Vorteil vom schnelleren Deployment ist die Möglichkeit, durch Continous Delivery die verlangte code coverage von Tests geringer zu halten. Dies ist möglich, da Fehler im Produktivsystem schnell behoben werden können, und keine Tagelangen Ausfälle durch einen komplizierten und Langwierigen Bereitstellungsprozess entstehen.
@@ -297,16 +297,13 @@ Als Vorteile der Microservice-Architektur lassen sich nun folgende Punkte, die u
 	
 	\image[]{images/img_ms-scaling.eps}{Scaling der gleichen Komponenten in einer Microservice-Architektur}
 	
+	\item[Zusätzliche Schwierigkeiten von Monolithen] Weitere Probleme nehmen bei Monolithen ab einem gewissen Entwicklungsstand überhand. Viele Leute arbeiten an einer Code-Basis die stetig wächst. Wenn über den Projektzeitraum neue Entwickler am Projekt teilnehmen, können diese zunächst leicht überfordert sein, da die anfängliche Modularität dadurch, dass sie nicht hart vorgeschrieben ist, stetig abnimmt. Dies führt auch dazu, dass bei Änderungen an großen Systemen nicht mehr direkt klar ist, welche Auswirkungen es auf andere Teilkomponenten und somit das Gesamtsystem gibt. Die Entwicklungsgeschwindigkeit verringert sich.
+	
+	Auch die IDE trägt dazu bei. Je größer, das Projekt, umso höher die Belastung für den Entwicklungsrechner. IDEs indizieren Source-Files um die Navigation zu vereinfachen. Je nach Projektgröße kann so der Arbeitsspeicher schnell ausgelastet sein.
 	
 \end{description}
 
-Zusätzliche Probleme bei Monolithen nehmen, ab einem gewissen Entwicklungsstand dieser, überhand. Viele Leute arbeiten an einer Code-Basis die stetig wächst. Wenn über den Projektzeitraum neue Entwickler am Projekt teilnehmen können diese zunächst leicht überfordert sein, da die anfängliche Modularität dadurch, dass sie nicht hart vorgeschrieben ist, stetig abnimmt. Dies führt auch dazu, dass bei Änderungen an großen Systemen nicht mehr direkt klar ist, welche Auswirkungen es auf andere Teilkomponenten und somit das Gesamtsystem gibt. Die Entwicklungsgeschwindigkeit verringert sich.
-
-Auch die IDE trägt dazu bei. Je größer, das Projekt, umso höher die Belastung für den Entwicklungsrechner. IDEs indizieren Source-Files um die Navigation zu vereinfachen. Je nach Projektgröße kann so der Arbeitsspeicher schnell ausgelastet sein.
-
-Der letzte große Nachteil tritt häufig erst lange nach Entwicklungsbeginn auf. Die Anwendung ist gewachsen und neue Features werden verlangt, doch die zu Beginn eingesetzte Sprache ist für bestimmte Einsatzzwecke nur schlecht zu gebrauchen. Doch man ist durch den monolithischen Ansatz gebunden. Auch kann es passieren, dass die Aktualisierung auf neuere Sprachversionen nicht mehr, oder nur schwer möglich wird. Alles durch die größe der Applikation. Im schlimmsten Fall wird der Support für die aktuell verwendete Sprache eingestellt.\cite{richardson}
-
-Dies sind einige der Gründe, warum über Microservices so viel diskutiert wird und weshalb sich diese Arbeit insbesondere auf die Testerstellung von Anwendungen in dieser Architektur konzentriert. Besonders die genannten Vorteile der Skalierung, des schnellen Deployments und die erhöhte Fehlertoleranz sind Hauptbeweggründe, warum auch it@M nun mehr auf die Microservice Architektur setzen möchte. Sie behandelt einen Großteil der Probleme, die bei bestehenden Systemen der Landeshauptstadt in der Vergangenheit aufgetreten sind.
+Dies sind einige der Gründe, warum über Microservices so viel diskutiert wird und weshalb sich diese Arbeit insbesondere auf die Testerstellung von Anwendungen in dieser Architektur konzentriert. Besonders die genannten Vorteile der Skalierung, die Austauschbarkeit von verschiedenen Sprach- und Technologieversionen und die erhöhte Fehlertoleranz sind Hauptbeweggründe, warum auch it@M nun mehr auf die Microservice Architektur setzen möchte. Sie behandelt einen Großteil der Probleme, die bei bestehenden Systemen der Landeshauptstadt in der Vergangenheit aufgetreten sind.
 
 \subsection{Nachteile von Microservices gegenüber Monolithen}\label{ch:ms-mon-cons}
 
