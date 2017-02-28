@@ -16,7 +16,9 @@
 \rhead{KURZFASSUNG}
 \section{Kurzfassung}
 
+\begin{sloppypar}
 Ziel dieser Arbeit ist es, durch generative Testerstellung die Qualität von Microservice-Anwendungen zu steigern, ohne dabei Kosten und Zeitaufwand des Projekts zu erhöhen. Dazu werden zunächst spezifische Vorgehensweisen zum Testen von Microservice-Architekturen erläutert. Im nächsten Schritt werden diese dann in einem Referenzsystem implementiert. Bei der Implementierung wird Rücksicht auf die Generierbarkeit aller Tests genommen, sodass diese in die bestehende Infrastruktur zur Generierung von Microservice-Architekturen integriert werden können. Durch die Arbeit hat sich gezeigt, dass der generative Ansatz teilweise die angestrebte Qualitätssteigerung ermöglicht, wenn auch einige Einschränkungen in der Bandbreite der generierten Tests zu erkennen ist.
+\end{sloppypar}
 
 \vspace{-1,2em}
 \titlespacing{\section}{0pt}{12pt plus 4pt minus 2pt}{-6pt plus 2pt minus 2pt}
@@ -481,7 +483,9 @@ Hat ein Service eine immens wichtige Aufgabe im Sinne der Geschäftsanforderunge
 
 Die Testmethoden sind nun festgelegt und würden bereits für eine Qualitätssteigerung der Anwendung von Nutzen sein. Die gewünschte Zeit- und Kostenersparnis ist an dieser Stelle jedoch noch nicht erreicht. Dafür wird die Generierung benötigt.
 
+\begin{sloppypar}
 Für diese Generierung verwendet it@M Barrakuda. Diese Applikation stellt eine \acf{DSL}, mit der Microservice-Architekturen modelliert werden können. In dieser DSL lassen sich Services einer Domäne durch Angabe von Entitäten und Geschäftslogiken darstellen. Diese Nutzereingaben werden anschließend in eine Vielzahl von Templates eingespeist und der Code wird generiert.
+\end{sloppypar}
 
 Um die oben genannten Testmethoden generieren zu können, müssen Templates erstellt werden können. Dazu müssen die Methoden generierbar sein. Generierbar heißt, dass sich anhand der nachfolgenden Referenzimplementierung Muster in den Source-Files erkennen lassen. Anhand dieser Muster können dann generische Templates erstellt werden. Diese Templates stellen dann die Erweiterung von Barrakuda dar und ermöglichen es dem Endnutzer ohne zusätzlichen Zeitaufwand ein getestetes Gesamtsystem zu generieren.
 
@@ -496,13 +500,17 @@ Um die oben genannten Testmethoden generieren zu können, müssen Templates erst
 
 Das Referenzsystem basiert auf der in Kapitel~\ref{ch:arch-itm} angesprochenen Architektur. Es wird das Spring-Framework verwendet. Auslöser dafür ist, dass bei it@M größtenteils Java-Entwickler arbeiten und diese bereits mit Java EE viel Erfahrung gesammelt haben. Da das Spring-Framework auf viele Konzepte von Java EE aufbaut, erleichtert dies den Einstieg in die Microservice-Welt für kommende Entwicklungen.
 
+\begin{sloppypar}
 Die Services kommunizieren über eine REST-\ac{API}, die ihre Daten im JSON-Format überträgt. \ac{HATEOAS} wird über Spring \ac{HATEOAS}\footnote{\url{http://projects.spring.io/spring-hateoas/}} genutzt.
+\end{sloppypar}
 
 Als Datenbank in der Entwicklungsumgebung kommt eine In-Memory-Datenbank von H2 zum Einsatz. In der Produktion größtenteils Oracles DBMS in der Version 12, aber auch MySQL wird verwendet.
 
 Zur Authentifizierung wird ein Authentifizierungs-Service genutzt, der das städtische \acs{LDAP} als Nutzerverwaltung verwendet. Die Zurodnung der Rechte auf die Nutzer erfolgt intern im Service. Zu Testzwecken ist auch eine Authentifizierung über in der Datenbank abgelegte Nutzer möglich.
 
+\begin{sloppypar}
 Als Discovery-Service wird Netflix Eureka\footnote{\url{https://github.com/Netflix/eureka}} verwendet. Dieser bietet innerhalb einer Domäne einen Zentralen Anlaufpunkt für alle Services um sich dort zu vermerken, sowie Informationen über die Adressen von anderen Services einzuholen.
+\end{sloppypar}
 
 Clients kommunizieren über den Edge-Service mit den Services der Domäne. Hier kommt Netflix Zuul\footnote{\url{https://github.com/Netflix/zuul}} zur Anwendung. Dieses öffnet nach außen eine einzige Schnittstelle, über die sowohl eine graphische Nutzeroberfläche aufgerufen, als auch die einzelnen Services kontaktiert werden können. Auch ermöglicht das Gateway den Zugriff auf bestimmte Endpunkte zur sperren, was für die Landeshauptstadt insbesondere für Software interessant ist, die sowohl interne, als auch externe Schnittstellen bieten soll.
 
@@ -522,7 +530,9 @@ Der mitgenerierte Authentifizierungsservice dient als Kundenverwaltung.
 
 \image[]{images/img_referenz-system-arch.eps}{Aufbau des Referenzsystems zur Testimplementierung}
 
+\begin{sloppypar}
 Wichtig ist, dass im Referenz-System keinerlei Logik zu den modellierten Geschäftsanwendungen implementiert wird, sondern lediglich die im Abschnitt~\ref{sec:testingms} angesprochenen Testmethoden. Dies ist nötig, damit keine zusätzliche Logik, die über die Informationen aus dem Modell hinaus geht, getestet wird. Dies würde nämlich dazu führen, dass sich die implementierten Testmethoden nicht in Templates für Barrakuda übernehmen lassen würden und eine Generierbarkeit nicht mehr gegeben ist.
+\end{sloppypar}
 
 \subsection{Frameworks zum Umsetzen von Test-Strategien}\label{ch:ms-test-frw}
 
