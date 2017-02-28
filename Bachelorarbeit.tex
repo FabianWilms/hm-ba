@@ -353,12 +353,12 @@ Der Configuration Service aktualisiert bei Bedarf die Konfigurationen aller bete
 
 \subsection{Interne Struktur der Services}
 
-Jeder Service der Anwendung hat intern eine gleiche Aufteilung. In Abbildung~\ref{fig:images/img_architecture_testing.eps} ist eine graphische Darstellung zu finden. Ziel ist es, für eine Standardisierung innerhalb der Services zu sorgen, um Entwicklern den Einstieg zu erleichtern, egal an welchem Projekt aktuell Microservices entwickelt werden. Nach außen werden, REST-konform, nur die Ressourcen über \acp{URI} angeboten. Diese Ressourcen bestehen entweder aus Entitäten oder Geschäftsanwendungen. Entitäten werden über sogenannte Repositories als Ressource bereitgestellt und über eine \ac{ORM}-Bibliothek in einer Datenbank persistiert. Der Begriff des Repositories stammt ebenfalls aus der Welt des \ac{DDD} und lässt sich anhand einer Definition von Edward Hieatt and Rob Mee gut erläutern\cite{hieatt}:
+Jeder Service der Anwendung hat intern die gleiche Aufteilung. In Abbildung~\ref{fig:images/img_architecture_testing.eps} ist eine graphische Darstellung zu finden. Ziel ist es, für eine Standardisierung innerhalb der Services zu sorgen, um Entwicklern den Einstieg zu erleichtern, egal an welchem Projekt aktuell Microservices entwickelt werden. Nach außen werden, REST-konform, nur die Ressourcen über \acp{URI} angeboten. Diese Ressourcen bestehen entweder aus Entitäten oder Geschäftsanwendungen. Entitäten werden über sogenannte Repositories als Ressource bereitgestellt und über eine \acs{JPA}-Bibliothek in einer Datenbank persistiert. Der Begriff des Repositories stammt ebenfalls aus der Welt des \ac{DDD} und lässt sich anhand einer Definition von Edward Hieatt and Rob Mee gut erläutern\cite{hieatt}:
 
 \myquote{Mediates between the domain and data mapping layers using a collection-like interface for accessing domain objects.}
 
 Ein Repository stellt also eine Verhandlungsebene zwischen den Schichten der Domäne und der Datenpersistierung.
-Zum zusätzlichen Eingriff durch Entwickler können, kann auf verschiedene Events mithilfe von Listenern reagiert werden. Zur Kommunikation mit anderen Services existiert ein \textit{Security REST Client}, der diese für den Entwickler, durch automatische Verwendung des Discovery und Authentication Service, so einfach wie möglich machen soll. 
+Zum zusätzlichen Eingriff durch Entwickler kann auf verschiedene Events mithilfe von Listenern reagiert werden. Zur Kommunikation mit anderen Services existiert ein \textit{Security REST Client}, der diese für den Entwickler, durch automatische Verwendung des Discovery und Authentication Service, so einfach wie möglich machen soll. 
 
 \image{images/img_architecture_testing.eps}{Aufbau eines Service innerhalb der it@M-Architektur}
 
