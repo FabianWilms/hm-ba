@@ -216,11 +216,11 @@ Ein weiterer Anwendungsfall für \ac{HATEOAS} ist die Nutzung der weiterführend
 Somit gibt die \ac{API} bereits den späteren Prozess Endanwendung vor. Ein Nutzer könnte alleine durch dem einfachen folgen der mitgelieferten Links einen Ablauf entsprechend der Geschäftslogik abarbeiten.
 
 
-\paragraph{Message-Driven Communication}
+\paragraph{Message Channel}
 
 Neben den oben genannten Möglichkeiten der synchronen Kommunikation gibt es auch in der Welt der Microservices asynchrone Ansätze. Einer davon ist die der Messages. Anstelle des typischen Frage-Antwort-Ablaufs einer gängigen Client-Server-Kommunikation wird bei der Verwendung von Nachrichten auf Buffer gesetzt. Ein Service, der einen Auftrag an einen anderen Service senden möchte, schickt eine Nachricht an einen Message-Buffer. Der angesprochene Service bearbeitet die Nachrichten dann nach eigenem Gusto(siehe Abb.~\ref{fig:images/img_message-driven.eps}). Zu den Vorteilen dieser Art der Kommunikation zählt unter anderem, dass die Skalierung stark vereinfacht wird, da einfach weitere Konsumenten gestartet werden können, die Nachrichten aus dem Buffer abarbeiten\cite{messagingwolff}:
 
-\image[]{images/img_message-driven.eps}{Message Driven Communication}
+\image[]{images/img_message-driven.eps}{Message Channel}
 
 \paragraph{Event-Driven Communication}
 
