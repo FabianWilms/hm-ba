@@ -477,6 +477,14 @@ Durch das Aufbrechen einer Anwendung in mehrere, sauber getrennte Services trete
 
 Hat ein Service eine immens wichtige Aufgabe im Sinne der Geschäftsanforderungen, ist es sinnvoll die volle Bandbreite an möglichen Testmethoden im höchsten Detailgrad auf diesen Service anzusetzen um sein korrektes Verhalten zu garantieren. Wird allerdings ein weiterer Service betrachtet, der weniger wichtige Aufgaben, oder gar experimentelle Funktionen bereitstellt, kann es Sinn machen, die Entwicklungszeit auf andere Gebiete zu fokussieren und nur ein paar der hier vorgestellten Herangehensweisen zu implementieren.\cite{clemson}
 
+\subsection{Code-Generierung}
+
+Die Testmethoden sind nun festgelegt und würden bereits für eine Qualitätssteigerung der Anwendung von Nutzen sein. Die gewünschte Zeit- und Kostenersparnis ist an dieser Stelle jedoch noch nicht erreicht. Dafür wird die Generierung benötigt.
+
+Für diese Generierung verwendet it@M Barrakuda. Diese Applikation stellt eine \acf{DSL}, mit der Microservice-Architekturen modelliert werden können. In dieser DSL lassen sich Services einer Domäne durch Angabe von Entitäten und Geschäftslogiken darstellen. Diese Nutzereingaben werden anschließend in eine Vielzahl von Templates eingespeist und der Code wird generiert.
+
+Um die oben genannten Testmethoden generieren zu können, müssen Templates erstellt werden können. Dazu müssen die Methoden generierbar sein. Generierbar heißt, dass sich anhand der nachfolgenden Referenzimplementierung Muster in den Source-Files erkennen lassen. Anhand dieser Muster können dann generische Templates erstellt werden. Diese Templates stellen dann die Erweiterung von Barrakuda dar und ermöglichen es dem Endnutzer ohne zusätzlichen Zeitaufwand ein getestetes Gesamtsystem zu generieren.
+
 % ----------------------------------------------------------------------------------------------------------
 % Implementierung
 % ----------------------------------------------------------------------------------------------------------
