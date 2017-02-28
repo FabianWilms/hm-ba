@@ -524,9 +524,9 @@ Für End-to-End Tests wird Apache JMeter\footnote{\url{http://jmeter.apache.org/
 
 \subsection{Generativer Ansatz - Was zu beachten ist}
 
-Die im Referenzsystem implementierten Tests dienen als Basis für die spätere Verwendung in Barrakuda von it@M. Barrakuda verwendet sogenannte Templates, die anhand der gegebenen Informationen aus dem vom Nutzer erstellten Model befüllt werden. Daher muss bei der Implementierung der Testmethoden unbedingt Rücksicht auf die zur Verfügung stehenden Informationen genommen werden. Stehen diese zwar dem Entwickler zur Verfügung, tauchen aber nicht im Model auf, können diese nicht für den generativen Ansatz herangezogen werden.
+Die im Referenzsystem implementierten Tests dienen als Basis für die spätere Verwendung in Barrakuda. Barrakuda verwendet sogenannte Templates, die anhand der gegebenen Informationen aus dem vom Nutzer erstellten Model befüllt werden. Daher muss bei der Implementierung der Testmethoden unbedingt Rücksicht auf die zur Verfügung stehenden Informationen genommen werden. Informationen, die nicht Modell enthalten sind, können nicht zur Generierung von Tests verwendet werden.
 
-Das vorgehen beim implementieren des Referenzsystems erfolgt so, dass zunächst innerhalb eines Services alle benötigten Testmethoden erstellt werden bis zu Fertigstellung. Sind diese Implementierten Tests erfolgreich fertig gestellt, werden diese im nächsten Service implementiert. Sobald an der Implementierung nur noch Namen ausgetauscht werden müssen ist die Grundlage geschaffen, um die vorgenommenen Änderungen am Referenzsystem in Barrakuda übernommen werden können.
+Implementiert man das Referenzsystem, so werden zunächst alle Testmethoden eines Services erstellt. Dieses Vorgehen wird Service für Service wiederholt. Je stärker sich die Implementierungen in den einzelnen Services ähnlich sehen - dies kann man in der Regel an vermehrten copy und paste erkennen - desto wahrscheinlicher ist dieser Code ein Kandidat für die Generierung. Das heißt dieser Test Code muss nicht mehr von Hand implementiert werden, sondern seine Struktur wird in Templates überführt. Dadurch werden die Tests später mit dem Code generiert.
 
 % ----------------------------------------------------------------------------------------------------------
 % Fazit
