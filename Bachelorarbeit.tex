@@ -170,38 +170,50 @@ Doch die Nachteile überwiegen schnell und deutlich. Je nach Implementierung fü
 
 Die Verwendung von RPC macht die Weiterentwicklung von Systemen nicht einfacher. Ein Beispiel anhand einer Schnittstelle zur Instanziierung eines Kunden: Zusätzlich zur Erstellung eines Kunden anhand seines Namen und einer E-Mail Adresse soll es nun eine Möglichkeit geben diesen nur mithilfe seiner Mail-Adresse zu erstellen. Das reine hinzufügen einer neuen Methode in einem Interface löst das Problem in diesem Fall nicht. Im schlimmsten Fall benötigen alle Clients die diesen Service ansprechen die neuen Stubs und müssen allesamt neu Bereitgestellt werden\cite[S.94]{buildingms}. Und das bereits bei einer so kleinen Änderung.
 
-\paragraph{\acf{REST}} ist eine der meistgenutzten Programmierparadigmen für \acp{API} \cite{duvander}. Entworfen wurde \ac{REST} von Roy Fielding, der die Idee und Spezifikationen in seiner Dissertation \enquote{Architectural Styles and the Design of Network-based Software Architectures} veröffentlichte.\cite{fielding}. Insgesamt besteht Fielding auf 6 Eigenschaften, die erfüllt sein müssen um eine REST-Konforme Anwendung zu schreiben (ein Beispiel dazu in Abb.~\ref{fig:images/img_rest-call.eps}).
+\paragraph{\acf{REST}} ist eine der meistgenutzten Programmierparadigmen für \acp{API} \cite{duvander}. Entworfen wurde \ac{REST} von Roy Fielding, der die Idee und Spezifikationen in seiner Dissertation \enquote{Architectural Styles and the Design of Network-based Software Architectures} veröffentlichte.\cite{fielding}. Insgesamt besteht Fielding auf die folgenden 6 Eigenschaften, die erfüllt sein müssen um eine REST-Konforme Anwendung zu schreiben (ein Beispiel dazu in Abb.~\ref{fig:images/img_rest-call.eps}):
+
+\begin{itemize}
+	\item Client-Server
+	\item Stateless
+	\item Cache
+	\item Uniform Interface
+	\item Layered System
+	\item Code-On-Demand (optional)
+\end{itemize}
 
 Die erste dieser Eigenschaften (\enquote{Client-Server}) verlangt schlichtweg, dass eine Client-Server Architektur vorliegt, bei der ein Server Funktionalität bereitstellt, die der Client nutzen kann.
 \enquote{Stateless} ist die zweite Eigenschaft, die von Fielding gefordert wird. Sie besagt, dass alle Informationen, die zum Verständnis einer Nachricht nötig sind auch mitgeliefert werden müssen, da weder der Client, noch der Server, Zustandsinformationen zwischen Anfragen speichern sollen.
+
 Eigenschaft Nummer 3, \enquote{Caching}, fordert die Verwendung von Caching um Netzwerklast zu minimieren.
+
 Das \enquote{Uniform Interface} ist eine der größten Unterschiede von REST zu anderen Netzwerkarchitekturstilen. Diese Eigenschaft ist erneut aufgeteilt in vier Unterpunkte:
 
 \begin{description}  
 	\item [Identification of resources] Jede, über eine URI erreichbare Information ist eine Ressource
 	\item [Manipulation of resources through representations] Änderungen an Ressourcen erfolgen nur über Repräsentationen von Ressourcen, also zum Beispiel durch Formate wie XML oder JSON. Genauso gut kann eine Ressource aber auch in unterschiedlichen Darstellungsformen vom Server ausgeliefert werden.
 	\item [Self-descriptive messages] Die für die Anwendung versendeten Nachrichten sollen selbstbeschreibend sein. Zur Erfüllung dieser Eigenschaft ist es unter anderem nötigt, Standardmethoden zur Manipulierung von Ressourcen zu verwenden.
-	\item [\acf{HATEOAS}] ist ein wichtiger Teil der REST-Spezifizierung und beschreibt ein Konzept, nach dem, einfach gesagt, Informationen Links zu anderen Informationen enthalten. 
+	\item [\acf{HATEOAS}] ist ein wichtiger Teil der REST-Spezifizierung und beschreibt ein Konzept, nach dem Informationen Hyperlinks zu anderen Informationen enthalten. 
 \end{description}
 
 \image{images/img_rest-call.eps}{Beispiel einer REST-Konformen Anwendung \cite{restexample}}
 
 Die fünfte Eigenschaft verlangt nach \enquote{Layered Systems}, also mehrschichtigen Systemen. Die Idee dahinter ist, dass die Komponenten nur die Komponenten im System kennen mit denen sie in direkter Interaktion stehen. Alles weitere bleibt verborgen.
+
 \enquote{Code-On-Demand} ist die letzte und eine optionale Eigenschaft der Spezifikation. Fielding beschreibt hiermit die Erweiterung von Client-Funktionalität durch den Server. Dieser sendet, wie zum Beispiel mit Javascript der Fall, Code für den Client direkt an den Client.\cite{fielding}
 
-REST wird, auch wenn die Spezifikation es nicht vorschreibt, in den häufigsten Fällen über HTTP genutzt \cite[S.97]{buildingms}. Dies rührt daher, dass beispielsweise die bekannten HTTP-Methoden POST, GET, PUT usw. es sehr einfach machen die geforderte homogene Verhaltensweise von Methoden auf allen Ressourcen umzusetzen. Auch wird HTTP gerne genutzt, da es bereits eine breite Masse an bestehenden Tools gibt die zur weiteren Qualitätsverbesserung eines Systems genutzt werden können, wie zum Beispiel Proxies und Load Balancer. Doch dies sind alles zunächst nur Vorteile von HTTP.
+REST wird, auch wenn die Spezifikation es nicht vorschreibt, in den häufigsten Fällen über HTTP-Protokolle genutzt \cite[S.97]{buildingms}. Dies rührt daher, dass beispielsweise die bekannten HTTP-Methoden POST, GET, PUT usw. es sehr einfach machen die geforderte homogene Verhaltensweise von Methoden auf allen Ressourcen umzusetzen. Auch wird HTTP gerne genutzt, da es bereits eine breite Masse an bestehenden Tools gibt die zur weiteren Qualitätsverbesserung eines Systems genutzt werden können, wie zum Beispiel Proxies und Load Balancer. Doch dies sind alles zunächst nur Vorteile von HTTP.
 
 Die Verwendung von REST bietet viele Möglichkeiten die lose Kopplung zwischen Services zu ermöglichen. Dazu zählt unter anderem \ac{HATEOAS}. Um bei dem Kundenbeispiel aus \ref{rpcpara} zu bleiben: Wird die Information eines Kunden abgerufen, kann das Kundenobjekt zusätzlich zu den Kundendaten ein Feld enthalten welches zur Bestellliste dieses Kunden zeigt.
 
 \lstinputlisting{code/customer.json}
 
-Mit der Verwendung von \ac{HATEOAS} reicht es, wenn alle Clients die Kundendaten und deren Bestellungen verarbeiten wissen, dass Kunden einen Link-Feld mit dem Typ \textit{orders} besitzen. Wenn also später Services unter anderen Adressen erreichbar sind, oder sich interne Datenstrukturen ändern müssen diese Clients nicht neu angepasst werden.
+Mit der Verwendung von \ac{HATEOAS} reicht es, wenn alle Clients die Kundendaten und deren Bestellungen verarbeiten, wissen, dass Kunden einen Link-Feld mit dem Typ \textit{orders} besitzen. Wenn also später Services unter anderen \acsp{URI} erreichbar sind, oder sich interne Datenstrukturen ändern müssen diese Clients nicht neu angepasst werden.
 
 Ein weiterer Anwendungsfall für \ac{HATEOAS} ist die Nutzung der weiterführenden Links zur Bildung eines Zustandsautomaten (siehe Abb.~\ref{fig:images/img_hateoas-state-machine.eps}). Die mitgelieferten Informationen zu weiteren \textit{Ressourcen} helfen dabei dem Client einer Anwendung Manipulationsmöglichkeiten des empfangenen Objekts zu prüfen.
 
 \image{images/img_hateoas-state-machine.eps}{Beispiel einer State-Machine mit HATEOAS \cite{hatsm}}
 
-Theoretisch bilden also die von der \ac{API} gesendeten Daten schon den Ablauf der späteren Endanwendung dar. Ein Nutzer könnte bereits durch dem einfachen folgen der mitgelieferten Links einen Ablauf entsprechend der Geschäftslogik abarbeiten.
+Somit gibt die \ac{API} bereits den späteren Prozess Endanwendung vor. Ein Nutzer könnte alleine durch dem einfachen folgen der mitgelieferten Links einen Ablauf entsprechend der Geschäftslogik abarbeiten.
 
 
 \paragraph{Message-Driven Communication}
