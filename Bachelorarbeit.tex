@@ -502,19 +502,19 @@ Auch werden Docker-Konfigurationen verwendet, um die Continous Delivery mithilfe
 
 \subsubsection{Beispiel-Anwendung}
 
-Es wird ein vereinfachtes Modell eines Online-Shops, beispielhaft \textit{Kongo} genannt, als Anwendungszweck herangezogen. Das Model in der Barrakuda-Sprache sieht folgendermaßen aus:
+Als Beispielanwendung wird ein einfacher Online-Shop mit dem Arbeitstitel "Kongo", erst modelliert und später implementiert. Das Model in der Barrakuda-Sprache sieht folgendermaßen aus:
 
 \lstinputlisting{../ReferenceSystem/.mdsd/referencesystem.barrakuda}
 
-Das Referenz-System besteht, wie in Abbildung~\ref{fig:images/img_referenz-system-arch.eps} zu sehen, aus 3 Services. Dem \textit{shoppingcart}-Service, dem \textit{ordering}-Service und dem \textit{warehouse}-Service. Im \textit{warehouse} werden alle verfügbaren Produkte des Online-Shops verwaltet. Wenn ein Kunde nun eines der Produkte bestellen möchte, wird eine Anfrage an den \textins{shoppingcart}-Service gesendet, die die OID des Produktes, sowie die gewünschte Anzahl enthält.
+Das Referenz-System besteht, wie in Abbildung~\ref{fig:images/img_referenz-system-arch.eps} zu sehen, aus 3 Services. Dem \textit{Shoppingcart}-Service, dem \textit{Ordering}-Service und dem \textit{Warehouse}-Service. Im \textit{Warehouse} werden alle verfügbaren Produkte des Online-Shops verwaltet. Wenn ein Kunde nun eines der Produkte bestellen möchte, wird eine Anfrage an den Shoppingcart-Service gesendet. Diese enthält die OID, sowie die gewünschte Anzahl.
 
-Möchte ein Kunde dann eine Bestellung aufgeben, geht eine Anfrage mit der OID des virtuellen Einkaufswagens an den \textit{ordering}-Service, der zusätzlich Schnittstellen zum erstellen einer Rechnung, sowie zum stornieren einer Bestellung bietet.
+Möchte ein Kunde dann eine Bestellung aufgeben, geht eine Anfrage mit der OID des virtuellen Einkaufswagens an den \textit{Ordering}-Service, der zusätzlich Schnittstellen zum erstellen einer Rechnung, sowie zum stornieren einer Bestellung bietet.
 
-Der mit generierte Authentifizierungsservice dient als Kundenverwaltung.
+Der mitgenerierte Authentifizierungsservice dient als Kundenverwaltung.
 
 \image[]{images/img_referenz-system-arch.eps}{Aufbau des Referenzsystems zur Testimplementierung}
 
-Wichtig ist, dass im Referenz-System keinerlei Logik zu den modellierten Geschäftsanwendungen implementiert wird, sondern lediglich die im Abschnitt~\ref{sec:testingms} angesprochenen Testmethoden.
+Wichtig ist, dass im Referenz-System keinerlei Logik zu den modellierten Geschäftsanwendungen implementiert wird, sondern lediglich die im Abschnitt~\ref{sec:testingms} angesprochenen Testmethoden. Dies ist nötig, damit keine zusätzliche Logik, die über die Informationen aus dem Modell hinaus geht, getestet wird. Dies würde nämlich dazu führen, dass sich die implementierten Testmethoden nicht in Templates für Barrakuda übernehmen lassen würden und eine Generierbarkeit nicht mehr gegeben ist.
 
 \subsection{Frameworks zum Umsetzen von Test-Strategien}\label{ch:ms-test-frw}
 
