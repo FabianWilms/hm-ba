@@ -249,7 +249,7 @@ Ein Nutzer kann dann an einem Endpunkt des Authentifizierungsservice den OAuth2-
 
 \subsubsection{Deployment}
 
-Das Deployment ist in Microservice-Architekturen ein wichtiger Punkt, da eine gute Deployment-Infrastruktur auch für den Nutzen einer solchen Architektur entscheidend sein kann: keine downtime, kurze Zeit bis Lösungen den Kunden erreichen und einfache Skalierbarkeit. Es gibt verschiedene Ansätze, wie man eine Anwendung zum Einsatz bringen kann\cite{richardsondeploy}.
+Das Deployment ist in Microservice-Architekturen ein wichtiger Punkt, da eine gute Deployment-Infrastruktur auch für den Nutzen einer solchen Architektur entscheidend sein kann: keine downtime, kurze Zeit bis Lösungen den Kunden erreichen und einfa Es gibt verschiedene Ansätze, wie man eine Anwendung zum Einsatz bringen kann\cite{richardsondeploy}.
 
 \begin{description}
 	\item[Multiple Service Instances per Host] Bei diesem Ansatz werden ein, oder mehrere physikalische oder virtuelle Hosts genutzt, auf denen mehrere Instanzen von Services laufen.
@@ -263,7 +263,7 @@ Das Deployment ist in Microservice-Architekturen ein wichtiger Punkt, da eine gu
 
 Eine Monolithische Anwendung vereint die Gesamtlogik in einer einzigen Laufzeitumgebung und ist dadurch meist sehr groß. Die Aufteilung der Logik innerhalb der Anwendung findet nur auf Entwickler-Ebene statt. Dies wird durch verschiedene Module erreicht die nur über definierte Schichten hinweg miteinander kommunizieren. In der Entwicklung werden diese Module auch gerne physikalisch durch Auslagerung in Bibliotheken getrennt, um ein Abweichen von den vorgeschriebenen Kommunikationswegen zu unterbinden.
 
-Entwicklungstools und IDEs sind erst in der letzten Zeit dazu übergegangen, auch die Entwicklung von Microservices besser zu unterstützen, während der Support für monolithische Architekturen bereits vorhanden ist, da dies auch der bisherige Ansatz zur Entwicklung war.
+Entwicklungstools und IDEs unterstützen den Entwickler beim programmieren von monolithischen Systemen - historisch bedingt - sehr gut.
 Das Deployment ist sehr einfach. Beispielsweise reicht es bereits, ein einfaches WAR-File auf einem Application-Server auszuliefern.
 Auch die Skalierung ist einfach möglich, durch die Verwendung eines Load-Balancers und das starten von mehreren Instanzen der Anwendung.\cite{richardson}
 
