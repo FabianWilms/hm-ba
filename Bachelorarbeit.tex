@@ -144,15 +144,15 @@ Wie zu sehen ist, decken sich die gefundenen Aggregates mit dem im vorherigen Ab
 
 \subsubsection{Kommunikation zwischen Services}
 
-Als weiterer Schritt muss eine Kommunikationsart für die Kommunikation gewählt werden. Dabei gibt es drei Mögliche Kommunikationswege:
+Als weiterer Schritt muss eine Kommunikationsart gewählt werden. Dabei gibt es drei Mögliche Kommunikationswege für die verschiedene Technologien verwendet werden können:
 
 \begin{itemize}
 	\item Services kommunizieren Untereinander
 	\item Kommunikation mit einem Service von außen
-	\item Service kommuniziert mit einem anderen System
+	\item Service kommuniziert mit einem fremden System
 \end{itemize}
 
-Wobei der letzte Punkt aufgrund der Abhängigkeit zum externen System vernachlässigt werden kann.
+Wobei der letzte Punkt an dieser Stelle vernachlässigt werden kann, da in diesem Fall das Fremdsystem die Technologie vorschreibt.
 
 \paragraph{Geteilte Datenbanken} sind eine Möglichkeit zur Servicekommunikation \cite[S.85]{buildingms}. Die Idee hinter dieser Art der Kommunikation ist besonders trivial. Mehrere Services, die miteinander Daten austauschen wollen, nutzen eine gemeinsame Datenbank. Jeder Service hat somit jederzeit Zugriff zu allen Daten der anderen Nutzer dieser geteilten Datenbank und es findet somit keine \textit{echte} Kommunikation statt, sondern nur Zugriffe auf geteilten Speicher.\cite{shareddb}
 Dies birgt natürlich viele Probleme. Jede noch so kleine Änderung an der "Logik" dieser Datenbank, oder an der internen Struktur der Daten muss mit viel Bedacht durchgeführt werden, da jede abhängige Komponente sonst nicht mehr funktionieren könnte.
