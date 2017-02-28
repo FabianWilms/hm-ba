@@ -490,13 +490,13 @@ Das Referenzsystem basiert auf der in Kapitel~\ref{ch:arch-itm} angesprochenen A
 
 Die Services kommunizieren über eine REST-\ac{API}, die ihre Daten im JSON-Format überträgt. \ac{HATEOAS} wird über Spring \ac{HATEOAS}\footnote{\url{http://projects.spring.io/spring-hateoas/}} genutzt.
 
-Als Datenbank in der Entwicklungsumgebung kommt eine In-Memory-Datenbank von H2 zum Einsatz. In der Produktion größtenteils Oracles JDBC-Datenbank in der Version 7, aber auch MySQL wird verwendet.
+Als Datenbank in der Entwicklungsumgebung kommt eine In-Memory-Datenbank von H2 zum Einsatz. In der Produktion größtenteils Oracles DBMS in der Version 12, aber auch MySQL wird verwendet.
 
-Zur Authentifizierung wird ein Authentifizierungs-Service genutzt, der zusätzlich zur internen Nutzer- und Rechteverwaltung auch eine Anbindung an das Stadtweite \ac{LDAP} bietet.
+Zur Authentifizierung wird ein Authentifizierungs-Service genutzt, der das städtische \acs{LDAP} als Nutzerverwaltung verwendet. Die Zurodnung der Rechte auf die Nutzer erfolgt intern im Service. Zu Testzwecken ist auch eine Authentifizierung über in der Datenbank abgelegte Nutzer möglich.
 
-Das Problem der Findung von Service wird mithilfe von Netflixs Eureka-Service gelöst. Dieser bietet innerhalb einer Domäne einen Zentralen Anlaufpunkt für alle Services um sich dort zu vermerken, sowie Informationen über die Adressen von anderen Services einzuholen.
+Als Discovery-Service wird Netflix Eureka\footnote{\url{https://github.com/Netflix/eureka}} verwendet. Dieser bietet innerhalb einer Domäne einen Zentralen Anlaufpunkt für alle Services um sich dort zu vermerken, sowie Informationen über die Adressen von anderen Services einzuholen.
 
-Clients können mit der Domäne über ein \ac{API}-Gateway kommunizieren (Netflix Zuul). Dieses öffnet nach außen eine einzige Schnittstelle, über die sowohl eine graphische Nutzeroberfläche aufgerufen, als auch die einzelnen Services kontaktiert werden können. Auch ermöglicht das Gateway den Zugriff auf bestimmte Endpunkte zur sperren, was für die Landeshauptstadt insbesondere für Software interessant ist, die sowohl interne, als auch externe Schnittstellen bieten soll.
+Clients kommunizieren über den Edge-Service mit den Services der Domäne. Hier kommt Netflix Zuul\footnote{\url{https://github.com/Netflix/zuul}} zur Anwendung. Dieses öffnet nach außen eine einzige Schnittstelle, über die sowohl eine graphische Nutzeroberfläche aufgerufen, als auch die einzelnen Services kontaktiert werden können. Auch ermöglicht das Gateway den Zugriff auf bestimmte Endpunkte zur sperren, was für die Landeshauptstadt insbesondere für Software interessant ist, die sowohl interne, als auch externe Schnittstellen bieten soll.
 
 Auch werden Docker-Konfigurationen verwendet, um die Continous Delivery mithilfe eines Container-Frameworks zu ermöglichen.
 
